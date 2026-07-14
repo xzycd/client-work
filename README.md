@@ -14,7 +14,7 @@ a numbered work index with hover interaction.
 - `DESIGN-DNA.md` — the locked art-direction spec (type, colour, motion, rules)
 
 ### `aether-retreats/`
-Cinematic landing page for a fictional architectural-retreat brand, in three
+Cinematic landing page for a architectural-retreat brand, in three
 scroll treatments built around one AI-generated 4K hero and a motion clip.
 
 - `cinematic.html` — full-screen video background, **auto-plays on load** (start here to see motion)
