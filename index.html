@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="A collection of front-end design studies by Audangas." />
-  <title>Client Work — Live Previews</title>
+  <title>Client Work - Live Previews</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet" />
@@ -48,8 +48,7 @@
       text-decoration: none;
     }
 
-    .brand { display: flex; align-items: center; gap: 10px; }
-    .brand::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); }
+    .brand { display: flex; align-items: center; }
     .github { color: var(--muted); transition: color 180ms ease; }
     .github:hover { color: var(--ink); }
 
@@ -94,10 +93,75 @@
       text-transform: uppercase;
     }
 
+    .featured-project {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(340px, 0.82fr);
+      min-height: 440px;
+      margin-bottom: 82px;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      background: var(--panel);
+      text-decoration: none;
+      overflow: hidden;
+    }
+
+    .featured-copy {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 54px;
+      padding: clamp(32px, 5vw, 68px);
+    }
+
+    .featured-label {
+      color: var(--accent);
+      font: 500 12px/1 var(--mono);
+    }
+
+    .featured-copy h2 {
+      max-width: 620px;
+      margin: 0;
+      font-size: clamp(2.7rem, 6.4vw, 6.2rem);
+      font-weight: 500;
+      line-height: 0.93;
+      letter-spacing: -0.06em;
+    }
+
+    .featured-copy p {
+      max-width: 42ch;
+      margin: 24px 0 0;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.65;
+    }
+
+    .featured-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      width: fit-content;
+      padding-bottom: 7px;
+      border-bottom: 1px solid var(--accent);
+      font: 500 12px/1.2 var(--mono);
+    }
+
+    .featured-media { min-height: 100%; overflow: hidden; }
+    .featured-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: saturate(0.82) contrast(1.04);
+      transition: transform 600ms cubic-bezier(.16, 1, .3, 1), filter 300ms ease;
+    }
+
+    .featured-project:hover .featured-media img { transform: scale(1.035); filter: saturate(1) contrast(1.02); }
+    .featured-project:focus-visible, .project:focus-visible, .github:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+
     .projects { padding-bottom: 100px; }
     .project {
       display: grid;
-      grid-template-columns: 50px minmax(0, 1fr) auto;
+      grid-template-columns: minmax(0, 1fr) auto;
       gap: 22px;
       align-items: center;
       min-height: 128px;
@@ -108,7 +172,7 @@
 
     .project:last-child { border-bottom: 1px solid var(--line); }
     .project:hover { background: var(--panel); padding: 0 22px; }
-    .number, .meta { color: var(--muted); font: 400 10px/1.5 var(--mono); letter-spacing: 0.08em; text-transform: uppercase; }
+    .meta { color: var(--muted); font: 400 10px/1.5 var(--mono); letter-spacing: 0.08em; text-transform: uppercase; }
     .name { font-size: clamp(1.65rem, 4vw, 3.65rem); font-weight: 500; line-height: 1; letter-spacing: -0.045em; }
     .arrow { margin-left: 12px; color: var(--accent); }
 
@@ -128,7 +192,10 @@
       header { min-height: 62px; }
       .intro-copy { grid-template-columns: 1fr; }
       .intro-copy p { grid-column: 1; }
-      .project { grid-template-columns: 32px 1fr; min-height: 108px; gap: 12px; }
+      .featured-project { grid-template-columns: 1fr; margin-bottom: 56px; }
+      .featured-copy { gap: 38px; padding: 28px 22px 34px; }
+      .featured-media { min-height: 260px; }
+      .project { grid-template-columns: 1fr; min-height: 108px; gap: 12px; }
       .project .meta { display: none; }
       .project:hover { padding: 0 10px; }
       footer { flex-direction: column; }
@@ -152,30 +219,36 @@
         <p class="eyebrow">Live front-end previews</p>
         <h1>Selected digital experiments.</h1>
         <div class="intro-copy">
-          <p>Two identity-led landing page studies, presented as four self-contained browser experiences. Choose a preview below.</p>
+          <p>Start with the featured scroll sequence, then explore three supporting front-end studies.</p>
         </div>
       </section>
 
+      <a class="featured-project" href="aether-retreats/scroll-sequence.html" aria-label="Open the featured Aether scroll sequence">
+        <div class="featured-copy">
+          <span class="featured-label">Featured project</span>
+          <div>
+            <h2>Aether Scroll Sequence</h2>
+            <p>An interactive alpine film that advances frame by frame as you move through the page.</p>
+          </div>
+          <span class="featured-cta">Open scroll sequence <span aria-hidden="true">↗</span></span>
+        </div>
+        <div class="featured-media">
+          <img src="aether-retreats/assets/hero.jpg" alt="Mountain retreat above the clouds" fetchpriority="high" />
+        </div>
+      </a>
+
       <section class="projects" aria-labelledby="projects-heading">
-        <div class="section-label"><span id="projects-heading">Projects</span><span>04 previews</span></div>
+        <div class="section-label"><span id="projects-heading">More work</span><span>03 previews</span></div>
         <a class="project" href="meridian-studio/">
-          <span class="number">01</span>
           <span class="name">Meridian Studio <span class="arrow">↗</span></span>
           <span class="meta">Editorial / Studio</span>
         </a>
         <a class="project" href="aether-retreats/cinematic.html">
-          <span class="number">02</span>
-          <span class="name">Aether — Cinematic <span class="arrow">↗</span></span>
+          <span class="name">Aether: Cinematic <span class="arrow">↗</span></span>
           <span class="meta">Motion / Full screen</span>
         </a>
-        <a class="project" href="aether-retreats/scroll-sequence.html">
-          <span class="number">03</span>
-          <span class="name">Aether — Scroll Sequence <span class="arrow">↗</span></span>
-          <span class="meta">Scroll / Frame sequence</span>
-        </a>
         <a class="project" href="aether-retreats/parallax.html">
-          <span class="number">04</span>
-          <span class="name">Aether — Parallax <span class="arrow">↗</span></span>
+          <span class="name">Aether: Parallax <span class="arrow">↗</span></span>
           <span class="meta">Scroll / CSS motion</span>
         </a>
       </section>
