@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="A collection of front-end design studies by Audangas." />
+  <title>Client Work — Live Previews</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #11110f;
+      --panel: #181815;
+      --ink: #f2efe7;
+      --muted: #9b988f;
+      --line: rgba(242, 239, 231, 0.14);
+      --accent: #ef6a45;
+      --mono: "DM Mono", monospace;
+      --sans: "Manrope", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--sans);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: inherit; }
+    .shell { width: min(1180px, calc(100% - 40px)); margin: 0 auto; }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 72px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .brand, .github {
+      font: 500 11px/1 var(--mono);
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      text-decoration: none;
+    }
+
+    .brand { display: flex; align-items: center; gap: 10px; }
+    .brand::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); }
+    .github { color: var(--muted); transition: color 180ms ease; }
+    .github:hover { color: var(--ink); }
+
+    .intro { padding: clamp(72px, 11vw, 150px) 0 clamp(64px, 8vw, 110px); }
+    .eyebrow {
+      margin: 0 0 24px;
+      color: var(--accent);
+      font: 500 11px/1 var(--mono);
+      letter-spacing: 0.17em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      max-width: 900px;
+      margin: 0;
+      font-size: clamp(3rem, 8.5vw, 7.7rem);
+      font-weight: 500;
+      line-height: 0.94;
+      letter-spacing: -0.065em;
+    }
+
+    .intro-copy {
+      display: grid;
+      grid-template-columns: 1fr minmax(280px, 390px);
+      gap: 40px;
+      align-items: end;
+      margin-top: clamp(40px, 7vw, 82px);
+      padding-top: 22px;
+      border-top: 1px solid var(--line);
+    }
+
+    .intro-copy p { grid-column: 2; margin: 0; color: var(--muted); font-size: 15px; line-height: 1.7; }
+
+    .section-label {
+      display: flex;
+      justify-content: space-between;
+      padding: 15px 0;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font: 400 10px/1 var(--mono);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .projects { padding-bottom: 100px; }
+    .project {
+      display: grid;
+      grid-template-columns: 50px minmax(0, 1fr) auto;
+      gap: 22px;
+      align-items: center;
+      min-height: 128px;
+      border-top: 1px solid var(--line);
+      text-decoration: none;
+      transition: background 220ms ease, padding 220ms ease;
+    }
+
+    .project:last-child { border-bottom: 1px solid var(--line); }
+    .project:hover { background: var(--panel); padding: 0 22px; }
+    .number, .meta { color: var(--muted); font: 400 10px/1.5 var(--mono); letter-spacing: 0.08em; text-transform: uppercase; }
+    .name { font-size: clamp(1.65rem, 4vw, 3.65rem); font-weight: 500; line-height: 1; letter-spacing: -0.045em; }
+    .arrow { margin-left: 12px; color: var(--accent); }
+
+    footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 30px;
+      padding: 28px 0 40px;
+      color: var(--muted);
+      font: 400 10px/1.5 var(--mono);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    @media (max-width: 700px) {
+      .shell { width: min(100% - 28px, 1180px); }
+      header { min-height: 62px; }
+      .intro-copy { grid-template-columns: 1fr; }
+      .intro-copy p { grid-column: 1; }
+      .project { grid-template-columns: 32px 1fr; min-height: 108px; gap: 12px; }
+      .project .meta { display: none; }
+      .project:hover { padding: 0 10px; }
+      footer { flex-direction: column; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      * { transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header>
+      <div class="brand">Client Work</div>
+      <a class="github" href="https://github.com/xzycd/client-work">View source ↗</a>
+    </header>
+
+    <main>
+      <section class="intro">
+        <p class="eyebrow">Live front-end previews</p>
+        <h1>Selected digital experiments.</h1>
+        <div class="intro-copy">
+          <p>Two identity-led landing page studies, presented as four self-contained browser experiences. Choose a preview below.</p>
+        </div>
+      </section>
+
+      <section class="projects" aria-labelledby="projects-heading">
+        <div class="section-label"><span id="projects-heading">Projects</span><span>04 previews</span></div>
+        <a class="project" href="meridian-studio/">
+          <span class="number">01</span>
+          <span class="name">Meridian Studio <span class="arrow">↗</span></span>
+          <span class="meta">Editorial / Studio</span>
+        </a>
+        <a class="project" href="aether-retreats/cinematic.html">
+          <span class="number">02</span>
+          <span class="name">Aether — Cinematic <span class="arrow">↗</span></span>
+          <span class="meta">Motion / Full screen</span>
+        </a>
+        <a class="project" href="aether-retreats/scroll-sequence.html">
+          <span class="number">03</span>
+          <span class="name">Aether — Scroll Sequence <span class="arrow">↗</span></span>
+          <span class="meta">Scroll / Frame sequence</span>
+        </a>
+        <a class="project" href="aether-retreats/parallax.html">
+          <span class="number">04</span>
+          <span class="name">Aether — Parallax <span class="arrow">↗</span></span>
+          <span class="meta">Scroll / CSS motion</span>
+        </a>
+      </section>
+    </main>
+
+    <footer>
+      <span>Hosted free with GitHub Pages</span>
+      <span>Static HTML / CSS / JavaScript</span>
+    </footer>
+  </div>
+</body>
+</html>
