@@ -7,6 +7,16 @@ HTML files directly in a browser (no build step, no server).
 
 ## Projects
 
+### `spatial-field/`
+Interactive creative-direction instrument built with native HTML, CSS, JavaScript,
+and Three.js. Visitors shape a live spatial object through Direction, Structure,
+Build, and Delivery, then copy the resulting recipe or export a still.
+
+- [`index.html`](https://xzycd.github.io/client-work/spatial-field/) - live page
+- `field.js` - WebGL scene, topology changes, material system, and export logic
+- `styles.css` - responsive interface, light and dark themes, and reduced-motion treatment
+- `assets/` - generated material studies used across the experience and as a static fallback
+
 ### `meridian-studio/`
 Editorial-brutalist landing page for a fictional independent design studio.
 High-contrast Didone display (Fraunces) on warm paper, one vermilion accent,
