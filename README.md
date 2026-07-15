@@ -5,9 +5,10 @@ HTML files directly in a browser (no build step, no server).
 
 **Live preview:** [xzycd.github.io/client-work](https://xzycd.github.io/client-work/)
 
-The root portfolio index uses `landing.css` and `landing.js` for its responsive
-project chapters, custom previews, viewport reveals, pointer depth, active-work
-counter, and reduced-motion behavior.
+The root portfolio index uses `landing.css` and `landing.js` for its kinetic
+"Live Work" hero, responsive canvas signal field, interactive five-project
+index, custom previews, scroll choreography, pointer depth, page transitions,
+active-work counter, and reduced-motion behavior.
 
 ## Projects
 

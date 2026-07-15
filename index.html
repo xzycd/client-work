@@ -20,6 +20,11 @@
 <body>
   <a class="skip-link" href="#main">Skip to work</a>
   <div class="scroll-progress" aria-hidden="true"><span data-scroll-progress></span></div>
+  <div class="page-transition" aria-hidden="true">
+    <span class="transition-panel transition-panel-a"></span>
+    <span class="transition-panel transition-panel-b"></span>
+    <p>Opening <b data-transition-label>project</b></p>
+  </div>
 
   <header class="site-header">
     <div class="shell header-inner">
@@ -36,16 +41,41 @@
   </header>
 
   <main id="main">
-    <section class="intro" aria-labelledby="page-title">
+    <section class="intro" aria-labelledby="page-title" data-hero>
+      <canvas class="hero-field" data-hero-canvas aria-hidden="true"></canvas>
+      <div class="hero-beam" aria-hidden="true"></div>
+      <div class="hero-reticle" data-hero-reticle aria-hidden="true"><i></i></div>
       <div class="shell intro-inner">
-        <p class="intro-eyebrow" data-intro style="--intro-delay: 80ms">Live front-end portfolio · 2026</p>
-        <h1 id="page-title">
-          <span class="title-line"><span data-intro style="--intro-delay: 140ms">Selected digital</span></span>
-          <span class="title-line"><span data-intro style="--intro-delay: 210ms">experiments.</span></span>
-        </h1>
-        <div class="intro-foot" data-intro style="--intro-delay: 300ms">
-          <p>Five live studies in motion, interaction, editorial systems, and spatial direction.</p>
-          <a href="#work">Explore the work <span aria-hidden="true">↓</span></a>
+        <div class="hero-meta" data-intro style="--intro-delay: 70ms">
+          <p><span class="live-pip" aria-hidden="true"></span>All systems online</p>
+          <p>Digital direction / Front-end</p>
+          <p>Vilnius · 2026</p>
+        </div>
+
+        <div class="hero-lockup">
+          <h1 id="page-title" class="hero-title">
+            <span class="sr-only">Live work</span>
+            <span class="hero-word" data-kinetic data-word="LIVE">LIVE</span>
+            <span class="hero-word hero-word-work" data-kinetic data-word="WORK.">WORK.</span>
+          </h1>
+
+          <div class="hero-readout" data-intro style="--intro-delay: 360ms">
+            <span class="hero-readout-number" data-hero-index>01</span>
+            <span class="hero-readout-rule"><i></i></span>
+            <span class="hero-readout-label" data-hero-label>FIELD</span>
+          </div>
+        </div>
+
+        <div class="hero-bottom" data-intro style="--intro-delay: 420ms">
+          <p>Five coded studies spanning 3D instruments, editorial systems, and image-led motion.</p>
+          <nav class="hero-project-nav" aria-label="Jump to a project">
+            <a href="#field" data-hero-target="01" data-label="FIELD"><span>01</span>Field</a>
+            <a href="#meridian" data-hero-target="02" data-label="MERIDIAN"><span>02</span>Meridian</a>
+            <a href="#sequence" data-hero-target="03" data-label="SEQUENCE"><span>03</span>Sequence</a>
+            <a href="#cinematic" data-hero-target="04" data-label="CINEMATIC"><span>04</span>Cinematic</a>
+            <a href="#parallax" data-hero-target="05" data-label="PARALLAX"><span>05</span>Parallax</a>
+          </nav>
+          <a class="hero-scroll" href="#work" aria-label="Scroll to selected work"><span>Scroll</span><i></i></a>
         </div>
       </div>
     </section>
@@ -56,12 +86,12 @@
         <span>05 live previews</span>
       </div>
 
-      <article class="project project-field" data-project data-index="01">
+      <article class="project project-field" id="field" data-project data-index="01">
         <a class="shell project-link" href="spatial-field/" aria-label="Open FIELD, the spatial creative-direction instrument">
           <div class="project-info">
             <div class="project-kicker"><span>01 / Featured</span><span>Three.js + interaction</span></div>
             <div class="project-heading">
-              <h3>FIELD</h3>
+              <h3><span class="project-title-line"><span>FIELD</span></span></h3>
               <p>Shape force, structure, material, and motion into a clear creative handoff.</p>
             </div>
             <span class="project-cta">Open live instrument <span aria-hidden="true">↗</span></span>
@@ -87,12 +117,12 @@
         </a>
       </article>
 
-      <article class="project project-meridian" data-project data-index="02">
+      <article class="project project-meridian" id="meridian" data-project data-index="02">
         <a class="shell project-link" href="meridian-studio/" aria-label="Open Meridian Studio, an editorial design practice website">
           <div class="project-info">
             <div class="project-kicker"><span>02 / Identity</span><span>Editorial + motion</span></div>
             <div class="project-heading">
-              <h3>Meridian<br>Studio</h3>
+              <h3><span class="project-title-line"><span>Meridian</span></span><span class="project-title-line"><span>Studio</span></span></h3>
               <p>An independent design practice built from expressive type, disciplined rules, and quiet movement.</p>
             </div>
             <span class="project-cta">Open studio study <span aria-hidden="true">↗</span></span>
@@ -119,12 +149,12 @@
         </a>
       </article>
 
-      <article class="project project-sequence" data-project data-index="03">
+      <article class="project project-sequence" id="sequence" data-project data-index="03">
         <a class="shell project-link" href="aether-retreats/scroll-sequence.html" aria-label="Open Aether Scroll Sequence, a canvas-driven scroll experience">
           <div class="project-info">
             <div class="project-kicker"><span>03 / Narrative</span><span>Canvas + scroll scrub</span></div>
             <div class="project-heading">
-              <h3>Aether:<br>Sequence</h3>
+              <h3><span class="project-title-line"><span>Aether:</span></span><span class="project-title-line"><span>Sequence</span></span></h3>
               <p>A frame-by-frame mountain narrative where scroll becomes the edit and the landscape becomes the interface.</p>
             </div>
             <span class="project-cta">Scrub the sequence <span aria-hidden="true">↗</span></span>
@@ -147,12 +177,12 @@
         </a>
       </article>
 
-      <article class="project project-cinematic" data-project data-index="04">
+      <article class="project project-cinematic" id="cinematic" data-project data-index="04">
         <a class="shell project-link" href="aether-retreats/cinematic.html" aria-label="Open Aether Cinematic, a full-screen architectural motion study">
           <div class="project-info">
             <div class="project-kicker"><span>04 / Atmosphere</span><span>Film + full screen</span></div>
             <div class="project-heading">
-              <h3>Aether:<br>Cinematic</h3>
+              <h3><span class="project-title-line"><span>Aether:</span></span><span class="project-title-line"><span>Cinematic</span></span></h3>
               <p>A restrained full-screen film treatment that lets image, scale, and one line of type carry the experience.</p>
             </div>
             <span class="project-cta">Enter cinematic mode <span aria-hidden="true">↗</span></span>
@@ -174,12 +204,12 @@
         </a>
       </article>
 
-      <article class="project project-parallax" data-project data-index="05">
+      <article class="project project-parallax" id="parallax" data-project data-index="05">
         <a class="shell project-link" href="aether-retreats/parallax.html" aria-label="Open Aether Parallax, a layered architectural scroll study">
           <div class="project-info">
             <div class="project-kicker"><span>05 / Depth</span><span>CSS + parallax</span></div>
             <div class="project-heading">
-              <h3>Aether:<br>Parallax</h3>
+              <h3><span class="project-title-line"><span>Aether:</span></span><span class="project-title-line"><span>Parallax</span></span></h3>
               <p>A layered architectural story using scale, pinned chapters, and horizontal movement to create depth.</p>
             </div>
             <span class="project-cta">Explore the layers <span aria-hidden="true">↗</span></span>
