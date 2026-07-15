@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="FIELD is an interactive spatial instrument for shaping creative direction, structure, material, and delivery.">
+  <meta name="theme-color" content="#101110">
+  <meta property="og:title" content="FIELD: Spatial creative-direction instrument">
+  <meta property="og:description" content="Turn creative decisions into a live 3D world and a clear handoff recipe.">
+  <meta property="og:image" content="assets/field-direction.jpg">
+  <title>FIELD: Spatial creative-direction instrument</title>
+  <link rel="preload" href="assets/field-direction.jpg" as="image" fetchpriority="high">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to the instrument</a>
+
+  <header class="topbar">
+    <a class="wordmark" href="#top" aria-label="FIELD home">FIELD</a>
+    <p class="topbar-note">Creative-direction instrument</p>
+    <div class="topbar-actions">
+      <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch to light mode">
+        <span class="theme-label">Light mode</span>
+      </button>
+      <a href="../index.html">Project index</a>
+    </div>
+  </header>
+
+  <div class="app-grid">
+    <main class="content" id="main">
+      <section class="hero observe-stage" id="top" data-stage="direction" aria-labelledby="hero-title">
+        <div class="hero-inner">
+          <p class="eyebrow">Interactive creative-direction instrument</p>
+          <h1 id="hero-title">Shape. Then build.</h1>
+          <p class="hero-copy">Turn creative decisions into a live 3D world and a clear handoff recipe.</p>
+          <a class="primary-action" href="#direction">Open the instrument</a>
+        </div>
+      </section>
+
+      <section class="chapter chapter-direction observe-stage" id="direction" data-stage="direction" aria-labelledby="direction-title">
+        <header class="chapter-heading">
+          <h2 id="direction-title">Direction turns intent into force.</h2>
+          <p>Translate the brief into three forces. Every adjustment changes the object and the final recipe in real time.</p>
+        </header>
+
+        <div class="control-stack" role="group" aria-label="Direction controls">
+          <label class="range-control">
+            <span class="control-name">Tension</span>
+            <span class="control-value" id="tensionValue">58</span>
+            <input id="tension" name="tension" type="range" min="0" max="100" value="58">
+            <span class="range-ends"><span>Loose</span><span>Taut</span></span>
+          </label>
+
+          <label class="range-control">
+            <span class="control-name">Tempo</span>
+            <span class="control-value" id="tempoValue">36</span>
+            <input id="tempo" name="tempo" type="range" min="0" max="100" value="36">
+            <span class="range-ends"><span>Still</span><span>Urgent</span></span>
+          </label>
+
+          <label class="range-control">
+            <span class="control-name">Depth</span>
+            <span class="control-value" id="depthValue">72</span>
+            <input id="depth" name="depth" type="range" min="0" max="100" value="72">
+            <span class="range-ends"><span>Flat</span><span>Spatial</span></span>
+          </label>
+        </div>
+
+        <figure class="process-image process-image-direction">
+          <img src="assets/field-direction.jpg" width="1536" height="1024" alt="Folded graphite ribbon with a restrained orange edge in a dark studio" loading="lazy">
+        </figure>
+      </section>
+
+      <section class="chapter chapter-structure observe-stage" id="structure" data-stage="structure" aria-labelledby="structure-title">
+        <header class="chapter-heading">
+          <h2 id="structure-title">Structure gives the idea somewhere to live.</h2>
+          <p>Choose how the system holds together. The geometry reorganizes without losing the direction you already set.</p>
+        </header>
+
+        <fieldset class="topology-control">
+          <legend>Spatial topology</legend>
+          <div class="topology-options">
+            <button class="topology-option is-selected" type="button" data-topology="orbit" aria-pressed="true">
+              <span class="topology-name">Orbit</span>
+              <span class="topology-copy">Continuous and balanced</span>
+              <span class="topology-mark topology-mark-orbit" aria-hidden="true"><i></i><i></i></span>
+            </button>
+            <button class="topology-option" type="button" data-topology="span" aria-pressed="false">
+              <span class="topology-name">Span</span>
+              <span class="topology-copy">Directional and tense</span>
+              <span class="topology-mark topology-mark-span" aria-hidden="true"><i></i><i></i></span>
+            </button>
+            <button class="topology-option" type="button" data-topology="fold" aria-pressed="false">
+              <span class="topology-name">Fold</span>
+              <span class="topology-copy">Layered and compact</span>
+              <span class="topology-mark topology-mark-fold" aria-hidden="true"><i></i><i></i></span>
+            </button>
+          </div>
+        </fieldset>
+
+        <figure class="process-image process-image-structure">
+          <img src="assets/field-structure.jpg" width="1693" height="929" alt="Architectural framework of graphite planes, fine rods, mesh, and one orange spine" loading="lazy">
+        </figure>
+      </section>
+
+      <section class="chapter chapter-build observe-stage" id="build" data-stage="build" aria-labelledby="build-title">
+        <header class="chapter-heading">
+          <h2 id="build-title">Build makes behavior tangible.</h2>
+          <p>Pick the surface, set the energy, then handle the object directly. Material and motion should support the same idea.</p>
+        </header>
+
+        <fieldset class="material-control">
+          <legend>Surface system</legend>
+          <div class="material-options">
+            <label class="material-option is-selected">
+              <input type="radio" name="material" value="graphite" checked>
+              <span>Graphite</span>
+              <small>Dense, focused, precise</small>
+            </label>
+            <label class="material-option">
+              <input type="radio" name="material" value="glass">
+              <span>Smoke glass</span>
+              <small>Layered, light, spatial</small>
+            </label>
+            <label class="material-option">
+              <input type="radio" name="material" value="wire">
+              <span>Wireframe</span>
+              <small>Open, technical, raw</small>
+            </label>
+          </div>
+        </fieldset>
+
+        <label class="range-control energy-control">
+          <span class="control-name">Kinetic energy</span>
+          <span class="control-value" id="energyValue">44</span>
+          <input id="energy" name="energy" type="range" min="0" max="100" value="44">
+          <span class="range-ends"><span>Composed</span><span>Restless</span></span>
+        </label>
+
+        <p class="interaction-note">Drag the form to inspect it. Focus the canvas and use arrow keys for precise rotation.</p>
+      </section>
+
+      <section class="chapter chapter-delivery observe-stage" id="delivery" data-stage="delivery" aria-labelledby="delivery-title">
+        <header class="chapter-heading">
+          <h2 id="delivery-title">Delivery proves it holds up.</h2>
+          <p>Review the complete system, take a still, and copy the decisions into a practical handoff.</p>
+        </header>
+
+        <figure class="process-image process-image-delivery">
+          <img src="assets/field-delivery.jpg" width="1536" height="1024" alt="Compact graphite and smoke-glass object resolved inside a fitted presentation tray" loading="lazy">
+        </figure>
+
+        <section class="recipe" aria-labelledby="recipe-title">
+          <div class="recipe-heading">
+            <h3 id="recipe-title">Your field recipe</h3>
+            <p id="recipeStatus" role="status" aria-live="polite">Ready to hand off</p>
+          </div>
+          <dl>
+            <div>
+              <dt>Direction</dt>
+              <dd id="recipeDirection">Tension 58, tempo 36, depth 72</dd>
+            </div>
+            <div>
+              <dt>Structure</dt>
+              <dd id="recipeStructure">Orbit topology</dd>
+            </div>
+            <div>
+              <dt>Build</dt>
+              <dd id="recipeBuild">Graphite surface, energy 44</dd>
+            </div>
+            <div>
+              <dt>Delivery</dt>
+              <dd>Responsive canvas, static fallback, reduced-motion mode</dd>
+            </div>
+          </dl>
+          <div class="delivery-actions">
+            <button class="action-button action-button-primary" id="copyRecipe" type="button">Copy recipe</button>
+            <button class="action-button" id="exportStill" type="button">Export still</button>
+          </div>
+        </section>
+      </section>
+
+      <footer class="site-footer">
+        <p>Direction. Structure. Build. Delivery.</p>
+        <a href="../index.html">Return to project index</a>
+      </footer>
+    </main>
+
+    <aside class="scene-panel" aria-label="Live spatial preview">
+      <img class="scene-fallback" id="sceneFallback" src="assets/field-direction.jpg" width="1536" height="1024" alt="Generated material study used as the static fallback for the spatial instrument">
+      <div class="scene-loading" id="sceneLoading" role="status">
+        <span>Loading spatial engine</span>
+        <span class="loading-line" aria-hidden="true"></span>
+      </div>
+      <div class="scene-error" id="sceneError" hidden>
+        <strong>Static study active</strong>
+        <span>The live 3D layer could not start in this browser.</span>
+      </div>
+      <canvas id="fieldCanvas" tabindex="0" aria-label="Interactive 3D field. Drag to rotate or use the arrow keys."></canvas>
+      <div class="scene-meta" aria-hidden="true">
+        <span id="sceneStage">Direction</span>
+        <span id="sceneMode">Orbit / Graphite</span>
+      </div>
+    </aside>
+  </div>
+
+  <nav class="chapter-nav" aria-label="Process stages">
+    <button class="is-active" type="button" data-target="direction">Direction</button>
+    <button type="button" data-target="structure">Structure</button>
+    <button type="button" data-target="build">Build</button>
+    <button type="button" data-target="delivery">Delivery</button>
+  </nav>
+
+  <noscript>
+    <p class="noscript-note">The generated studies are available, but the interactive field needs JavaScript.</p>
+  </noscript>
+
+  <script type="module" src="field.js"></script>
+</body>
+</html>
