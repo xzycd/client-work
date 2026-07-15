@@ -1,267 +1,214 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="no-js">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="A collection of front-end design studies by Audangas.">
-  <title>Client Work - Live Previews</title>
+  <meta name="description" content="Five live front-end studies in spatial interaction, editorial systems, canvas storytelling, and cinematic motion.">
+  <meta name="theme-color" content="#0d0e0c">
+  <meta property="og:title" content="Client Work — Live interactive portfolio">
+  <meta property="og:description" content="Selected digital experiments, built to be explored.">
+  <meta property="og:type" content="website">
+  <title>Client Work — Live Interactive Portfolio</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='4' fill='%230d0e0c'/%3E%3Cpath d='M8 8h16v16H8z' fill='none' stroke='%23ef6a45' stroke-width='2'/%3E%3Ccircle cx='21' cy='11' r='2' fill='%23ef6a45'/%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --bg: #11110f;
-      --panel: #181815;
-      --ink: #f2efe7;
-      --muted: #9b988f;
-      --line: rgba(242, 239, 231, 0.14);
-      --accent: #ef6a45;
-      --mono: "DM Mono", monospace;
-      --sans: "Manrope", sans-serif;
-    }
-
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body {
-      margin: 0;
-      background: var(--bg);
-      color: var(--ink);
-      font-family: var(--sans);
-      -webkit-font-smoothing: antialiased;
-    }
-
-    a { color: inherit; }
-    .shell { width: min(1180px, calc(100% - 40px)); margin: 0 auto; }
-
-    header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      min-height: 72px;
-      border-bottom: 1px solid var(--line);
-    }
-
-    .brand, .github {
-      font: 500 11px/1 var(--mono);
-      letter-spacing: 0.13em;
-      text-transform: uppercase;
-      text-decoration: none;
-    }
-
-    .brand { display: flex; align-items: center; }
-    .github { color: var(--muted); transition: color 180ms ease; }
-    .github:hover { color: var(--ink); }
-
-    .intro { padding: clamp(72px, 11vw, 150px) 0 clamp(64px, 8vw, 110px); }
-    .eyebrow {
-      margin: 0 0 24px;
-      color: var(--accent);
-      font: 500 11px/1 var(--mono);
-      letter-spacing: 0.17em;
-      text-transform: uppercase;
-    }
-
-    h1 {
-      max-width: 900px;
-      margin: 0;
-      font-size: clamp(3rem, 8.5vw, 7.7rem);
-      font-weight: 500;
-      line-height: 0.94;
-      letter-spacing: -0.065em;
-    }
-
-    .intro-copy {
-      display: grid;
-      grid-template-columns: 1fr minmax(280px, 390px);
-      gap: 40px;
-      align-items: end;
-      margin-top: clamp(40px, 7vw, 82px);
-      padding-top: 22px;
-      border-top: 1px solid var(--line);
-    }
-
-    .intro-copy p { grid-column: 2; margin: 0; color: var(--muted); font-size: 15px; line-height: 1.7; }
-
-    .section-label {
-      display: flex;
-      justify-content: space-between;
-      padding: 15px 0;
-      border-top: 1px solid var(--line);
-      color: var(--muted);
-      font: 400 10px/1 var(--mono);
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-    }
-
-    .featured-project {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(340px, 0.82fr);
-      min-height: 440px;
-      margin-bottom: 82px;
-      border-top: 1px solid var(--line);
-      border-bottom: 1px solid var(--line);
-      background: var(--panel);
-      text-decoration: none;
-      overflow: hidden;
-    }
-
-    .featured-copy {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      gap: 54px;
-      padding: clamp(32px, 5vw, 68px);
-    }
-
-    .featured-label {
-      color: var(--accent);
-      font: 500 12px/1 var(--mono);
-    }
-
-    .featured-copy h2 {
-      max-width: 620px;
-      margin: 0;
-      font-size: clamp(2.7rem, 6.4vw, 6.2rem);
-      font-weight: 500;
-      line-height: 0.93;
-      letter-spacing: -0.06em;
-    }
-
-    .featured-copy p {
-      max-width: 42ch;
-      margin: 24px 0 0;
-      color: var(--muted);
-      font-size: 15px;
-      line-height: 1.65;
-    }
-
-    .featured-cta {
-      display: inline-flex;
-      align-items: center;
-      gap: 12px;
-      width: fit-content;
-      padding-bottom: 7px;
-      border-bottom: 1px solid var(--accent);
-      font: 500 12px/1.2 var(--mono);
-    }
-
-    .featured-media { min-height: 100%; overflow: hidden; }
-    .featured-media img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      filter: saturate(0.82) contrast(1.04);
-      transition: transform 600ms cubic-bezier(.16, 1, .3, 1), filter 300ms ease;
-    }
-
-    .featured-project:hover .featured-media img { transform: scale(1.035); filter: saturate(1) contrast(1.02); }
-    .featured-project:focus-visible, .project:focus-visible, .github:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
-
-    .projects { padding-bottom: 100px; }
-    .project {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) auto;
-      gap: 22px;
-      align-items: center;
-      min-height: 128px;
-      border-top: 1px solid var(--line);
-      text-decoration: none;
-      transition: background 220ms ease, padding 220ms ease;
-    }
-
-    .project:last-child { border-bottom: 1px solid var(--line); }
-    .project:hover { background: var(--panel); padding: 0 22px; }
-    .meta { color: var(--muted); font: 400 10px/1.5 var(--mono); letter-spacing: 0.08em; text-transform: uppercase; }
-    .name { font-size: clamp(1.65rem, 4vw, 3.65rem); font-weight: 500; line-height: 1; letter-spacing: -0.045em; }
-    .arrow { margin-left: 12px; color: var(--accent); }
-
-    footer {
-      display: flex;
-      justify-content: space-between;
-      gap: 30px;
-      padding: 28px 0 40px;
-      color: var(--muted);
-      font: 400 10px/1.5 var(--mono);
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-
-    @media (max-width: 700px) {
-      .shell { width: min(100% - 28px, 1180px); }
-      header { min-height: 62px; }
-      .intro-copy { grid-template-columns: 1fr; }
-      .intro-copy p { grid-column: 1; }
-      .featured-project { grid-template-columns: 1fr; margin-bottom: 56px; }
-      .featured-copy { gap: 38px; padding: 28px 22px 34px; }
-      .featured-media { min-height: 260px; }
-      .project { grid-template-columns: 1fr; min-height: 108px; gap: 12px; }
-      .project .meta { display: none; }
-      .project:hover { padding: 0 10px; }
-      footer { flex-direction: column; }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      html { scroll-behavior: auto; }
-      * { transition: none !important; }
-    }
-  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;1,300&family=DM+Mono:wght@400;500&family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+  <script>document.documentElement.classList.replace('no-js', 'js');</script>
+  <link rel="stylesheet" href="landing.css">
+  <script src="landing.js" defer></script>
 </head>
 <body>
-  <div class="shell">
-    <header>
-      <div class="brand">Client Work</div>
-      <a class="github" href="https://github.com/xzycd/client-work">View source ↗</a>
-    </header>
+  <a class="skip-link" href="#main">Skip to work</a>
+  <div class="scroll-progress" aria-hidden="true"><span data-scroll-progress></span></div>
 
-    <main>
-      <section class="intro">
-        <p class="eyebrow">Live front-end previews</p>
-        <h1>Selected digital experiments.</h1>
-        <div class="intro-copy">
-          <p>Start with the live spatial instrument, then explore four supporting front-end studies.</p>
-        </div>
-      </section>
-
-      <a class="featured-project" href="spatial-field/" aria-label="Open the featured FIELD spatial instrument">
-        <div class="featured-copy">
-          <span class="featured-label">Featured interactive</span>
-          <div>
-            <h2>FIELD</h2>
-            <p>A useful 3D creative-direction instrument that turns decisions about force, structure, material, and motion into a clear handoff recipe.</p>
-          </div>
-          <span class="featured-cta">Shape the field <span aria-hidden="true">↗</span></span>
-        </div>
-        <div class="featured-media">
-          <img src="spatial-field/assets/field-direction.jpg" alt="Folded graphite spatial object with an orange edge" fetchpriority="high">
-        </div>
+  <header class="site-header">
+    <div class="shell header-inner">
+      <a class="brand" href="./" aria-label="Client Work home">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span>Client Work</span>
       </a>
+      <div class="header-meta">
+        <span class="header-current"><span data-active-index>00</span> / 05</span>
+        <span class="header-discipline">Design + front-end</span>
+        <a class="source-link" href="https://github.com/xzycd/client-work">Source <span aria-hidden="true">↗</span></a>
+      </div>
+    </div>
+  </header>
 
-      <section class="projects" aria-labelledby="projects-heading">
-        <div class="section-label"><span id="projects-heading">More work</span><span>04 previews</span></div>
-        <a class="project" href="aether-retreats/scroll-sequence.html">
-          <span class="name">Aether: Scroll Sequence <span class="arrow">↗</span></span>
-          <span class="meta">Canvas / Scroll scrub</span>
-        </a>
-        <a class="project" href="meridian-studio/">
-          <span class="name">Meridian Studio <span class="arrow">↗</span></span>
-          <span class="meta">Editorial / Studio</span>
-        </a>
-        <a class="project" href="aether-retreats/cinematic.html">
-          <span class="name">Aether: Cinematic <span class="arrow">↗</span></span>
-          <span class="meta">Motion / Full screen</span>
-        </a>
-        <a class="project" href="aether-retreats/parallax.html">
-          <span class="name">Aether: Parallax <span class="arrow">↗</span></span>
-          <span class="meta">Scroll / CSS motion</span>
-        </a>
-      </section>
-    </main>
+  <main id="main">
+    <section class="intro" aria-labelledby="page-title">
+      <div class="shell intro-inner">
+        <p class="intro-eyebrow" data-intro style="--intro-delay: 80ms">Live front-end portfolio · 2026</p>
+        <h1 id="page-title">
+          <span class="title-line"><span data-intro style="--intro-delay: 140ms">Selected digital</span></span>
+          <span class="title-line"><span data-intro style="--intro-delay: 210ms">experiments.</span></span>
+        </h1>
+        <div class="intro-foot" data-intro style="--intro-delay: 300ms">
+          <p>Five live studies in motion, interaction, editorial systems, and spatial direction.</p>
+          <a href="#work">Explore the work <span aria-hidden="true">↓</span></a>
+        </div>
+      </div>
+    </section>
 
-    <footer>
-      <span>Hosted free with GitHub Pages</span>
-      <span>Static HTML / CSS / JavaScript</span>
-    </footer>
-  </div>
+    <section class="work" id="work" aria-labelledby="work-title">
+      <div class="shell work-heading" data-reveal>
+        <h2 id="work-title">Selected work</h2>
+        <span>05 live previews</span>
+      </div>
+
+      <article class="project project-field" data-project data-index="01">
+        <a class="shell project-link" href="spatial-field/" aria-label="Open FIELD, the spatial creative-direction instrument">
+          <div class="project-info">
+            <div class="project-kicker"><span>01 / Featured</span><span>Three.js + interaction</span></div>
+            <div class="project-heading">
+              <h3>FIELD</h3>
+              <p>Shape force, structure, material, and motion into a clear creative handoff.</p>
+            </div>
+            <span class="project-cta">Open live instrument <span aria-hidden="true">↗</span></span>
+          </div>
+
+          <div class="project-preview preview-field" data-preview aria-hidden="true">
+            <div class="preview-stage">
+              <img class="field-image" src="spatial-field/assets/field-direction.jpg" alt="" fetchpriority="high">
+              <div class="field-grid"></div>
+              <div class="field-axis field-axis-x"></div>
+              <div class="field-axis field-axis-y"></div>
+              <div class="field-orbit"><span></span></div>
+              <div class="preview-bar"><span>FIELD / Direction</span><span>Live model</span></div>
+              <div class="field-stats">
+                <span><b>44</b> Energy</span>
+                <span><b>62</b> Depth</span>
+                <span><b>Orbit</b> Form</span>
+              </div>
+              <div class="preview-glare"></div>
+            </div>
+            <span class="preview-open">Open <span aria-hidden="true">↗</span></span>
+          </div>
+        </a>
+      </article>
+
+      <article class="project project-meridian" data-project data-index="02">
+        <a class="shell project-link" href="meridian-studio/" aria-label="Open Meridian Studio, an editorial design practice website">
+          <div class="project-info">
+            <div class="project-kicker"><span>02 / Identity</span><span>Editorial + motion</span></div>
+            <div class="project-heading">
+              <h3>Meridian<br>Studio</h3>
+              <p>An independent design practice built from expressive type, disciplined rules, and quiet movement.</p>
+            </div>
+            <span class="project-cta">Open studio study <span aria-hidden="true">↗</span></span>
+          </div>
+
+          <div class="project-preview preview-meridian" data-preview aria-hidden="true">
+            <div class="preview-stage meridian-sheet">
+              <div class="meridian-top"><span><i></i> Meridian</span><span>Lisbon / New York</span></div>
+              <div class="meridian-copy">
+                <span>We design the</span>
+                <span>things people</span>
+                <span>choose to <em>keep.</em></span>
+              </div>
+              <div class="meridian-index">
+                <span>01 &nbsp; Halcyon Bank</span>
+                <span>Brand · Product</span>
+                <span>2024</span>
+              </div>
+              <div class="meridian-marker"></div>
+              <div class="preview-glare"></div>
+            </div>
+            <span class="preview-open preview-open-dark">Open <span aria-hidden="true">↗</span></span>
+          </div>
+        </a>
+      </article>
+
+      <article class="project project-sequence" data-project data-index="03">
+        <a class="shell project-link" href="aether-retreats/scroll-sequence.html" aria-label="Open Aether Scroll Sequence, a canvas-driven scroll experience">
+          <div class="project-info">
+            <div class="project-kicker"><span>03 / Narrative</span><span>Canvas + scroll scrub</span></div>
+            <div class="project-heading">
+              <h3>Aether:<br>Sequence</h3>
+              <p>A frame-by-frame mountain narrative where scroll becomes the edit and the landscape becomes the interface.</p>
+            </div>
+            <span class="project-cta">Scrub the sequence <span aria-hidden="true">↗</span></span>
+          </div>
+
+          <div class="project-preview preview-sequence" data-preview aria-hidden="true">
+            <div class="preview-stage">
+              <video class="aether-video" muted loop playsinline preload="metadata" poster="aether-retreats/assets/hero.jpg">
+                <source src="aether-retreats/assets/motion.mp4" type="video/mp4">
+              </video>
+              <div class="aether-veil"></div>
+              <div class="preview-bar"><span>Aether / 46.5°N</span><span>Scroll sequence</span></div>
+              <div class="sequence-number">121</div>
+              <div class="sequence-copy"><span>Frame-led storytelling</span><strong>Scroll directs<br>the weather.</strong></div>
+              <div class="sequence-timeline"><i></i><span>001</span><span>121</span></div>
+              <div class="preview-glare"></div>
+            </div>
+            <span class="preview-open">Open <span aria-hidden="true">↗</span></span>
+          </div>
+        </a>
+      </article>
+
+      <article class="project project-cinematic" data-project data-index="04">
+        <a class="shell project-link" href="aether-retreats/cinematic.html" aria-label="Open Aether Cinematic, a full-screen architectural motion study">
+          <div class="project-info">
+            <div class="project-kicker"><span>04 / Atmosphere</span><span>Film + full screen</span></div>
+            <div class="project-heading">
+              <h3>Aether:<br>Cinematic</h3>
+              <p>A restrained full-screen film treatment that lets image, scale, and one line of type carry the experience.</p>
+            </div>
+            <span class="project-cta">Enter cinematic mode <span aria-hidden="true">↗</span></span>
+          </div>
+
+          <div class="project-preview preview-cinematic" data-preview aria-hidden="true">
+            <div class="preview-stage">
+              <video class="aether-video" muted loop playsinline preload="metadata" poster="aether-retreats/assets/hero.jpg">
+                <source src="aether-retreats/assets/motion.mp4" type="video/mp4">
+              </video>
+              <div class="cinematic-bars"></div>
+              <div class="cinematic-logo">AETHER</div>
+              <div class="cinematic-title">Live above the <em>weather.</em></div>
+              <div class="cinematic-time"><span>00:04:12</span><i></i><span>PLAYING</span></div>
+              <div class="preview-glare"></div>
+            </div>
+            <span class="preview-open">Open <span aria-hidden="true">↗</span></span>
+          </div>
+        </a>
+      </article>
+
+      <article class="project project-parallax" data-project data-index="05">
+        <a class="shell project-link" href="aether-retreats/parallax.html" aria-label="Open Aether Parallax, a layered architectural scroll study">
+          <div class="project-info">
+            <div class="project-kicker"><span>05 / Depth</span><span>CSS + parallax</span></div>
+            <div class="project-heading">
+              <h3>Aether:<br>Parallax</h3>
+              <p>A layered architectural story using scale, pinned chapters, and horizontal movement to create depth.</p>
+            </div>
+            <span class="project-cta">Explore the layers <span aria-hidden="true">↗</span></span>
+          </div>
+
+          <div class="project-preview preview-parallax" data-preview aria-hidden="true">
+            <div class="preview-stage">
+              <div class="parallax-slice parallax-one"></div>
+              <div class="parallax-slice parallax-two"></div>
+              <div class="parallax-slice parallax-three"></div>
+              <div class="aether-veil"></div>
+              <div class="preview-bar"><span>Aether / Altitude</span><span>Layer study</span></div>
+              <div class="parallax-copy"><span>01 / Sited</span><strong>Concrete, glass,<br>and silence.</strong></div>
+              <div class="parallax-depth"><span>Near</span><i></i><span>Far</span></div>
+              <div class="preview-glare"></div>
+            </div>
+            <span class="preview-open">Open <span aria-hidden="true">↗</span></span>
+          </div>
+        </a>
+      </article>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="shell footer-inner">
+      <span>Five live builds · No templates</span>
+      <a href="#main">Back to top <span aria-hidden="true">↑</span></a>
+      <span>HTML / CSS / JavaScript / Three.js</span>
+    </div>
+  </footer>
 </body>
 </html>
