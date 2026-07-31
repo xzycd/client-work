@@ -23,12 +23,18 @@ Build, and Delivery, then copy the resulting recipe or export a still.
 - `assets/` - generated material studies used across the experience and as a static fallback
 
 ### `meridian-studio/`
-Editorial-brutalist landing page for a fictional independent design studio.
-High-contrast Didone display (Fraunces) on warm paper, one vermilion accent,
-a numbered work index with hover interaction.
+Landing page for a fictional independent design studio, built around a press-check
+idea: wet-ink black ground, one saturated reflex blue drenching the hero and the
+contact block, and a single grotesk (Schibsted) carrying the page from 400 to 900.
+Work rows hold their project image as a one-colour proof; hovering lifts the ink and
+pulls it to full colour.
 
 - [`index.html`](https://xzycd.github.io/client-work/meridian-studio/) — live page
-- `DESIGN-DNA.md` — the locked art-direction spec (type, colour, motion, rules)
+- `DESIGN-DNA.md` — the art-direction spec, including why the earlier
+  editorial-on-warm-paper version was scrapped
+
+Photography is licensed stock standing in for project work; the studio, its clients,
+and its projects are invented.
 
 ### `aether-retreats/`
 Cinematic landing page for a architectural-retreat brand, in three
