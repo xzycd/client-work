@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta
+      name="description"
+      content="Explore Vilnius and Klaipėda as living 3D story maps, from whole-city models to surprising histories hidden in individual places."
+    />
+    <meta name="theme-color" content="#10120f" />
+    <meta property="og:title" content="Cities Inside - A living Lithuanian atlas" />
+    <meta
+      property="og:description"
+      content="Two continuous 3D journeys through the places and stories that make Vilnius and Klaipėda difficult to stop exploring."
+    />
+    <title>Cities Inside</title>
+    <link rel="preconnect" href="https://upload.wikimedia.org" crossorigin />
+  </head>
+  <body>
+    <a class="skip-link" href="#story-panel">Skip the 3D scene</a>
+
+    <div id="app" class="app is-loading" data-level="city" data-city="vilnius">
+      <div id="loading-screen" class="loading-screen" aria-live="polite">
+        <div id="loading-mark" class="loading-mark" aria-hidden="true">
+          <svg viewBox="0 0 48 48" role="presentation">
+            <path class="atlas-orbit" d="M9 25.5c5.2-10.9 15.3-16.8 26.4-12.7 5.3 2 6.1 7.9 2.5 11.4-4.8 4.6-13.1-1.5-19.8 2.4-4.7 2.7-4.9 8.3-1 12" />
+            <path class="atlas-river" d="M31 5.5c-8.7 7.1-10.2 13.3-5.4 18.7 4.9 5.5 4.1 11.5-2.2 18.3" />
+            <circle class="atlas-point atlas-point-north" cx="31" cy="5.5" r="2.3" />
+            <circle class="atlas-point atlas-point-south" cx="23.4" cy="42.5" r="2.3" />
+          </svg>
+        </div>
+        <div class="loading-copy">
+          <p id="loading-city-label">Assembling Vilnius</p>
+          <p id="loading-status">Laying out the river</p>
+        </div>
+        <div class="loading-track" aria-hidden="true">
+          <span id="loading-progress"></span>
+        </div>
+      </div>
+
+      <main id="viewport" class="viewport" aria-label="Interactive city explorer">
+        <canvas
+          id="city-canvas"
+          tabindex="-1"
+          aria-label="Interactive three-dimensional city model. Use the labeled buttons to explore districts and places."
+        ></canvas>
+        <div class="scene-wash" aria-hidden="true"></div>
+        <div class="scene-grid" aria-hidden="true"></div>
+        <div class="scene-grain" aria-hidden="true"></div>
+
+        <header class="topbar">
+          <button class="brand" id="brand-home" type="button" aria-label="Return to the whole city">
+            <span class="brand-mark" aria-hidden="true">
+              <svg viewBox="0 0 48 48" role="presentation">
+                <path class="atlas-orbit" d="M9 25.5c5.2-10.9 15.3-16.8 26.4-12.7 5.3 2 6.1 7.9 2.5 11.4-4.8 4.6-13.1-1.5-19.8 2.4-4.7 2.7-4.9 8.3-1 12" />
+                <path class="atlas-river" d="M31 5.5c-8.7 7.1-10.2 13.3-5.4 18.7 4.9 5.5 4.1 11.5-2.2 18.3" />
+                <circle class="atlas-point atlas-point-north" cx="31" cy="5.5" r="2.3" />
+                <circle class="atlas-point atlas-point-south" cx="23.4" cy="42.5" r="2.3" />
+              </svg>
+            </span>
+            <span class="brand-name">Cities Inside</span>
+          </button>
+
+          <nav id="city-switcher" class="city-switcher" aria-label="Choose a city">
+            <button type="button" data-city-id="vilnius" aria-current="true">
+              <span>Vilnius</span>
+              <small>Inland</small>
+            </button>
+            <button type="button" data-city-id="klaipeda" aria-current="false">
+              <span>Klaipėda</span>
+              <small>Seaside</small>
+            </button>
+          </nav>
+
+          <nav class="breadcrumbs" aria-label="Current exploration level">
+            <button id="crumb-city" type="button" aria-current="page">City</button>
+            <span class="crumb-separator" aria-hidden="true">/</span>
+            <button id="crumb-district" type="button" disabled>District</button>
+            <span class="crumb-separator" aria-hidden="true">/</span>
+            <button id="crumb-place" type="button" disabled>Place</button>
+          </nav>
+
+          <div class="top-actions">
+            <button class="text-button surprise-button" id="surprise-button" type="button">
+              Take me somewhere
+            </button>
+            <button class="text-button" id="trails-button" type="button">Story trails</button>
+            <button class="text-button optional-action" id="about-button" type="button">About</button>
+            <div id="language-control" class="language-control" role="group" aria-label="Language">
+              <span class="language-thumb" aria-hidden="true"></span>
+              <button type="button" data-language="en" aria-pressed="true">EN</button>
+              <button type="button" data-language="lt" aria-pressed="false">LT</button>
+            </div>
+            <button class="theme-button" id="theme-button" type="button" aria-label="Switch to day theme">
+              <span class="theme-glyph" aria-hidden="true">
+                <span></span>
+              </span>
+              <span id="theme-label">Night</span>
+            </button>
+          </div>
+        </header>
+
+        <section id="intro" class="intro" aria-labelledby="intro-title">
+          <div class="intro-copy">
+            <p id="intro-eyebrow" class="intro-eyebrow">A living city atlas</p>
+            <h1 id="intro-title">Every street has a trapdoor.</h1>
+            <p id="intro-body" class="intro-body">
+              Move from skyline to street story without leaving the scene.
+            </p>
+            <div class="intro-actions">
+              <button class="primary-button" id="enter-button" type="button">Enter Vilnius</button>
+              <button class="secondary-button" id="intro-trail-button" type="button">Choose a trail</button>
+            </div>
+          </div>
+
+          <div class="intro-side">
+            <p id="intro-count" class="intro-count">7 districts<br />30 places<br />1 continuous city</p>
+            <div class="intro-fact" aria-live="polite">
+              <span id="intro-fact-index">01</span>
+              <p id="intro-fact-text">A howling iron wolf anchors the city's founding legend.</p>
+            </div>
+          </div>
+        </section>
+
+        <div id="hotspots" class="hotspots" aria-label="Places visible in the city"></div>
+
+        <section id="trail-progress" class="trail-progress" hidden aria-live="polite">
+          <div>
+            <span id="trail-count">1 / 6</span>
+            <strong id="trail-name">Story trail</strong>
+          </div>
+          <div class="trail-progress-actions">
+            <button id="trail-exit" type="button">Exit trail</button>
+            <button id="trail-next" type="button">Next place</button>
+          </div>
+        </section>
+
+        <aside id="story-panel" class="story-panel" tabindex="-1" aria-live="polite">
+          <div class="story-media">
+            <div id="story-image-skeleton" class="story-image-skeleton" aria-hidden="true"></div>
+            <img id="story-image" alt="" />
+            <button id="panel-back" class="panel-back" type="button">Back</button>
+            <span id="story-level" class="story-level">City view</span>
+          </div>
+
+          <div class="story-scroll">
+            <div class="story-heading">
+              <div>
+                <p id="story-local-name" class="story-local-name">Vilnius</p>
+                <h2 id="story-title">Vilnius</h2>
+              </div>
+              <p id="story-position" class="story-position">54.6872° N<br />25.2797° E</p>
+            </div>
+
+            <p id="story-hook" class="story-hook"></p>
+
+            <div id="fact-block" class="fact-block">
+              <span>Worth knowing</span>
+              <p id="story-fact"></p>
+            </div>
+
+            <p id="story-body" class="story-body"></p>
+
+            <div id="look-block" class="look-block">
+              <span>Look closer</span>
+              <p id="story-look"></p>
+            </div>
+
+            <div id="quick-facts" class="quick-facts"></div>
+
+            <nav id="place-list" class="place-list" aria-label="Places in this district"></nav>
+
+            <footer class="story-footer">
+              <div class="source-links">
+                <a id="story-source" href="#" target="_blank" rel="noreferrer">Read the source</a>
+                <a id="image-source" href="#" target="_blank" rel="noreferrer">Image credit</a>
+              </div>
+              <p id="image-credit" class="image-credit"></p>
+              <div id="place-pager" class="place-pager" hidden>
+                <button id="previous-place" type="button">Previous</button>
+                <button id="next-place" type="button">Next</button>
+              </div>
+            </footer>
+          </div>
+        </aside>
+
+        <nav id="district-rail" class="district-rail" aria-label="Vilnius districts"></nav>
+
+        <div id="city-transition" class="city-transition" aria-hidden="true">
+          <div class="city-transition-band"></div>
+          <div class="city-transition-band"></div>
+          <div class="city-transition-band"></div>
+          <p id="city-transition-label">Crossing Lithuania</p>
+        </div>
+
+        <div id="coach" class="coach" hidden>
+          <p><strong>Drag</strong> to orbit</p>
+          <p><strong>Pinch or wheel</strong> to zoom</p>
+          <p><strong>Tap a label</strong> to go closer</p>
+          <button id="coach-close" type="button">Got it</button>
+        </div>
+
+        <p id="live-status" class="sr-only" aria-live="assertive"></p>
+      </main>
+
+      <dialog id="trails-dialog" class="modal trails-dialog" aria-labelledby="trails-title">
+        <div class="modal-header">
+          <div>
+            <p>Curated routes</p>
+            <h2 id="trails-title">Follow a thread through the city.</h2>
+          </div>
+          <button class="modal-close" data-close-dialog="trails-dialog" type="button">Close</button>
+        </div>
+        <div id="trail-options" class="trail-options"></div>
+      </dialog>
+
+      <dialog id="about-dialog" class="modal about-dialog" aria-labelledby="about-title">
+        <div class="modal-header">
+          <div>
+            <p>How this atlas works</p>
+            <h2 id="about-title">Curated for the story, sourced for the facts.</h2>
+          </div>
+          <button class="modal-close" data-close-dialog="about-dialog" type="button">Close</button>
+        </div>
+        <div class="about-copy">
+          <p>
+            Every story is condensed from the linked Wikipedia article or an official city and museum source.
+            Dates and names stay factual; the writing is edited for the detail you would actually retell.
+          </p>
+          <p>
+            The 3D city is an interpretive model based on real coordinates. It gives you spatial bearings,
+            not survey-grade building geometry. Photography comes from Wikimedia Commons with creator and
+            license shown on each story.
+          </p>
+          <p>
+            Vilnius and Klaipėda have more histories than one atlas can hold. This edition favors places
+            where architecture, memory, infrastructure, and reinvention collide.
+          </p>
+        </div>
+      </dialog>
+
+      <div id="webgl-error" class="webgl-error" hidden>
+        <div>
+          <p>3D view unavailable</p>
+          <h2>The stories still work.</h2>
+          <p id="webgl-fallback-copy">Choose any district below to explore without the WebGL scene.</p>
+          <nav id="fallback-districts" aria-label="District list"></nav>
+        </div>
+      </div>
+    </div>
+
+    <noscript>
+      <div class="noscript-message">
+        This experience needs JavaScript to move through the 3D city and reveal its stories.
+      </div>
+    </noscript>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
