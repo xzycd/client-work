@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>HAUL — a variable grotesque</title>
+<meta name="description" content="HAUL is a variable grotesque in nine styles. Two axes, width 62 to 125 and weight 100 to 900. Type it yourself." />
+<meta name="theme-color" content="#F2F2F0" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&display=swap" />
+<style>
+/* ==========================================================================
+   HAUL — variable grotesque specimen
+   One family. Right angles only. 1px rules. No shadows, no radius, no dots.
+   ========================================================================== */
+
+:root{
+  --bone:#F2F2F0;
+  --black:#0A0A0A;
+  /* the accent at full voltage — fields, fills, focus rings, hovers.
+     Only ever sits against black, or carries black on top of it. */
+  --mag:#FF2E88;
+  /* the same accent, darkened for small text on bone. #FF2E88 measures
+     3.12:1 there, which fails an 11px label; this measures 4.61:1. */
+  --mag-ink:#D6006A;
+
+  --rule:#0A0A0A;
+  --rule-soft:rgba(10,10,10,.22);
+  --dim:#5F5F5C;
+
+  --pad:clamp(16px,3.2vw,40px);
+  --snap:cubic-bezier(.2,.9,.25,1);
+
+  --z-grid:1;
+  --z-sticky:10;
+  --z-bar:20;
+  --z-skip:40;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;
+  background:var(--bone);
+  color:var(--black);
+  font-family:'Archivo',Helvetica,Arial,sans-serif;
+  font-variation-settings:'wdth' 100,'wght' 400;
+  font-size:15px;
+  line-height:1.45;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  overflow-x:hidden;
+}
+h1,h2,h3,p,figure,dl,dd{margin:0}
+ul,ol{margin:0;padding:0;list-style:none}
+a{color:inherit;text-decoration:none}
+button,input{font:inherit;color:inherit}
+
+/* the small caps data label used for every piece of metadata */
+.tag{
+  font-size:11px;font-variation-settings:'wdth' 100,'wght' 600;
+  letter-spacing:.13em;text-transform:uppercase;
+}
+.dim{color:var(--dim)}
+.mag{color:var(--mag-ink)}
+
+.skip{
+  position:absolute;left:-9999px;top:0;z-index:var(--z-skip);
+  background:var(--black);color:var(--bone);padding:10px 16px;
+}
+.skip:focus{left:8px;top:8px}
+
+:where(a,button,input,[contenteditable]):focus-visible{
+  outline:2px solid var(--mag);outline-offset:3px;
+}
+:focus:not(:focus-visible){outline:none}
+
+/* ---------- top bar ------------------------------------------------------ */
+.bar{
+  position:sticky;top:0;z-index:var(--z-bar);
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+  padding:0 var(--pad);height:46px;
+  background:var(--bone);
+  border-bottom:1px solid var(--rule);
+}
+.bar__set{display:flex;gap:clamp(12px,2.4vw,30px);align-items:center}
+.bar a{position:relative;padding:2px 0}
+.bar a::after{
+  content:"";position:absolute;left:0;right:0;bottom:-1px;height:2px;
+  background:var(--mag);transform:scaleX(0);transform-origin:right;
+  transition:transform .3s var(--snap);
+}
+.bar a:hover::after{transform:scaleX(1);transform-origin:left}
+.bar a:active{color:var(--mag)}
+.bar__live{font-variant-numeric:tabular-nums}
+@media (max-width:820px){ .bar__hide{display:none} }
+
+/* ---------- hero: the axis instrument ------------------------------------ */
+.hero{
+  border-bottom:1px solid var(--rule);
+  padding:clamp(20px,4.5vh,52px) 0 0;
+  overflow:hidden;
+}
+.hero__meta{
+  display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
+  padding:0 var(--pad) clamp(8px,1.8vh,18px);
+}
+
+/* The word. Width and weight are driven by scroll, then nudged by pointer,
+   and the size is recomputed so it always sits exactly on the measure —
+   edge to edge, whatever the axes are doing. A condensed cut therefore
+   stands tall and a wide cut sits short, both perfectly full-bleed. */
+.stack{position:relative;display:grid;place-items:center;padding:0 var(--pad)}
+.word{
+  grid-area:1/1;display:block;width:100%;
+  line-height:.76;
+  letter-spacing:-0.035em;
+  text-align:center;
+}
+.word__in{
+  display:inline-block;white-space:nowrap;
+  font-size:clamp(3.4rem,20vw,16rem);   /* replaced by the fitter once JS runs */
+  font-variation-settings:'wdth' 62,'wght' 900;
+}
+/* the wide, light cut sits behind the condensed one — same measure,
+   different proportion, so the two cuts read against each other */
+.word--ghost{pointer-events:none}
+.word--ghost .word__in{
+  color:transparent;
+  -webkit-text-stroke:1px var(--rule-soft);
+  font-variation-settings:'wdth' 125,'wght' 200;
+}
+
+.axes{
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+  border-top:1px solid var(--rule);
+}
+.axis{
+  padding:11px var(--pad);display:flex;align-items:center;gap:12px;
+  border-right:1px solid var(--rule);
+}
+.axis:last-child{border-right:0}
+.axis__val{
+  font-size:clamp(1.3rem,3.2vw,2.2rem);line-height:1;
+  font-variation-settings:'wdth' 100,'wght' 800;
+  font-variant-numeric:tabular-nums;min-width:3.4ch;
+}
+.axis__track{
+  flex:1;height:1px;background:var(--rule-soft);position:relative;
+}
+.axis__fill{
+  position:absolute;inset:0 auto 0 0;width:100%;background:var(--mag);
+  transform-origin:left center;transform:scaleX(.3);
+}
+
+/* ---------- section frame ------------------------------------------------ */
+.band{border-bottom:1px solid var(--rule)}
+.band__head{
+  display:flex;justify-content:space-between;align-items:baseline;gap:14px;
+  padding:11px var(--pad);border-bottom:1px solid var(--rule);
+}
+
+/* ---------- waterfall ---------------------------------------------------- */
+.fall li{
+  display:grid;grid-template-columns:auto minmax(0,1fr);
+  align-items:center;gap:clamp(10px,2vw,26px);
+  padding:clamp(5px,1.1vh,13px) var(--pad);
+  border-bottom:1px solid var(--rule-soft);
+}
+.fall li:last-child{border-bottom:0}
+.fall__tag{width:clamp(74px,9vw,128px);flex-shrink:0;transition:color .16s linear}
+.fall__line{
+  line-height:1.02;letter-spacing:-0.028em;white-space:nowrap;overflow:hidden;
+  transition:font-variation-settings .32s var(--snap), color .16s linear;
+}
+.fall li:hover .fall__tag,
+.fall li:hover .fall__line{color:var(--mag)}
+@media (max-width:640px){
+  .fall li{grid-template-columns:1fr;gap:1px}
+  .fall__tag{width:auto}
+}
+
+/* ---------- tester ------------------------------------------------------- */
+.test__stage{
+  padding:clamp(16px,3.6vh,40px) var(--pad);
+  min-height:clamp(140px,24vh,280px);
+  display:flex;align-items:center;
+}
+.test__line{
+  width:100%;
+  font-size:clamp(1.9rem,8vw,6.5rem);
+  line-height:1.02;letter-spacing:-0.03em;
+  font-variation-settings:'wdth' 100,'wght' 700;
+  outline:none;caret-color:var(--mag);word-break:break-word;
+}
+.test__line:empty::before{content:attr(data-placeholder);color:var(--rule-soft)}
+.test__ctl{
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+  border-top:1px solid var(--rule);
+}
+.ctl{padding:11px var(--pad);border-right:1px solid var(--rule)}
+.ctl:last-child{border-right:0}
+.ctl__top{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-bottom:8px}
+.ctl__num{
+  font-size:1.1rem;font-variation-settings:'wdth' 100,'wght' 800;
+  font-variant-numeric:tabular-nums;
+}
+input[type=range]{
+  -webkit-appearance:none;appearance:none;
+  width:100%;height:16px;background:transparent;display:block;cursor:ew-resize;
+}
+input[type=range]::-webkit-slider-runnable-track{height:1px;background:var(--rule)}
+input[type=range]::-moz-range-track{height:1px;background:var(--rule)}
+input[type=range]::-webkit-slider-thumb{
+  -webkit-appearance:none;appearance:none;
+  width:3px;height:16px;background:var(--black);border:0;border-radius:0;
+  margin-top:-8px;transition:background .12s linear,transform .12s var(--snap);
+}
+input[type=range]::-moz-range-thumb{
+  width:3px;height:16px;background:var(--black);border:0;border-radius:0;
+}
+input[type=range]:hover::-webkit-slider-thumb,
+input[type=range]:focus-visible::-webkit-slider-thumb{background:var(--mag);transform:scaleX(2.4)}
+input[type=range]:active::-webkit-slider-thumb{background:var(--mag);transform:scaleX(3.4)}
+input[type=range]:hover::-moz-range-thumb{background:var(--mag)}
+@media (max-width:640px){
+  .test__ctl{grid-template-columns:1fr}
+  .ctl{border-right:0;border-bottom:1px solid var(--rule)}
+  .ctl:last-child{border-bottom:0}
+}
+
+/* ---------- glyph grid --------------------------------------------------- */
+.glyphs{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(clamp(48px,6vw,82px),1fr));
+  border-left:1px solid var(--rule-soft);
+}
+.glyph{
+  aspect-ratio:1;display:grid;place-items:center;
+  border:0;border-right:1px solid var(--rule-soft);border-bottom:1px solid var(--rule-soft);
+  font-size:clamp(18px,2.2vw,30px);
+  font-variation-settings:'wdth' 100,'wght' 500;
+  background:var(--bone);cursor:pointer;
+  transition:background .13s linear,color .13s linear,font-variation-settings .26s var(--snap);
+}
+.glyph:hover,.glyph:focus-visible{
+  background:var(--mag);color:var(--black);
+  font-variation-settings:'wdth' 118,'wght' 900;
+}
+.glyph:active{background:var(--black)}
+
+/* ---------- styles table ------------------------------------------------- */
+.styles li{
+  display:grid;grid-template-columns:2.2rem minmax(0,1.15fr) minmax(0,1fr) auto;
+  align-items:center;gap:clamp(8px,2vw,22px);
+  padding:10px var(--pad);
+  border-bottom:1px solid var(--rule-soft);
+  transition:background .15s linear,color .15s linear;
+  cursor:pointer;
+}
+.styles li:last-child{border-bottom:0}
+.styles li:hover{background:var(--black);color:var(--bone)}
+.styles li:hover .dim{color:var(--bone)}
+.styles__name{
+  font-size:clamp(1rem,2vw,1.45rem);line-height:1.1;letter-spacing:-0.02em;
+}
+.styles__ax{font-variant-numeric:tabular-nums}
+@media (max-width:760px){
+  .styles li{grid-template-columns:1.8rem minmax(0,1fr) auto}
+  .styles__ax{display:none}
+}
+
+/* ---------- close -------------------------------------------------------- */
+/* the one place the accent is allowed to shout */
+.close{
+  display:grid;grid-template-columns:minmax(0,1fr) auto;
+  align-items:end;gap:20px;padding:clamp(24px,5.5vh,60px) var(--pad);
+  background:var(--mag);color:var(--black);
+}
+.close__word{
+  font-size:clamp(2.4rem,10.5vw,8.5rem);line-height:.86;letter-spacing:-0.04em;
+  font-variation-settings:'wdth' 74,'wght' 900;
+}
+.get{
+  display:inline-flex;align-items:center;gap:10px;
+  padding:13px 21px;border:1px solid var(--black);
+  background:var(--black);color:var(--mag);
+  font-variation-settings:'wdth' 100,'wght' 700;
+  transition:background .13s linear,color .13s linear,transform .1s var(--snap);
+  white-space:nowrap;
+}
+.get:hover{background:var(--bone);color:var(--black)}
+.get:active{transform:translateY(2px)}
+.close :focus-visible{outline-color:var(--black)}
+.get span{display:inline-block;transition:transform .28s var(--snap)}
+.get:hover span{transform:translate(4px,-4px)}
+@media (max-width:600px){ .close{grid-template-columns:1fr} }
+
+.foot{
+  display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;
+  padding:11px var(--pad);border-top:1px solid var(--rule);
+}
+
+/* ---------- reveal: additive only ---------------------------------------- */
+[data-r].pending{opacity:0;transform:translateY(10px)}
+[data-r].shown{
+  opacity:1;transform:none;
+  transition:opacity .5s var(--snap),transform .5s var(--snap);
+  transition-delay:var(--d,0ms);
+}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{
+    animation-duration:.01ms!important;animation-iteration-count:1!important;
+    transition-duration:.01ms!important;scroll-behavior:auto!important;
+  }
+  [data-r].pending{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#tester">Skip to the type tester</a>
+
+<header class="bar">
+  <div class="bar__set">
+    <strong class="tag">HAUL</strong>
+    <span class="tag dim bar__hide">Variable grotesque</span>
+  </div>
+  <nav class="bar__set" aria-label="Sections">
+    <a class="tag" href="#waterfall">Waterfall</a>
+    <a class="tag" href="#tester">Tester</a>
+    <a class="tag" href="#glyphs">Glyphs</a>
+    <a class="tag bar__hide" href="#styles">Styles</a>
+  </nav>
+  <span class="tag dim bar__live bar__hide" id="live">wdth 62 · wght 900</span>
+</header>
+
+<main>
+
+  <!-- ============ HERO ============ -->
+  <section class="hero" aria-label="HAUL">
+    <div class="hero__meta">
+      <span class="tag">Nine styles · Two axes</span>
+      <span class="tag dim">Width 62–125 · Weight 100–900</span>
+      <span class="tag mag bar__hide">Scroll to move the axes</span>
+    </div>
+
+    <div class="stack">
+      <div class="word word--ghost" aria-hidden="true"><span class="word__in" id="ghost">HAUL</span></div>
+      <h1 class="word"><span class="word__in" id="word">HAUL</span></h1>
+    </div>
+
+    <div class="axes">
+      <div class="axis">
+        <span class="tag dim">wdth</span>
+        <span class="axis__val" id="v-wdth">62</span>
+        <span class="axis__track"><span class="axis__fill" id="f-wdth"></span></span>
+      </div>
+      <div class="axis">
+        <span class="tag dim">wght</span>
+        <span class="axis__val" id="v-wght">900</span>
+        <span class="axis__track"><span class="axis__fill" id="f-wght"></span></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ WATERFALL ============ -->
+  <section class="band" id="waterfall" aria-labelledby="wf-h">
+    <div class="band__head">
+      <h2 class="tag" id="wf-h">Waterfall</h2>
+      <span class="tag dim">Nine weights, one file</span>
+    </div>
+    <ul class="fall">
+      <li data-r><span class="tag dim fall__tag">100 Thin</span><span class="fall__line" style="font-size:clamp(1.45rem,5.4vw,4.4rem);font-variation-settings:'wdth' 118,'wght' 100">Handset in one family</span></li>
+      <li data-r><span class="tag dim fall__tag">200 ExtraLight</span><span class="fall__line" style="font-size:clamp(1.35rem,4.9vw,4rem);font-variation-settings:'wdth' 112,'wght' 200">Handset in one family</span></li>
+      <li data-r><span class="tag dim fall__tag">300 Light</span><span class="fall__line" style="font-size:clamp(1.28rem,4.4vw,3.6rem);font-variation-settings:'wdth' 106,'wght' 300">Handset in one family</span></li>
+      <li data-r><span class="tag dim fall__tag">400 Regular</span><span class="fall__line" style="font-size:clamp(1.2rem,3.9vw,3.2rem);font-variation-settings:'wdth' 100,'wght' 400">Handset in one family</span></li>
+      <li data-r><span class="tag dim fall__tag">500 Medium</span><span class="fall__line" style="font-size:clamp(1.12rem,3.4vw,2.8rem);font-variation-settings:'wdth' 94,'wght' 500">Handset in one family</span></li>
+      <li data-r><span class="tag dim fall__tag">600 SemiBold</span><span class="fall__line" style="font-size:clamp(1.06rem,2.9vw,2.4rem);font-variation-settings:'wdth' 88,'wght' 600">Handset in one family</span></li>
+      <li data-r><span class="tag dim fall__tag">700 Bold</span><span class="fall__line" style="font-size:clamp(1rem,2.5vw,2.05rem);font-variation-settings:'wdth' 80,'wght' 700">Handset in one family</span></li>
+      <li data-r><span class="tag dim fall__tag">800 ExtraBold</span><span class="fall__line" style="font-size:clamp(.95rem,2.1vw,1.72rem);font-variation-settings:'wdth' 72,'wght' 800">Handset in one family</span></li>
+      <li data-r><span class="tag dim fall__tag">900 Black</span><span class="fall__line" style="font-size:clamp(.9rem,1.75vw,1.45rem);font-variation-settings:'wdth' 62,'wght' 900">Handset in one family</span></li>
+    </ul>
+  </section>
+
+  <!-- ============ TESTER ============ -->
+  <section class="band" id="tester" aria-labelledby="ts-h">
+    <div class="band__head">
+      <h2 class="tag" id="ts-h">Tester</h2>
+      <span class="tag mag">Type here ↓</span>
+    </div>
+
+    <div class="test__stage">
+      <div class="test__line" id="type"
+           contenteditable="true" spellcheck="false" role="textbox"
+           aria-multiline="false" aria-label="Editable specimen text"
+           data-placeholder="Type something">Drag the axes</div>
+    </div>
+
+    <div class="test__ctl">
+      <div class="ctl">
+        <div class="ctl__top">
+          <label class="tag dim" for="s-wdth">Width</label>
+          <span class="ctl__num" id="n-wdth">100</span>
+        </div>
+        <input id="s-wdth" type="range" min="62" max="125" value="100" step="1"
+               aria-label="Width axis, 62 to 125" />
+      </div>
+      <div class="ctl">
+        <div class="ctl__top">
+          <label class="tag dim" for="s-wght">Weight</label>
+          <span class="ctl__num" id="n-wght">700</span>
+        </div>
+        <input id="s-wght" type="range" min="100" max="900" value="700" step="10"
+               aria-label="Weight axis, 100 to 900" />
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ GLYPHS ============ -->
+  <section class="band" id="glyphs" aria-labelledby="gl-h">
+    <div class="band__head">
+      <h2 class="tag" id="gl-h">Character set</h2>
+      <span class="tag dim">Click a glyph to set it</span>
+    </div>
+    <div class="glyphs" id="glyphgrid"></div>
+  </section>
+
+  <!-- ============ STYLES ============ -->
+  <section class="band" id="styles" aria-labelledby="st-h">
+    <div class="band__head">
+      <h2 class="tag" id="st-h">Nine styles</h2>
+      <span class="tag dim">Pick one to load it</span>
+    </div>
+    <ul class="styles" id="stylelist"></ul>
+  </section>
+
+  <!-- ============ CLOSE ============ -->
+  <section class="close">
+    <p class="close__word">Take it<br>for a drag.</p>
+    <a class="get" href="#tester">Open the tester <span aria-hidden="true">↗</span></a>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <span class="tag dim">HAUL — variable grotesque</span>
+  <span class="tag dim">Specimen set entirely in itself</span>
+  <span class="tag dim">2026</span>
+</footer>
+
+<script>
+(function(){
+  'use strict';
+
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var clamp = function(v,a,b){ return v < a ? a : v > b ? b : v; };
+  var round = Math.round;
+  var WDTH = [62,125], WGHT = [100,900];
+
+  /* ---------------------------------------------------------------------
+     HERO — the signature. Scroll drives both axes at once, in opposition:
+     the word starts compressed and heavy, and opens out light and wide as
+     you move. Pointer nudges it on top, so it is alive before you scroll.
+     --------------------------------------------------------------------- */
+  var hero  = document.querySelector('.hero');
+  var word  = document.getElementById('word');
+  var ghost = document.getElementById('ghost');
+  var vW = document.getElementById('v-wdth'), vG = document.getElementById('v-wght');
+  var fW = document.getElementById('f-wdth'), fG = document.getElementById('f-wght');
+  var live = document.getElementById('live');
+
+  var pos = 0, target = 0, queued = false, nudge = 0;
+
+  /* Fit-to-measure. Measuring text forces a reflow, so every (axis, element)
+     pair is measured once at a reference size and cached as a ratio; after
+     that the size is pure arithmetic and the scroll loop never touches
+     layout. Cleared on resize, when the available width changes. */
+  var REF = 200, fitCache = Object.create(null), avail = 0, maxH = 0;
+
+  function measureAvail(){
+    var stack = document.querySelector('.stack');
+    var cs = getComputedStyle(stack);
+    avail = stack.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
+    // never let the fitted word push the axis readout off a short screen
+    maxH = Math.max(160, innerHeight * 0.56);
+  }
+  function fit(el, key, wd, wg){
+    var k = key + wd + '_' + wg, r = fitCache[k];
+    if (r === undefined){
+      var prevSize = el.style.fontSize;
+      el.style.fontSize = REF + 'px';
+      el.style.fontVariationSettings = "'wdth' " + wd + ",'wght' " + wg;
+      var box = el.getBoundingClientRect();
+      r = fitCache[k] = { w: box.width / REF, h: box.height / REF };
+      el.style.fontSize = prevSize;
+    }
+    el.style.fontVariationSettings = "'wdth' " + wd + ",'wght' " + wg;
+    el.style.fontSize = Math.min(avail / r.w, maxH / r.h).toFixed(2) + 'px';
+  }
+
+  function paint(){
+    queued = false;
+    pos += (target - pos) * 0.16;
+    if (Math.abs(target - pos) < 0.001) pos = target;
+
+    var t  = clamp(pos + nudge, 0, 1);
+    var wd = round(WDTH[0] + (WDTH[1] - WDTH[0]) * t);
+    var wg = round((WGHT[1] - (WGHT[1] - WGHT[0]) * t) / 10) * 10;
+
+    fit(word,  'w', wd, wg);
+    fit(ghost, 'g', WDTH[1] + WDTH[0] - wd, clamp(round(wg / 3 / 10) * 10, 100, 900));
+
+    vW.textContent = wd; vG.textContent = wg;
+    fW.style.transform = 'scaleX(' + ((wd - WDTH[0]) / (WDTH[1] - WDTH[0])).toFixed(3) + ')';
+    fG.style.transform = 'scaleX(' + ((wg - WGHT[0]) / (WGHT[1] - WGHT[0])).toFixed(3) + ')';
+    if (live) live.textContent = 'wdth ' + wd + ' · wght ' + wg;
+
+    if (pos !== target) request();
+  }
+  function request(){ if (!queued){ queued = true; requestAnimationFrame(paint); } }
+
+  function fromScroll(){
+    var span = hero.offsetHeight + innerHeight * 0.4;
+    target = clamp(scrollY / span, 0, 1);
+    request();
+  }
+
+  function onResize(){ fitCache = Object.create(null); measureAvail(); fromScroll(); paint(); }
+
+  measureAvail();
+  if (reduce) {
+    pos = target = 0.32;          // one settled, handsome position
+    paint();
+  } else {
+    fromScroll();
+    paint();
+    addEventListener('scroll', fromScroll, {passive:true});
+    addEventListener('pointermove', function(e){
+      var r = hero.getBoundingClientRect();
+      if (r.bottom < 0 || r.top > innerHeight) return;
+      nudge = (e.clientX / innerWidth - 0.5) * 0.3;
+      request();
+    }, {passive:true});
+  }
+  addEventListener('resize', onResize, {passive:true});
+  // the fit depends on the real font, so redo it once the webfont lands
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(onResize);
+
+  /* ---------------------------------------------------------------------
+     TESTER
+     --------------------------------------------------------------------- */
+  var type = document.getElementById('type');
+  var sW = document.getElementById('s-wdth'), sG = document.getElementById('s-wght');
+  var nW = document.getElementById('n-wdth'), nG = document.getElementById('n-wght');
+
+  function applyAxes(){
+    type.style.fontVariationSettings = "'wdth' " + sW.value + ",'wght' " + sG.value;
+    nW.textContent = sW.value;
+    nG.textContent = sG.value;
+  }
+  sW.addEventListener('input', applyAxes);
+  sG.addEventListener('input', applyAxes);
+  applyAxes();
+
+  var PLACEHOLDER = 'Drag the axes';
+  type.addEventListener('focus', function(){
+    if (type.textContent.trim() === PLACEHOLDER) type.textContent = '';
+  });
+  type.addEventListener('blur', function(){
+    if (!type.textContent.trim()) type.textContent = PLACEHOLDER;
+  });
+  // keep it plain text — no pasted markup, no stray nodes, no runaway length
+  type.addEventListener('paste', function(e){
+    e.preventDefault();
+    var t = ((e.clipboardData || window.clipboardData).getData('text/plain') || '')
+              .replace(/\s+/g, ' ').slice(0, 80);
+    document.execCommand('insertText', false, t);
+  });
+  type.addEventListener('keydown', function(e){
+    if (e.key === 'Enter') e.preventDefault();
+  });
+
+  /* ---------------------------------------------------------------------
+     GLYPH GRID
+     --------------------------------------------------------------------- */
+  var chars = ('ABCDEFGHIJKLMNOPQRSTUVWXYZ' +
+               'abcdefghijklmnopqrstuvwxyz' +
+               '0123456789' +
+               '&@#!?%$€£§*†‡¶©®' +
+               '.,:;·…—–()[]{}/«»“”‘’' +
+               'ÀÁÂÃÄÅÆÇÈÉÊËÑÒÓÔÕÖØÙÚÛÜÝŽ').split('');
+  var grid = document.getElementById('glyphgrid');
+  var gfrag = document.createDocumentFragment();
+  chars.forEach(function(c){
+    var b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'glyph';
+    b.textContent = c;
+    b.setAttribute('aria-label', 'Set the tester to ' + c);
+    b.addEventListener('click', function(){
+      var cur = type.textContent.trim();
+      type.textContent = (cur === PLACEHOLDER ? '' : cur) + c;
+      if (type.textContent.length > 40) type.textContent = c;
+      document.getElementById('tester').scrollIntoView({
+        behavior: reduce ? 'auto' : 'smooth', block: 'center'
+      });
+    });
+    gfrag.appendChild(b);
+  });
+  grid.appendChild(gfrag);
+
+  /* ---------------------------------------------------------------------
+     STYLES — pointing at a row loads that style into the tester
+     --------------------------------------------------------------------- */
+  var STYLES = [
+    ['Compressed Black',  62, 900],
+    ['Compressed Bold',   68, 700],
+    ['Condensed Medium',  78, 500],
+    ['Narrow Regular',    88, 400],
+    ['Regular',          100, 400],
+    ['Regular Bold',     100, 700],
+    ['Wide Medium',      112, 500],
+    ['Extended Light',   120, 300],
+    ['Extended Black',   125, 900]
+  ];
+  var list = document.getElementById('stylelist');
+  var sfrag = document.createDocumentFragment();
+  STYLES.forEach(function(s, i){
+    var li = document.createElement('li');
+    li.tabIndex = 0;
+    li.innerHTML =
+      '<span class="tag dim">' + ('0' + (i + 1)).slice(-2) + '</span>' +
+      '<span class="styles__name"></span>' +
+      '<span class="tag dim styles__ax">wdth ' + s[1] + ' · wght ' + s[2] + '</span>' +
+      '<span class="tag dim">Aa</span>';
+    var name = li.querySelector('.styles__name');
+    name.textContent = s[0];
+    name.style.fontVariationSettings = "'wdth' " + s[1] + ",'wght' " + s[2];
+    var load = function(){ sW.value = s[1]; sG.value = s[2]; applyAxes(); };
+    li.addEventListener('pointerenter', load);
+    li.addEventListener('focus', load);
+    li.addEventListener('click', function(){
+      load();
+      document.getElementById('tester').scrollIntoView({
+        behavior: reduce ? 'auto' : 'smooth', block: 'center'
+      });
+    });
+    li.addEventListener('keydown', function(e){
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); li.click(); }
+    });
+    sfrag.appendChild(li);
+  });
+  list.appendChild(sfrag);
+
+  /* ---------------------------------------------------------------------
+     REVEALS — additive. Nothing is hidden unless we know we can restore it,
+     and everything is released the moment the page stops being watched.
+     --------------------------------------------------------------------- */
+  if ('IntersectionObserver' in window && !reduce && document.visibilityState === 'visible') {
+    var items = [].slice.call(document.querySelectorAll('[data-r]')).filter(function(el){
+      return el.getBoundingClientRect().top > innerHeight * 0.9;
+    });
+    if (items.length) {
+      items.forEach(function(el, i){
+        el.style.setProperty('--d', Math.min(i * 45, 300) + 'ms');
+        el.classList.add('pending');
+      });
+      var io = new IntersectionObserver(function(es){
+        es.forEach(function(e){
+          if (!e.isIntersecting) return;
+          e.target.classList.add('shown');
+          io.unobserve(e.target);
+        });
+      }, {threshold: .15, rootMargin: '0px 0px -5% 0px'});
+      items.forEach(function(el){ io.observe(el); });
+
+      var release = function(){
+        items.forEach(function(el){
+          el.classList.remove('pending');
+          el.classList.add('shown');
+          el.style.transition = 'none';
+          el.style.opacity = '1';
+          el.style.transform = 'none';
+        });
+        io.disconnect();
+      };
+      document.addEventListener('visibilitychange', function(){
+        if (document.visibilityState !== 'visible') release();
+      });
+      addEventListener('beforeprint', release);
+      addEventListener('pagehide', release);
+    }
+  }
+
+})();
+</script>
+</body>
+</html>

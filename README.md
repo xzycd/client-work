@@ -22,19 +22,18 @@ Build, and Delivery, then copy the resulting recipe or export a still.
 - `styles.css` - responsive interface, light and dark themes, and reduced-motion treatment
 - `assets/` - generated material studies used across the experience and as a static fallback
 
-### `meridian-studio/`
-Landing page for a fictional independent design studio, built around a press-check
-idea: wet-ink black ground, one saturated reflex blue drenching the hero and the
-contact block, and a single grotesk (Schibsted) carrying the page from 400 to 900.
-Work rows hold their project image as a one-colour proof; hovering lifts the ink and
-pulls it to full colour.
+### `haul-type/`
+Specimen page for HAUL, a variable grotesque. Bone ground, true black, one hot
+magenta. The hero word is fitted to the measure and both axes are driven by scroll,
+so it starts compressed and heavy and opens out wide and light as you move. Below
+that: a weight waterfall, a live tester with width and weight sliders, a clickable
+character set, and nine named styles that load themselves into the tester.
 
-- [`index.html`](https://xzycd.github.io/client-work/meridian-studio/) — live page
-- `DESIGN-DNA.md` — the art-direction spec, including why the earlier
-  editorial-on-warm-paper version was scrapped
+- [`index.html`](https://xzycd.github.io/client-work/haul-type/) — live page
+- `DESIGN-DNA.md` — the art-direction spec, including why two earlier versions of
+  this slot were scrapped
 
-Photography is licensed stock standing in for project work; the studio, its clients,
-and its projects are invented.
+HAUL is not a real typeface; the page is set in Archivo, which stands in for it.
 
 ### `aether-retreats/`
 Cinematic landing page for a architectural-retreat brand, in three
