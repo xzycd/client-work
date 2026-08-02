@@ -361,12 +361,6 @@
         preview.style.setProperty("--shift-y", `${shiftY}px`);
         preview.style.setProperty("--open-x", `${shiftX * 0.24}px`);
         preview.style.setProperty("--open-y", `${shiftY * 0.24}px`);
-        preview.style.setProperty("--slice-one-x", `${shiftX * -0.45}px`);
-        preview.style.setProperty("--slice-one-y", `${shiftY * -0.25}px`);
-        preview.style.setProperty("--slice-two-x", `${shiftX * 0.2}px`);
-        preview.style.setProperty("--slice-two-y", `${shiftY * 0.12}px`);
-        preview.style.setProperty("--slice-three-x", `${shiftX * 0.7}px`);
-        preview.style.setProperty("--slice-three-y", `${shiftY * 0.35}px`);
         pointerFrame = 0;
       };
 
@@ -384,12 +378,6 @@
         preview.style.setProperty("--shift-y", "0px");
         preview.style.setProperty("--open-x", "0px");
         preview.style.setProperty("--open-y", "0px");
-        preview.style.setProperty("--slice-one-x", "0px");
-        preview.style.setProperty("--slice-one-y", "0px");
-        preview.style.setProperty("--slice-two-x", "0px");
-        preview.style.setProperty("--slice-two-y", "0px");
-        preview.style.setProperty("--slice-three-x", "0px");
-        preview.style.setProperty("--slice-three-y", "0px");
       });
     });
   }

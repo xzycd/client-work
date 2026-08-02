@@ -360,10 +360,10 @@ body.is-transitioning .page-transition p {
 .preview-bar,
 .field-stats,
 .sequence-copy span,
-.parallax-copy span,
 .sequence-timeline,
 .cinematic-time,
-.parallax-depth,
+.acid-top,
+.acid-foot,
 .site-footer {
   font-family: var(--mono);
 }
@@ -1150,8 +1150,7 @@ body.is-transitioning .page-transition p {
   left: clamp(22px, 5cqw, 48px);
 }
 
-.sequence-copy span,
-.parallax-copy span {
+.sequence-copy span {
   display: block;
   margin-bottom: 13px;
   color: #e39a4a;
@@ -1161,8 +1160,7 @@ body.is-transitioning .page-transition p {
   text-transform: uppercase;
 }
 
-.sequence-copy strong,
-.parallax-copy strong {
+.sequence-copy strong {
   color: #ede6d8;
   font: 300 clamp(2.1rem, 7.5cqw, 5.2rem) / 0.9 "Cormorant Garamond", Georgia, serif;
   letter-spacing: -0.03em;
@@ -1284,84 +1282,119 @@ body.is-transitioning .page-transition p {
   animation: cinematic-pulse 1.6s ease-in-out infinite;
 }
 
-/* Parallax preview */
-.preview-parallax {
-  background: #0e0d0c;
+/* ACID preview — previews the real page's signature: the black is what moves,
+   and the type reverses itself along the edge rather than changing colour.
+   Same difference-blend trick the live page runs on. */
+.preview-acid {
+  background: #d6ff00;
 }
 
-.parallax-slice {
+.acid-sheet {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  isolation: isolate;
+  /* the isolated group needs a real backdrop of its own, or difference has
+     nothing to work against and the type composites away to nothing */
+  background: #d6ff00;
+  font-family: "Archivo", Helvetica, Arial, sans-serif;
+}
+
+.acid-band {
   position: absolute;
-  inset: -5%;
-  background-image: url("aether-retreats/assets/hero.jpg");
-  background-position: center 42%;
-  background-size: cover;
-  filter: saturate(0.78) brightness(0.76);
-  will-change: transform;
+  inset: 0 auto;
+  left: -32%;
+  width: 48%;
+  background: #000;
+  transform: translate3d(var(--band, 0px), 0, 0);
+  transition: transform 1.1s var(--ease);
 }
 
-.parallax-one {
-  clip-path: inset(0 68% 0 0);
-  transform: translate3d(var(--slice-one-x, 0px), var(--slice-one-y, 0px), 0) scale(1.08);
+/* painted once in the colour and composited in difference: over the colour it
+   resolves to black, over the band it resolves to the colour */
+.acid-l {
+  position: relative;
+  z-index: 1;
+  color: #d6ff00;
+  mix-blend-mode: difference;
 }
 
-.parallax-two {
-  clip-path: inset(0 32% 0 32%);
-  transform: translate3d(var(--slice-two-x, 0px), var(--slice-two-y, 0px), 0) scale(1.12);
+@supports not (mix-blend-mode: difference) {
+  .acid-band {
+    display: none;
+  }
+
+  .acid-l {
+    color: #000;
+  }
 }
 
-.parallax-three {
-  clip-path: inset(0 0 0 68%);
-  transform: translate3d(var(--slice-three-x, 0px), var(--slice-three-y, 0px), 0) scale(1.16);
-}
-
-.parallax-slice::after {
-  position: absolute;
-  inset: 0;
-  border-right: 1px solid rgba(255, 255, 255, 0.16);
-  content: "";
-}
-
-.parallax-copy {
-  position: absolute;
-  z-index: 5;
-  bottom: 12%;
-  left: clamp(22px, 5cqw, 48px);
-}
-
-.parallax-depth {
-  position: absolute;
-  z-index: 5;
-  right: clamp(22px, 5cqw, 48px);
-  bottom: 34px;
+.acid-top,
+.acid-foot {
   display: flex;
-  gap: 10px;
+  justify-content: space-between;
   align-items: center;
-  color: rgba(255, 255, 255, 0.56);
-  font-size: 7px;
+  padding: clamp(8px, 1.7cqw, 15px) clamp(12px, 2.6cqw, 26px);
+  font-size: clamp(7px, 1.1cqw, 10px);
+  font-weight: 500;
   letter-spacing: 0.12em;
+  line-height: 1;
   text-transform: uppercase;
 }
 
-.parallax-depth i {
-  position: relative;
-  width: min(16cqw, 120px);
-  height: 1px;
-  background: rgba(255, 255, 255, 0.22);
+.acid-top {
+  border-bottom: 1px solid currentColor;
 }
 
-.parallax-depth i::after {
-  position: absolute;
-  top: -2px;
-  left: 20%;
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: #e39a4a;
-  content: "";
+.acid-foot {
+  border-top: 1px solid currentColor;
 }
 
-.project.is-active .parallax-depth i::after {
-  animation: depth-travel 5.2s var(--ease) infinite alternate;
+.acid-foot b {
+  font-weight: 500;
+  letter-spacing: 0.04em;
+}
+
+.acid-word {
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  padding: 0 clamp(12px, 2.6cqw, 26px);
+}
+
+.acid-word span {
+  display: block;
+  width: 100%;
+  /* wider than the HAUL card's word: ACID is four caps at normal width, not a
+     condensed cut, so it needs a bigger size to reach the same measure */
+  font-size: clamp(3rem, 34cqw, 15rem);
+  font-weight: 900;
+  letter-spacing: -0.045em;
+  line-height: 0.78;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.project-link:hover .acid-band,
+.project-link:focus-visible .acid-band {
+  --band: 128%;
+}
+
+/* the ambient state, so the card inverts on its own before anyone points at it */
+.project.is-active:not(:hover) .acid-band {
+  animation: acid-sweep 6.4s var(--ease) infinite alternate;
+}
+
+/* the shared light-ground open button is warm bone, which reads as a foreign
+   object on this card. keep it inside the two-value system. */
+.preview-acid .preview-open {
+  border-color: rgba(0, 0, 0, 0.32);
+  background: rgba(0, 0, 0, 0.72);
+  color: #d6ff00;
+}
+
+.preview-acid .preview-glare {
+  background: radial-gradient(circle at var(--spot-x, 50%) var(--spot-y, 50%), rgba(255, 255, 255, 0.85), transparent 36%);
+  mix-blend-mode: soft-light;
 }
 
 .site-footer {
@@ -1492,8 +1525,9 @@ body.is-transitioning .page-transition p {
   50% { opacity: 0.25; transform: scale(0.65); }
 }
 
-@keyframes depth-travel {
-  to { left: 82%; }
+@keyframes acid-sweep {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(128%, 0, 0); }
 }
 
 @media (max-width: 980px) {
@@ -1703,9 +1737,12 @@ body.is-transitioning .page-transition p {
     bottom: 50px;
   }
 
-  .sequence-timeline,
-  .parallax-depth {
+  .sequence-timeline {
     display: none;
+  }
+
+  .acid-word span {
+    font-size: clamp(2.6rem, 34cqw, 6.4rem);
   }
 
   .cinematic-title {
@@ -1768,8 +1805,7 @@ body.is-transitioning .page-transition p {
 
   .preview-stage,
   .field-image,
-  .aether-video,
-  .parallax-slice {
+  .aether-video {
     transform: none !important;
   }
 
