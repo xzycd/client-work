@@ -236,13 +236,13 @@
           const push = influence * influence * (18 + wave * 2);
           const pointX = x + (dx / distance) * push;
           const pointY = y + (dy / distance) * push + wave * (0.25 + influence);
-          const size = 0.65 + influence * 1.45;
+          const size = 0.7 + influence * 1.5;
 
           context.beginPath();
           context.arc(pointX, pointY, size, 0, Math.PI * 2);
           context.fillStyle = influence > 0.68
             ? `rgba(239, 106, 69, ${0.32 + influence * 0.55})`
-            : `rgba(242, 240, 233, ${0.08 + influence * 0.24})`;
+            : `rgba(242, 240, 233, ${0.13 + influence * 0.3})`;
           context.fill();
         }
       }

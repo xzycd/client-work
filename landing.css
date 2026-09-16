@@ -686,12 +686,33 @@ body.is-transitioning .page-transition p {
   text-decoration: none;
 }
 
+/* Alternate which side carries the preview so the index reads as a column of
+   related-but-different compositions rather than five copies of one row. */
+.project:nth-of-type(even) .project-link {
+  grid-template-columns: minmax(0, 1fr) minmax(270px, 0.42fr);
+}
+
+.project:nth-of-type(even) .project-info {
+  order: 2;
+}
+
 .project-info {
   display: flex;
   flex-direction: column;
   align-self: stretch;
-  justify-content: space-between;
   min-width: 0;
+}
+
+/* The kicker belongs to the rule above it, so it stays pinned to the top of
+   the column. Everything else is one block, centred in whatever height the
+   preview next to it happens to claim. */
+.project-body {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(26px, 3.6vh, 42px);
+  align-items: flex-start;
+  margin-block: auto;
+  padding-block: clamp(34px, 5vh, 62px);
 }
 
 .project-kicker {
@@ -712,7 +733,6 @@ body.is-transitioning .page-transition p {
 }
 
 .project-heading {
-  padding: 54px 0;
   transform: translate3d(0, var(--project-copy-y, 0px), 0);
   transition: transform 180ms linear;
   will-change: transform;
@@ -761,6 +781,39 @@ body.is-transitioning .page-transition p {
   font-size: 14px;
   line-height: 1.7;
   text-wrap: pretty;
+}
+
+.project-spec {
+  display: flex;
+  flex-wrap: wrap;
+  align-self: stretch;
+  gap: 9px clamp(18px, 2vw, 30px);
+  margin: 0;
+  padding: 13px 0 0;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font: 400 9px/1.3 var(--mono);
+  letter-spacing: 0.1em;
+  list-style: none;
+  text-transform: uppercase;
+}
+
+.project-spec li {
+  display: flex;
+  gap: 6px;
+  align-items: baseline;
+}
+
+.project-spec b {
+  color: var(--ink);
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  transition: color 300ms ease;
+}
+
+.project-link:hover .project-spec b,
+.project-link:focus-visible .project-spec b {
+  color: var(--accent);
 }
 
 .project-cta {
@@ -1115,21 +1168,23 @@ body.is-transitioning .page-transition p {
   width: 108%;
   height: 108%;
   object-fit: cover;
-  filter: saturate(0.72) contrast(1.08) brightness(0.78);
+  filter: saturate(0.92) contrast(1.04) brightness(1);
   transform: translate3d(var(--shift-x, 0px), var(--shift-y, 0px), 0) scale(1.03);
   transition: transform 900ms var(--ease), filter 700ms ease;
   will-change: transform;
 }
 
 .project-link:hover .aether-video {
-  filter: saturate(0.94) contrast(1.04) brightness(0.88);
+  filter: saturate(1.06) contrast(1.02) brightness(1.1);
 }
 
 .aether-veil {
   position: absolute;
   z-index: 2;
   inset: 0;
-  background: linear-gradient(180deg, rgba(14, 13, 12, 0.42), rgba(14, 13, 12, 0.03) 36%, rgba(14, 13, 12, 0.82));
+  /* Clear through the middle so the footage actually reads, with the ramp
+     starting early enough that the copy keeps its contrast over bright sky. */
+  background: linear-gradient(180deg, rgba(14, 13, 12, 0.46), rgba(14, 13, 12, 0) 26%, rgba(14, 13, 12, 0.08) 48%, rgba(14, 13, 12, 0.5) 76%, rgba(14, 13, 12, 0.82));
 }
 
 /* Sequence preview */
@@ -1148,6 +1203,21 @@ body.is-transitioning .page-transition p {
   z-index: 5;
   bottom: 66px;
   left: clamp(22px, 5cqw, 48px);
+}
+
+/* A local scrim under the display type instead of crushing the whole frame:
+   the footage stays open and the serif keeps its contrast over bright sky. */
+.sequence-copy::before,
+.cinematic-title::before {
+  position: absolute;
+  z-index: -1;
+  content: "";
+  pointer-events: none;
+}
+
+.sequence-copy::before {
+  inset: -34% -58% -74% -36%;
+  background: radial-gradient(ellipse at 30% 60%, rgba(9, 9, 8, 0.92), rgba(9, 9, 8, 0) 70%);
 }
 
 .sequence-copy span {
@@ -1208,7 +1278,7 @@ body.is-transitioning .page-transition p {
 
 /* Cinematic preview */
 .preview-cinematic .aether-video {
-  filter: saturate(0.62) contrast(1.12) brightness(0.62);
+  filter: saturate(0.8) contrast(1.06) brightness(0.9);
 }
 
 .cinematic-bars::before,
@@ -1250,6 +1320,11 @@ body.is-transitioning .page-transition p {
   color: #ede6d8;
   font: 300 clamp(2.6rem, 9cqw, 6.8rem) / 0.86 "Cormorant Garamond", Georgia, serif;
   letter-spacing: -0.035em;
+}
+
+.cinematic-title::before {
+  inset: -30% -34% -52% -50%;
+  background: radial-gradient(ellipse at 66% 58%, rgba(9, 9, 8, 0.9), rgba(9, 9, 8, 0) 70%);
 }
 
 .cinematic-title em {
@@ -1453,14 +1528,14 @@ body.is-transitioning .page-transition p {
 }
 
 .js .project-preview {
-  clip-path: inset(0 100% 0 0);
+  clip-path: inset(0 0 0 100%);
   opacity: 0;
-  transform: translateX(-38px) scale(0.985);
+  transform: translateX(38px) scale(0.985);
 }
 
 .js .project:nth-of-type(even) .project-preview {
-  clip-path: inset(0 0 0 100%);
-  transform: translateX(38px) scale(0.985);
+  clip-path: inset(0 100% 0 0);
+  transform: translateX(-38px) scale(0.985);
 }
 
 .js .project.is-visible .project-preview {
@@ -1554,6 +1629,10 @@ body.is-transitioning .page-transition p {
   .project-link {
     grid-template-columns: minmax(220px, 0.36fr) minmax(0, 1fr);
     gap: 38px;
+  }
+
+  .project:nth-of-type(even) .project-link {
+    grid-template-columns: minmax(0, 1fr) minmax(220px, 0.36fr);
   }
 
   .project-heading h3 {
@@ -1671,11 +1750,21 @@ body.is-transitioning .page-transition p {
     text-align: right;
   }
 
-  .project-link {
+  .project-link,
+  .project:nth-of-type(even) .project-link {
     grid-template-columns: 1fr;
     gap: 34px;
     min-height: 0;
     padding: 38px 0 76px;
+  }
+
+  .project:nth-of-type(even) .project-info {
+    order: 0;
+  }
+
+  .project-body {
+    gap: 26px;
+    padding-block: 0;
   }
 
   .project-info {
@@ -1686,9 +1775,6 @@ body.is-transitioning .page-transition p {
     font-size: 8px;
   }
 
-  .project-heading {
-    padding: 48px 0 40px;
-  }
 
   .project-heading h3 {
     font-size: clamp(3.2rem, 15.4vw, 5rem);
