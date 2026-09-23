@@ -198,7 +198,7 @@ video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .logo{font-family:var(--disp);font-size:24px;letter-spacing:.42em;padding-left:.42em;color:#fff}
 .coord{font-family:var(--mono);font-size:11px;letter-spacing:.18em;color:#fff;opacity:.75}
 .copy{position:absolute;left:0;right:0;bottom:0;padding:0 clamp(20px,5vw,80px) clamp(56px,11vh,120px)}
-.kick{font-family:var(--mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin-bottom:24px}
+.kick{font-family:var(--mono);font-size:11px;line-height:1.8;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin-bottom:24px}
 .kick b{color:var(--accent);font-weight:500}
 h1{font-family:var(--disp);font-weight:300;font-size:clamp(3rem,11vw,10rem);line-height:.96;letter-spacing:-.01em}
 h1 em{font-style:italic;color:var(--accent)}

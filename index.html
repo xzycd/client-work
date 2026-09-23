@@ -3,142 +3,116 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Five live front-end studies in spatial interaction, editorial systems, canvas storytelling, and cinematic motion.">
-  <meta name="theme-color" content="#0d0e0c">
-  <meta property="og:title" content="Client Work — Live interactive portfolio">
-  <meta property="og:description" content="Selected digital experiments, built to be explored.">
+  <meta name="description" content="Five pieces of live front-end work: an instrument, a type specimen, two films and a colour system. Each one opens as a plain HTML file.">
+  <meta name="theme-color" content="#d9d9d5">
+  <meta property="og:title" content="Client Work">
+  <meta property="og:description" content="Five pieces of live front-end work: an instrument, a type specimen, two films and a colour system.">
   <meta property="og:type" content="website">
-  <title>Client Work — Live Interactive Portfolio</title>
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='4' fill='%230d0e0c'/%3E%3Cpath d='M8 8h16v16H8z' fill='none' stroke='%23ef6a45' stroke-width='2'/%3E%3Ccircle cx='21' cy='11' r='2' fill='%23ef6a45'/%3E%3C/svg%3E">
+  <meta property="og:image" content="https://xzycd.github.io/client-work/aether-retreats/assets/hero.jpg">
+  <title>Client Work — Five live front-end pieces</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23d9d9d5'/%3E%3Cg fill='%23121211'%3E%3Crect x='3' y='7' width='11' height='18'/%3E%3Crect x='16' y='7' width='2.5' height='18'/%3E%3Crect x='20.5' y='7' width='2.5' height='18'/%3E%3Crect x='25' y='7' width='2.5' height='18'/%3E%3Crect x='29.5' y='7' width='1.5' height='18'/%3E%3C/g%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Cormorant+Garamond:ital,wght@0,300;1,300&family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..500;1,6..72,300..500&family=Cormorant+Garamond:ital,wght@0,300;1,300&family=Host+Grotesk:wght@400..600&family=Archivo:wdth,wght@62..125,100..900&family=Chivo:wght@900&display=swap" rel="stylesheet">
   <script>document.documentElement.classList.replace('no-js', 'js');</script>
-  <link rel="stylesheet" href="landing.css?v=20260916-index">
-  <script src="landing.js?v=20260916-index" defer></script>
+  <link rel="stylesheet" href="landing.css?v=20260923-plates">
+  <script src="landing.js?v=20260923-plates" defer></script>
 </head>
 <body>
-  <a class="skip-link" href="#main">Skip to work</a>
-  <div class="scroll-progress" aria-hidden="true"><span data-scroll-progress></span></div>
-  <div class="page-transition" aria-hidden="true">
-    <span class="transition-panel transition-panel-a"></span>
-    <span class="transition-panel transition-panel-b"></span>
-    <p>Opening <b data-transition-label>project</b></p>
-  </div>
+  <a class="skip-link" href="#work">Skip to the work</a>
+  <div class="page-transition" aria-hidden="true"><p data-transition-label></p></div>
 
   <header class="site-header">
     <div class="shell header-inner">
-      <a class="brand" href="./" aria-label="Client Work home">
-        <span class="brand-mark" aria-hidden="true"></span>
-        <span>Client Work</span>
+      <a class="brand" href="./" aria-label="Client Work, home">
+        <span class="mark" data-mark aria-hidden="true"><i class="is-on"></i><i></i><i></i><i></i><i></i></span>
+        <span class="brand-name">Client Work</span>
       </a>
-      <div class="header-meta">
-        <span class="header-current"><span data-active-index>01</span> / 05</span>
-        <span class="header-discipline">Design + front-end</span>
-        <a class="source-link" href="https://github.com/xzycd/client-work">Source <span aria-hidden="true">↗</span></a>
-      </div>
+      <p class="header-now" aria-hidden="true"><span data-now-index>01</span><span data-now-name>Field</span></p>
+      <a class="source-link" href="https://github.com/xzycd/client-work">Source <span aria-hidden="true">↗</span></a>
     </div>
   </header>
 
   <main id="main">
-    <section class="intro" aria-labelledby="page-title" data-hero>
-      <canvas class="hero-field" data-hero-canvas aria-hidden="true"></canvas>
-      <div class="hero-beam" aria-hidden="true"></div>
-      <div class="hero-reticle" data-hero-reticle aria-hidden="true"><i></i></div>
-      <div class="shell intro-inner">
-        <div class="hero-meta" data-intro style="--intro-delay: 70ms">
-          <p><span class="live-pip" aria-hidden="true"></span>All systems online</p>
-          <p>Digital direction / Front-end</p>
-          <p>Vilnius · 2026</p>
-        </div>
-
-        <div class="hero-lockup">
-          <h1 id="page-title" class="hero-title">
-            <span class="sr-only">Live work</span>
-            <span class="hero-word" data-kinetic data-word="LIVE">LIVE</span>
-            <span class="hero-word hero-word-work" data-kinetic data-word="WORK.">WORK.</span>
-          </h1>
-
-          <div class="hero-readout" data-intro style="--intro-delay: 360ms">
-            <span class="hero-readout-number" data-hero-index>01</span>
-            <span class="hero-readout-rule"><i></i></span>
-            <span class="hero-readout-label" data-hero-label>FIELD</span>
-          </div>
-        </div>
-
-        <div class="hero-bottom" data-intro style="--intro-delay: 420ms">
-          <p>Five coded studies spanning 3D instruments, editorial systems, and image-led motion.</p>
-          <nav class="hero-project-nav" aria-label="Jump to a project">
-            <a href="#field" data-hero-target="01" data-label="FIELD"><span>01</span>Field</a>
-            <a href="#haul" data-hero-target="02" data-label="HAUL"><span>02</span>Haul</a>
-            <a href="#sequence" data-hero-target="03" data-label="SEQUENCE"><span>03</span>Sequence</a>
-            <a href="#cinematic" data-hero-target="04" data-label="CINEMATIC"><span>04</span>Cinematic</a>
-            <a href="#acid" data-hero-target="05" data-label="ACID"><span>05</span>Acid</a>
-          </nav>
-          <a class="hero-scroll" href="#work" aria-label="Scroll to selected work"><span>Scroll</span><i></i></a>
-        </div>
+    <section class="intro" aria-labelledby="page-title">
+      <div class="shell intro-head">
+        <h1 id="page-title" class="statement" data-intro>
+          Five pieces of live front‑end&nbsp;work:<br> <em>an instrument, a&nbsp;type specimen, two films and a&nbsp;colour&nbsp;system.</em>
+        </h1>
+        <p class="intro-note" data-intro style="--intro-delay: 140ms">Design and front-end, Vilnius. Every piece is one page that opens as a plain file, with no build step and no server.</p>
       </div>
+
+      <nav class="shell strip" aria-label="The five pieces" data-strip data-intro style="--intro-delay: 220ms">
+        <a class="plate" href="#field" data-plate data-name="Field">
+          <span class="plate-frame plate-field"><img src="spatial-field/assets/field-direction.jpg" alt="" width="1536" height="1024" fetchpriority="high"></span>
+          <span class="plate-cap"><b>01</b><span>Field</span><i>Instrument</i></span>
+        </a>
+        <a class="plate" href="#haul" data-plate data-name="Haul">
+          <span class="plate-frame plate-haul"><span>HAUL</span></span>
+          <span class="plate-cap"><b>02</b><span>Haul</span><i>Type specimen</i></span>
+        </a>
+        <a class="plate" href="#sequence" data-plate data-name="Aether sequence">
+          <span class="plate-frame plate-sequence"><img src="aether-retreats/assets/sequence-end.jpg" alt="" width="1280" height="720" loading="lazy"></span>
+          <span class="plate-cap"><b>03</b><span>Aether sequence</span><i>Scroll film</i></span>
+        </a>
+        <a class="plate" href="#cinematic" data-plate data-name="Aether cinematic">
+          <span class="plate-frame plate-cinematic"><img src="aether-retreats/assets/hero.jpg" alt="" width="2560" height="1086" loading="lazy"></span>
+          <span class="plate-cap"><b>04</b><span>Aether cinematic</span><i>Film</i></span>
+        </a>
+        <a class="plate" href="#acid" data-plate data-name="Acid">
+          <span class="plate-frame plate-acid"><i></i><span>ACID</span></span>
+          <span class="plate-cap"><b>05</b><span>Acid</span><i>Colour system</i></span>
+        </a>
+      </nav>
     </section>
 
     <section class="work" id="work" aria-labelledby="work-title">
       <div class="shell work-heading" data-reveal>
-        <h2 id="work-title">Selected work</h2>
-        <span>05 live previews</span>
+        <h2 id="work-title">The pieces</h2>
+        <span>Five, each opening in its own page</span>
       </div>
 
-      <article class="project project-field" id="field" data-project data-index="01">
-        <a class="shell project-link" href="spatial-field/" aria-label="Open FIELD, the spatial creative-direction instrument">
+      <article class="project project-field" id="field" data-project data-index="01" data-name="Field">
+        <a class="shell project-link" href="spatial-field/" data-ground="#101110" data-ink="#f0eee8" data-ground-light="#e8e6df" data-ink-light="#191a18" aria-label="Open Field, the spatial creative-direction instrument">
           <div class="project-info">
-            <div class="project-kicker"><span>01 / Featured</span><span>Three.js + interaction</span></div>
+            <p class="project-kicker"><b>01</b><span>Instrument · Three.js</span></p>
             <div class="project-body">
               <div class="project-heading">
-                <h3><span class="project-title-line"><span>FIELD</span></span></h3>
-                <p>Shape force, structure, material, and motion into a clear creative handoff.</p>
+                <h3><span class="project-title-line"><span>Field</span></span></h3>
+                <p>Shape force, structure, material and motion into a live 3D object, then hand off the recipe or export a still.</p>
               </div>
               <ul class="project-spec">
                 <li><b>4</b> direction axes</li>
                 <li><b>Drag</b> or arrow keys</li>
                 <li><b>4</b> process stages</li>
               </ul>
-              <span class="project-cta">Open live instrument <span aria-hidden="true">↗</span></span>
+              <span class="project-cta"><span>Open the instrument</span><i aria-hidden="true">↗</i></span>
             </div>
           </div>
 
           <div class="project-preview preview-field" data-preview aria-hidden="true">
             <div class="preview-stage">
-              <img class="field-image" src="spatial-field/assets/field-direction.jpg" alt="" fetchpriority="high">
-              <div class="field-grid"></div>
-              <div class="field-axis field-axis-x"></div>
-              <div class="field-axis field-axis-y"></div>
-              <div class="field-orbit"><span></span></div>
-              <div class="preview-bar"><span>FIELD / Direction</span><span>Live model</span></div>
-              <div class="field-stats">
-                <span><b>44</b> Energy</span>
-                <span><b>62</b> Depth</span>
-                <span><b>Orbit</b> Form</span>
-              </div>
-              <div class="preview-glare"></div>
+              <img class="field-image" src="spatial-field/assets/field-direction.jpg" alt="" width="1536" height="1024" loading="lazy">
             </div>
-            <span class="preview-open">Open <span aria-hidden="true">↗</span></span>
           </div>
         </a>
       </article>
 
-      <article class="project project-haul" id="haul" data-project data-index="02">
-        <a class="shell project-link" href="haul-type/" aria-label="Open HAUL, a variable typeface specimen with a live tester">
+      <article class="project project-haul" id="haul" data-project data-index="02" data-name="Haul">
+        <a class="shell project-link" href="haul-type/" data-ground="#f2f2f0" data-ink="#0a0a0a" aria-label="Open Haul, a variable typeface specimen with a live tester">
           <div class="project-info">
-            <div class="project-kicker"><span>02 / Type</span><span>Variable axes + motion</span></div>
+            <p class="project-kicker"><b>02</b><span>Type specimen · Variable axes</span></p>
             <div class="project-body">
               <div class="project-heading">
                 <h3><span class="project-title-line"><span>Haul</span></span></h3>
-                <p>A variable grotesque whose specimen moves. Scroll drives width and weight; the tester hands the axes to you.</p>
+                <p>A variable grotesque whose specimen moves. Scroll drives width and weight; the tester hands both axes to you.</p>
               </div>
               <ul class="project-spec">
                 <li><b>62–125</b> width</li>
                 <li><b>100–900</b> weight</li>
                 <li><b>Editable</b> specimen</li>
               </ul>
-              <span class="project-cta">Open the specimen <span aria-hidden="true">↗</span></span>
+              <span class="project-cta"><span>Open the specimen</span><i aria-hidden="true">↗</i></span>
             </div>
           </div>
 
@@ -150,84 +124,76 @@
                 <span class="haul-axis"><b>wdth</b><i></i></span>
                 <span class="haul-axis"><b>wght</b><i></i></span>
               </div>
-              <div class="preview-glare"></div>
             </div>
-            <span class="preview-open preview-open-dark">Open <span aria-hidden="true">↗</span></span>
           </div>
         </a>
       </article>
 
-      <article class="project project-sequence" id="sequence" data-project data-index="03">
-        <a class="shell project-link" href="aether-retreats/scroll-sequence.html" aria-label="Open Aether Scroll Sequence, a canvas-driven scroll experience">
+      <article class="project project-sequence" id="sequence" data-project data-index="03" data-name="Aether sequence">
+        <a class="shell project-link" href="aether-retreats/scroll-sequence.html" data-ground="#0e0d0c" data-ink="#ede6d8" aria-label="Open Aether sequence, a film scrubbed frame by frame with scroll">
           <div class="project-info">
-            <div class="project-kicker"><span>03 / Narrative</span><span>Canvas + scroll scrub</span></div>
+            <p class="project-kicker"><b>03</b><span>Scroll film · Canvas</span></p>
             <div class="project-body">
               <div class="project-heading">
-                <h3><span class="project-title-line"><span>Aether:</span></span><span class="project-title-line"><span>Sequence</span></span></h3>
-                <p>A frame-by-frame mountain narrative where scroll becomes the edit and the landscape becomes the interface.</p>
+                <h3><span class="project-title-line"><span>Aether</span></span><span class="project-title-line"><span><em>sequence</em></span></span></h3>
+                <p>A dawn over a cliff house, cut into frames. Scroll is the playhead, so the landscape moves as fast as you read.</p>
               </div>
               <ul class="project-spec">
-                <li><b>121</b> frames</li>
-                <li><b>Scroll</b> is the scrub</li>
+                <li><b>71</b> frames</li>
+                <li><b>Scroll</b> is the playhead</li>
+                <li><b>One</b> file, frames inlined</li>
               </ul>
-              <span class="project-cta">Scrub the sequence <span aria-hidden="true">↗</span></span>
+              <span class="project-cta"><span>Scrub the sequence</span><i aria-hidden="true">↗</i></span>
             </div>
           </div>
 
           <div class="project-preview preview-sequence" data-preview aria-hidden="true">
             <div class="preview-stage">
-              <video class="aether-video" muted loop playsinline preload="metadata" poster="aether-retreats/assets/hero.jpg">
+              <video class="aether-video" muted loop playsinline preload="none" poster="aether-retreats/assets/sequence-end.jpg">
                 <source src="aether-retreats/assets/motion.mp4" type="video/mp4">
               </video>
               <div class="aether-veil"></div>
-              <div class="preview-bar"><span>Aether / 46.5°N</span><span>Scroll sequence</span></div>
-              <div class="sequence-number">121</div>
-              <div class="sequence-copy"><span>Frame-led storytelling</span><strong>Scroll directs<br>the weather.</strong></div>
-              <div class="sequence-timeline"><i></i><span>001</span><span>121</span></div>
-              <div class="preview-glare"></div>
+              <div class="sequence-copy"><span>Light</span><strong>Placed to the light, never to the plot&nbsp;line.</strong></div>
+              <div class="sequence-timeline"><span>01</span><i></i><span>71</span></div>
             </div>
-            <span class="preview-open">Open <span aria-hidden="true">↗</span></span>
           </div>
         </a>
       </article>
 
-      <article class="project project-cinematic" id="cinematic" data-project data-index="04">
-        <a class="shell project-link" href="aether-retreats/cinematic.html" aria-label="Open Aether Cinematic, a full-screen architectural motion study">
+      <article class="project project-cinematic" id="cinematic" data-project data-index="04" data-name="Aether cinematic">
+        <a class="shell project-link" href="aether-retreats/cinematic.html" data-ground="#0e0d0c" data-ink="#ede6d8" aria-label="Open Aether cinematic, a full-screen film treatment">
           <div class="project-info">
-            <div class="project-kicker"><span>04 / Atmosphere</span><span>Film + full screen</span></div>
+            <p class="project-kicker"><b>04</b><span>Film · Full screen</span></p>
             <div class="project-body">
               <div class="project-heading">
-                <h3><span class="project-title-line"><span>Aether:</span></span><span class="project-title-line"><span>Cinematic</span></span></h3>
-                <p>A restrained full-screen film treatment that lets image, scale, and one line of type carry the experience.</p>
+                <h3><span class="project-title-line"><span>Aether</span></span><span class="project-title-line"><span><em>cinematic</em></span></span></h3>
+                <p>The same valley as a full-screen film. Image, scale and one line of type carry it; nothing else is on screen.</p>
               </div>
               <ul class="project-spec">
                 <li><b>Full</b> bleed, no chrome</li>
                 <li><b>One</b> line of type</li>
               </ul>
-              <span class="project-cta">Enter cinematic mode <span aria-hidden="true">↗</span></span>
+              <span class="project-cta"><span>Play the film</span><i aria-hidden="true">↗</i></span>
             </div>
           </div>
 
           <div class="project-preview preview-cinematic" data-preview aria-hidden="true">
             <div class="preview-stage">
-              <video class="aether-video" muted loop playsinline preload="metadata" poster="aether-retreats/assets/hero.jpg">
+              <video class="aether-video" muted loop playsinline preload="none" poster="aether-retreats/assets/hero.jpg">
                 <source src="aether-retreats/assets/motion.mp4" type="video/mp4">
               </video>
               <div class="cinematic-bars"></div>
               <div class="cinematic-logo">AETHER</div>
               <div class="cinematic-title">Live above the <em>weather.</em></div>
-              <div class="cinematic-time"><span>00:04:12</span><i></i><span>PLAYING</span></div>
-              <div class="preview-glare"></div>
             </div>
-            <span class="preview-open">Open <span aria-hidden="true">↗</span></span>
           </div>
         </a>
       </article>
 
-      <article class="project project-acid" id="acid" data-project data-index="05">
-        <a class="shell project-link" href="acid/" aria-label="Open ACID, a single-colour system with a live contrast instrument">
+      <article class="project project-acid" id="acid" data-project data-index="05" data-name="Acid">
+        <a class="shell project-link" href="acid/" data-ground="#d6ff00" data-ink="#000000" aria-label="Open Acid, a single-colour system with a live contrast instrument">
           <div class="project-info">
-            <div class="project-kicker"><span>05 / Colour</span><span>Drench + live contrast</span></div>
+            <p class="project-kicker"><b>05</b><span>Colour system · Live contrast</span></p>
             <div class="project-body">
               <div class="project-heading">
                 <h3><span class="project-title-line"><span>Acid</span></span></h3>
@@ -235,9 +201,10 @@
               </div>
               <ul class="project-spec">
                 <li><b>2</b> OKLCh axes</li>
+                <li><b>18.16:1</b> against black</li>
                 <li><b>Every</b> ratio measured live</li>
               </ul>
-              <span class="project-cta">Open the specification <span aria-hidden="true">↗</span></span>
+              <span class="project-cta"><span>Open the specification</span><i aria-hidden="true">↗</i></span>
             </div>
           </div>
 
@@ -247,9 +214,7 @@
               <div class="acid-l acid-top"><span>Acid</span><span>#D6FF00</span></div>
               <div class="acid-l acid-word"><span>ACID</span></div>
               <div class="acid-l acid-foot"><span>Against black</span><b>18.16:1</b></div>
-              <div class="preview-glare"></div>
             </div>
-            <span class="preview-open">Open <span aria-hidden="true">↗</span></span>
           </div>
         </a>
       </article>
@@ -258,9 +223,11 @@
 
   <footer class="site-footer">
     <div class="shell footer-inner">
-      <span>Five live builds · No templates</span>
-      <a href="#main">Back to top <span aria-hidden="true">↑</span></a>
-      <span>HTML / CSS / JavaScript / Three.js</span>
+      <p class="colophon">Set in Newsreader and Host Grotesk on neutral grey, so the only colour on this page is the work’s own.</p>
+      <nav class="footer-links" aria-label="Footer">
+        <a href="https://github.com/xzycd/client-work">Source on GitHub <span aria-hidden="true">↗</span></a>
+        <a href="#main">Back to top <span aria-hidden="true">↑</span></a>
+      </nav>
     </div>
   </footer>
 </body>

@@ -5,10 +5,13 @@ HTML files directly in a browser (no build step, no server).
 
 **Live preview:** [xzycd.github.io/client-work](https://xzycd.github.io/client-work/)
 
-The root portfolio index uses `landing.css` and `landing.js` for its kinetic
-"Live Work" hero, responsive canvas signal field, interactive five-project
-index, custom previews, scroll choreography, pointer depth, page transitions,
-active-work counter, and reduced-motion behavior.
+The root index (`index.html`, `landing.css`, `landing.js`) is a neutral grey
+page whose only colour comes from the work. The top is a strip of five plates:
+one opens wide and the strip cycles through them, and hovering or focusing a
+plate takes over. The five-bar mark in the header tracks which piece is in view.
+Below the strip, each piece has a preview built from its own page, and clicking
+through wipes to that page's ground colour before it loads. Brand decisions and
+their reasons are in [`DESIGN-DNA.md`](DESIGN-DNA.md).
 
 ## Projects
 
@@ -51,7 +54,7 @@ when the value you land on stops passing.
 - [`index.html`](https://xzycd.github.io/client-work/acid/) — live page
 
 ### `aether-retreats/`
-Cinematic landing page for a architectural-retreat brand, in three
+Cinematic landing page for an architectural-retreat brand, in three
 scroll treatments built around one AI-generated 4K hero and a motion clip.
 
 - [`cinematic.html`](https://xzycd.github.io/client-work/aether-retreats/cinematic.html) — full-screen video background, **auto-plays on load** (start here to see motion)
@@ -59,13 +62,14 @@ scroll treatments built around one AI-generated 4K hero and a motion clip.
 - [`parallax.html`](https://xzycd.github.io/client-work/aether-retreats/parallax.html) — CSS scroll effects: hero zoom, pinned narrative, horizontal gallery. Still live, but no longer one of the five on the index; `acid/` took that slot.
 - `assets/hero.jpg` — 4K hero still (optimised)
 - `assets/motion.mp4` — 5s cinematic clip (source of the frame sequence)
+- `assets/sequence-end.jpg` — last-light frame of the clip, used as the index poster for the sequence
 
 ### `_tools/`
 - `build_sequence.py` — extracts frames from `motion.mp4` and bakes the
   self-contained scroll-sequence + cinematic HTML files.
 
 ## Notes
-- Typography loads from Google Fonts (Fraunces, Cormorant Garamond, Jost, Archivo, Chivo, IBM Plex Mono, Martian Mono).
+- Typography loads from Google Fonts (Newsreader, Host Grotesk, Cormorant Garamond, Jost, Archivo, Chivo, Martian Mono).
 - All pages respect `prefers-reduced-motion` and re-compose for mobile.
 - Imagery was generated with an AI image/video model; treat as mockup assets.
 
