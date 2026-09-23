@@ -13,6 +13,10 @@ Below the strip, each piece has a preview built from its own page, and clicking
 through wipes to that page's ground colour before it loads. Brand decisions and
 their reasons are in [`DESIGN-DNA.md`](DESIGN-DNA.md).
 
+The first edition of the index (July 2026: dark, kinetic "Live Work" hero) is
+kept at [`v1/`](https://xzycd.github.io/client-work/v1/) and linked from the
+header.
+
 ## Projects
 
 ### `spatial-field/`
@@ -69,7 +73,7 @@ scroll treatments built around one AI-generated 4K hero and a motion clip.
   self-contained scroll-sequence + cinematic HTML files.
 
 ## Notes
-- Typography loads from Google Fonts (Newsreader, Host Grotesk, Cormorant Garamond, Jost, Archivo, Chivo, Martian Mono).
+- Typography loads from Google Fonts (Host Grotesk, Cormorant Garamond, Jost, Archivo, Chivo, Martian Mono, DM Mono, Manrope) and Fontshare (Boska).
 - All pages respect `prefers-reduced-motion` and re-compose for mobile.
 - Imagery was generated with an AI image/video model; treat as mockup assets.
 

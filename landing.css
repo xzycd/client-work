@@ -6,7 +6,7 @@
   --ink-3: #585854;
   --rule: rgba(18, 18, 17, 0.16);
   --rule-strong: rgba(18, 18, 17, 0.42);
-  --serif: "Newsreader", "Iowan Old Style", Georgia, serif;
+  --serif: "Boska", "Iowan Old Style", Georgia, serif;
   --sans: "Host Grotesk", "Helvetica Neue", Arial, sans-serif;
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-io: cubic-bezier(0.65, 0, 0.2, 1);
@@ -139,8 +139,14 @@ em {
   color: var(--ink-3);
 }
 
-.source-link {
+.header-links {
+  display: flex;
+  gap: 22px;
+  align-items: center;
   justify-self: end;
+}
+
+.source-link {
   font-size: 14px;
   text-decoration: none;
   text-underline-offset: 4px;
@@ -149,6 +155,26 @@ em {
 .source-link:hover {
   text-decoration: underline;
   text-decoration-thickness: 1px;
+}
+
+/* Fills from below, the same wipe the page transition makes. */
+.edition-link {
+  display: inline-flex;
+  align-items: center;
+  height: 32px;
+  padding: 0 13px;
+  border: 1px solid var(--ink);
+  background: linear-gradient(var(--ink), var(--ink)) 50% 100% / 100% 0% no-repeat;
+  font-size: 13px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: background-size 420ms var(--ease), color 420ms var(--ease);
+}
+
+.edition-link:hover,
+.edition-link:focus-visible {
+  background-size: 100% 100%;
+  color: var(--ground);
 }
 
 /* ─── intro ──────────────────────────────────────────────── */
@@ -413,6 +439,7 @@ em {
   flex-direction: column;
   align-self: stretch;
   min-width: 0;
+  container-type: inline-size;
 }
 
 .project-kicker {
@@ -444,7 +471,7 @@ em {
 
 .project-heading h3 {
   margin: 0;
-  font: 300 clamp(3.2rem, 1.4rem + 4.8vw, 7.4rem) / 0.9 var(--serif);
+  font: 300 min(clamp(3.4rem, 1.2rem + 5.8vw, 8.8rem), 24.5cqi) / 0.9 var(--serif);
   font-optical-sizing: auto;
   letter-spacing: -0.012em;
 }
@@ -993,6 +1020,48 @@ body.is-transitioning .page-transition p {
   transition: opacity 900ms var(--ease) var(--intro-delay, 0ms), transform 1.1s var(--ease) var(--intro-delay, 0ms);
 }
 
+.statement .line {
+  display: block;
+  padding: 0 0.08em 0.16em 0;
+  margin-bottom: -0.16em;
+  overflow: hidden;
+}
+
+.statement .line > span {
+  display: block;
+}
+
+.js .statement .line > span {
+  transform: translate3d(0, 110%, 0);
+}
+
+.js body.is-ready .statement .line > span {
+  transform: none;
+  transition: transform 1.25s var(--ease) var(--line-delay, 80ms);
+}
+
+.statement em.line {
+  --line-delay: 190ms;
+}
+
+.js .plate-frame {
+  clip-path: inset(100% 0 0 0);
+}
+
+.js body.is-ready .plate-frame {
+  clip-path: inset(0);
+  transition: clip-path 1.15s var(--ease-io) calc(420ms + var(--i, 0) * 85ms);
+}
+
+.js .plate-cap {
+  opacity: 0;
+}
+
+.js body.is-ready .plate-cap {
+  opacity: 1;
+  transition: opacity 700ms ease calc(980ms + var(--i, 0) * 85ms);
+}
+
 .js [data-reveal],
 .js .project-info {
   opacity: 0;
@@ -1091,6 +1160,10 @@ body.is-transitioning .page-transition p {
 
   .intro-head {
     padding: 36px 0 28px;
+  }
+
+  .statement {
+    font-weight: 340;
   }
 
   .intro-note {
@@ -1210,6 +1283,9 @@ body.is-transitioning .page-transition p {
   }
 
   .js [data-intro],
+  .js .statement .line > span,
+  .js .plate-frame,
+  .js .plate-cap,
   .js [data-reveal],
   .js .project-info,
   .js .project-preview {

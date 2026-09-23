@@ -28,15 +28,20 @@ the colophon line true: the only colour on the page is the work's own.
 
 ## Type
 
-- **Newsreader**, light, optical sizes on. Statement, titles and the transition
-  label. A text serif, not a display one, so the large settings stay calm.
+- **Boska** (Indian Type Foundry, served by Fontshare), variable 200–900 with
+  an italic. Statement, titles and the transition label. It is narrow and high
+  contrast with a sharp italic, so large settings stay light without looking
+  thin. Newsreader held this role first and was replaced on 2026-09-23: side
+  by side with nine other serifs at the real statement size, it read as the
+  default editorial serif.
 - **Host Grotesk** for everything functional: specs, captions, the header.
 
 Neither font appears in any of the five pieces, so the index never looks like
 a sixth piece.
 
-Title tracking stops at `-0.012em`. Anything tighter makes the "Fi" in *Field*
-collide.
+Statement weight is 300, and 340 under 720px, where Boska's hairlines thin out
+on 1× screens. Title tracking stops at `-0.012em`, because anything tighter
+makes the "Fi" in *Field* collide.
 
 ## The mark is the index
 
@@ -68,18 +73,40 @@ written for the index. If a piece changes, the index changes with it.
 ## Transition
 
 Clicking a piece wipes up a panel in that page's own ground colour, with its
-name set in Newsreader, then navigates. The next page therefore arrives into
+name set in Boska, then navigates. The next page therefore arrives into
 its own colour rather than cutting from grey. FIELD has a light theme, so it
 also carries a light ground and uses it when the visitor prefers light.
 Modified clicks, and visitors with reduced motion, get plain navigation.
 
-## Motion budget
+## Motion
 
-Allowed: the strip, a reveal on first view, a few pixels of scroll parallax on
-the copy, a pointer shift on previews, and the transition. Not allowed: motion
-that runs without a reason, anything that blinks, and anything that suggests
-the page is a live system. Under `prefers-reduced-motion` all of it stops and
-everything is visible at once.
+One material carries all of it: things arrive as a wipe from below. On load,
+the statement rises out of a mask line by line, then the five plates wipe up
+one after another, 85 ms apart, so the strip draws itself the way the mark
+reads. The edition button fills from below on hover. Clicking a piece wipes
+the destination ground up over the page.
+
+Allowed besides that: the strip cycling, a reveal on first view, a few pixels
+of scroll parallax on the copy, and a pointer shift on previews. Not allowed:
+motion that runs without a reason, anything that blinks, and anything that
+suggests the page is a live system. Under `prefers-reduced-motion` all of it
+stops and everything is visible at once.
+
+Measured on 2026-09-23 in headless Chromium at 1440×900: plate switches and
+scrolling ran at a 16.7 ms p95 frame time, with no frame over 25 ms.
+
+## First edition
+
+The index this one replaced is kept at `v1/`, linked from the header as
+"First edition" and wiping to its near-black ground on the way in. It keeps
+its own look: dark ground, orange accent, Archivo and DM Mono. Only its facts
+and its floor were fixed:
+
+- The status dot is gone, and the edition date is there instead.
+- The sequence is 71 frames, and its preview copy comes from the real page.
+- The cinematic chip shows the real 5 s loop instead of a made-up timecode.
+- No text is smaller than 11px. On a phone, the "Open" chip no longer covers
+  the preview copy.
 
 ## Constraint
 

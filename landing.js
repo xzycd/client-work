@@ -174,14 +174,14 @@
     });
   }
 
-  document.querySelectorAll(".project-link").forEach((link) => {
+  document.querySelectorAll(".project-link, [data-transition-link]").forEach((link) => {
     link.addEventListener("click", (event) => {
       const modifiedClick = event.metaKey || event.ctrlKey || event.shiftKey || event.altKey;
       if (event.defaultPrevented || modifiedClick || event.button !== 0 || reduceMotion.matches) return;
 
       event.preventDefault();
       const project = link.closest("[data-project]");
-      if (transitionLabel) transitionLabel.textContent = project?.dataset.name ?? "";
+      if (transitionLabel) transitionLabel.textContent = link.dataset.label ?? project?.dataset.name ?? "";
       const light = link.dataset.groundLight && prefersLight.matches;
       transition?.style.setProperty("--to-ground", light ? link.dataset.groundLight : link.dataset.ground);
       transition?.style.setProperty("--to-ink", light ? link.dataset.inkLight : link.dataset.ink);
