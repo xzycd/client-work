@@ -11,12 +11,15 @@
   <meta property="og:image" content="https://xzycd.github.io/client-work/aether-retreats/assets/hero.jpg">
   <title>Client Work — Five live front-end pieces</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23d9d9d5'/%3E%3Cg fill='%23121211'%3E%3Crect x='3' y='7' width='11' height='18'/%3E%3Crect x='16' y='7' width='2.5' height='18'/%3E%3Crect x='20.5' y='7' width='2.5' height='18'/%3E%3Crect x='25' y='7' width='2.5' height='18'/%3E%3Crect x='29.5' y='7' width='1.5' height='18'/%3E%3C/g%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://api.fontshare.com">
+  <link rel="preconnect" href="https://cdn.fontshare.com" crossorigin>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..500;1,6..72,300..500&family=Cormorant+Garamond:ital,wght@0,300;1,300&family=Host+Grotesk:wght@400..600&family=Archivo:wdth,wght@62..125,100..900&family=Chivo:wght@900&display=swap" rel="stylesheet">
+  <link href="https://api.fontshare.com/v2/css?f[]=boska@1,2&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;1,300&family=Host+Grotesk:wght@400..600&family=Archivo:wdth,wght@62..125,100..900&family=Chivo:wght@900&display=swap" rel="stylesheet">
   <script>document.documentElement.classList.replace('no-js', 'js');</script>
-  <link rel="stylesheet" href="landing.css?v=20260923-plates">
-  <script src="landing.js?v=20260923-plates" defer></script>
+  <link rel="stylesheet" href="landing.css?v=20260923-boska">
+  <script src="landing.js?v=20260923-boska" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#work">Skip to the work</a>
@@ -29,37 +32,41 @@
         <span class="brand-name">Client Work</span>
       </a>
       <p class="header-now" aria-hidden="true"><span data-now-index>01</span><span data-now-name>Field</span></p>
-      <a class="source-link" href="https://github.com/xzycd/client-work">Source <span aria-hidden="true">↗</span></a>
+      <div class="header-links">
+        <a class="source-link" href="https://github.com/xzycd/client-work">Source <span aria-hidden="true">↗</span></a>
+        <a class="edition-link" href="v1/" data-transition-link data-label="First edition" data-ground="#0d0e0c" data-ink="#f1eee6">First edition</a>
+      </div>
     </div>
   </header>
 
   <main id="main">
     <section class="intro" aria-labelledby="page-title">
       <div class="shell intro-head">
-        <h1 id="page-title" class="statement" data-intro>
-          Five pieces of live front‑end&nbsp;work:<br> <em>an instrument, a&nbsp;type specimen, two films and a&nbsp;colour&nbsp;system.</em>
+        <h1 id="page-title" class="statement">
+          <span class="line"><span>Five pieces of live front‑end&nbsp;work:</span></span>
+          <em class="line"><span>an instrument, a&nbsp;type specimen, two films and a&nbsp;colour&nbsp;system.</span></em>
         </h1>
         <p class="intro-note" data-intro style="--intro-delay: 140ms">Design and front-end, Vilnius. Every piece is one page that opens as a plain file, with no build step and no server.</p>
       </div>
 
-      <nav class="shell strip" aria-label="The five pieces" data-strip data-intro style="--intro-delay: 220ms">
-        <a class="plate" href="#field" data-plate data-name="Field">
+      <nav class="shell strip" aria-label="The five pieces" data-strip>
+        <a class="plate" href="#field" style="--i: 0" data-plate data-name="Field">
           <span class="plate-frame plate-field"><img src="spatial-field/assets/field-direction.jpg" alt="" width="1536" height="1024" fetchpriority="high"></span>
           <span class="plate-cap"><b>01</b><span>Field</span><i>Instrument</i></span>
         </a>
-        <a class="plate" href="#haul" data-plate data-name="Haul">
+        <a class="plate" href="#haul" style="--i: 1" data-plate data-name="Haul">
           <span class="plate-frame plate-haul"><span>HAUL</span></span>
           <span class="plate-cap"><b>02</b><span>Haul</span><i>Type specimen</i></span>
         </a>
-        <a class="plate" href="#sequence" data-plate data-name="Aether sequence">
+        <a class="plate" href="#sequence" style="--i: 2" data-plate data-name="Aether sequence">
           <span class="plate-frame plate-sequence"><img src="aether-retreats/assets/sequence-end.jpg" alt="" width="1280" height="720" loading="lazy"></span>
           <span class="plate-cap"><b>03</b><span>Aether sequence</span><i>Scroll film</i></span>
         </a>
-        <a class="plate" href="#cinematic" data-plate data-name="Aether cinematic">
+        <a class="plate" href="#cinematic" style="--i: 3" data-plate data-name="Aether cinematic">
           <span class="plate-frame plate-cinematic"><img src="aether-retreats/assets/hero.jpg" alt="" width="2560" height="1086" loading="lazy"></span>
           <span class="plate-cap"><b>04</b><span>Aether cinematic</span><i>Film</i></span>
         </a>
-        <a class="plate" href="#acid" data-plate data-name="Acid">
+        <a class="plate" href="#acid" style="--i: 4" data-plate data-name="Acid">
           <span class="plate-frame plate-acid"><i></i><span>ACID</span></span>
           <span class="plate-cap"><b>05</b><span>Acid</span><i>Colour system</i></span>
         </a>
@@ -223,9 +230,10 @@
 
   <footer class="site-footer">
     <div class="shell footer-inner">
-      <p class="colophon">Set in Newsreader and Host Grotesk on neutral grey, so the only colour on this page is the work’s own.</p>
+      <p class="colophon">Set in Boska and Host Grotesk on neutral grey, so the only colour on this page is the work’s own.</p>
       <nav class="footer-links" aria-label="Footer">
         <a href="https://github.com/xzycd/client-work">Source on GitHub <span aria-hidden="true">↗</span></a>
+        <a href="v1/">First edition, July 2026 <span aria-hidden="true">→</span></a>
         <a href="#main">Back to top <span aria-hidden="true">↑</span></a>
       </nav>
     </div>
