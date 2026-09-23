@@ -1109,11 +1109,31 @@ Cut between them. Never fade.</pre>
      full-height slab crosses it at one clean edge. once the hero stacks, that
      same slab bisects every line of body copy at once, so below 900px the band
      is pulled back to the word it is there to cut. */
+  /* the word's line box runs past the glyphs (line-height .76 still leaves the
+     descender zone), so a slab sized to offsetHeight hangs a stub below the
+     caps. measure the painted caps instead and pad them evenly. */
+  var measure = document.createElement("canvas").getContext("2d");
+  function inkBox(el){
+    var cs = getComputedStyle(el);
+    var size = parseFloat(cs.fontSize);
+    measure.font = cs.fontWeight + " " + cs.fontSize + " " + cs.fontFamily;
+    var m = measure.measureText(el.textContent);
+    if (!m.fontBoundingBoxAscent) return { top: el.offsetTop, height: el.offsetHeight };
+    var lineHeight = parseFloat(cs.lineHeight) || size;
+    var baseline = (lineHeight - m.fontBoundingBoxAscent - m.fontBoundingBoxDescent) / 2 + m.fontBoundingBoxAscent;
+    var pad = size * 0.05;
+    return {
+      top: el.offsetTop + baseline - m.actualBoundingBoxAscent - pad,
+      height: m.actualBoundingBoxAscent + m.actualBoundingBoxDescent + pad * 2
+    };
+  }
+
   function fitBand(){
     if (!bandBox || !word) return;
     if (innerWidth <= 900){
-      bandBox.style.top = word.offsetTop + "px";
-      bandBox.style.height = word.offsetHeight + "px";
+      var ink = inkBox(word);
+      bandBox.style.top = ink.top + "px";
+      bandBox.style.height = ink.height + "px";
       bandBox.style.bottom = "auto";
     } else {
       bandBox.style.top = bandBox.style.height = bandBox.style.bottom = "";
@@ -1150,6 +1170,7 @@ Cut between them. Never fade.</pre>
 
   if (canBlend){
     fitBand();
+    if (document.fonts) document.fonts.ready.then(fitBand);
     addEventListener("resize", onResize, { passive: true });
   }
   if (canBlend && !reduce.matches){
