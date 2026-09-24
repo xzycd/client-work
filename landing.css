@@ -494,26 +494,68 @@ em {
   order: 2;
 }
 
+/* The film that claims full bleed gets the full width; its notes run under it. */
+@media (min-width: 1041px) {
+  .project.project-cinematic .project-link {
+    grid-template-columns: minmax(0, 1fr);
+    gap: clamp(28px, 4.4vh, 48px);
+  }
+
+  .project-cinematic .project-preview {
+    aspect-ratio: 2.39 / 1;
+    max-height: none;
+  }
+
+  .project-cinematic .cinematic-bars {
+    display: none;
+  }
+
+  .project.project-cinematic .project-info {
+    order: 2;
+  }
+
+  .project-cinematic .project-body {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(260px, 0.8fr);
+    grid-template-areas:
+      "title copy spec"
+      "title copy cta";
+    gap: 24px clamp(40px, 6vw, 104px);
+    align-items: end;
+    padding-block: 0;
+  }
+
+  .project-cinematic .project-heading {
+    display: contents;
+  }
+
+  .project-cinematic .project-heading h3 {
+    grid-area: title;
+    align-self: start;
+  }
+
+  .project-cinematic .project-heading p {
+    grid-area: copy;
+    align-self: start;
+    margin: 0;
+  }
+
+  .project-cinematic .project-spec {
+    grid-area: spec;
+    align-self: end;
+  }
+
+  .project-cinematic .project-cta {
+    grid-area: cta;
+  }
+}
+
 .project-info {
   display: flex;
   flex-direction: column;
   align-self: stretch;
   min-width: 0;
   container-type: inline-size;
-}
-
-.project-kicker {
-  display: flex;
-  gap: 14px;
-  margin: 0;
-  color: var(--ink-3);
-  font-size: 14px;
-}
-
-.project-kicker b {
-  color: var(--ink);
-  font-weight: 500;
-  font-variant-numeric: tabular-nums;
 }
 
 .project-body {
@@ -538,6 +580,17 @@ em {
 
 .project-heading h3 em {
   color: var(--ink-2);
+}
+
+/* The number rides the title the way it rides its term in the statement. */
+.project-heading h3 sup {
+  margin-left: 0.5em;
+  color: var(--ink-2);
+  font: 500 14px / 1 var(--sans);
+  font-style: normal;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+  vertical-align: top;
 }
 
 .project-title-line {
@@ -876,10 +929,11 @@ em {
   z-index: 5;
   right: 9%;
   bottom: 18%;
-  max-width: 8.5ch;
+  max-width: 6.4em;
   color: #ede6d8;
   font: 300 clamp(2.4rem, 8.6cqw, 6.8rem) / 0.88 "Cormorant Garamond", var(--serif);
   letter-spacing: -0.03em;
+  text-wrap: balance;
 }
 
 .sequence-copy::before,
@@ -1346,7 +1400,10 @@ body.is-transitioning .page-transition p {
     opacity: 1;
   }
 
-  .plate-haul span,
+  .plate-haul span {
+    font-size: 22cqw;
+  }
+
   .plate-acid span {
     font-size: 30cqw;
   }
@@ -1407,6 +1464,11 @@ body.is-transitioning .page-transition p {
   .footer-inner {
     flex-direction: column;
     gap: 20px;
+  }
+
+  .footer-links {
+    flex-direction: column;
+    gap: 10px;
   }
 }
 
