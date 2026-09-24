@@ -108,12 +108,12 @@ em {
   letter-spacing: -0.01em;
 }
 
-/* The mark is the index: five plates, the current one wide. It tracks the
+/* The mark is the index: six plates, the current one wide. It tracks the
    strip in the hero and the piece in view further down. */
 .mark {
   display: flex;
   gap: 2px;
-  width: 26px;
+  width: 30px;
   height: 17px;
 }
 
@@ -188,23 +188,44 @@ em {
 
 .intro-head {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(220px, 280px);
-  gap: clamp(24px, 4vw, 72px);
+  grid-template-columns: minmax(0, 1fr) minmax(220px, 260px);
+  gap: clamp(24px, 5vw, 96px);
   align-items: end;
-  padding: clamp(36px, 8vh, 104px) 0 clamp(28px, 5vh, 56px);
+  padding: clamp(28px, 5.5vh, 72px) 0 clamp(22px, 3.6vh, 40px);
 }
 
 .statement {
-  max-width: 16em;
+  max-width: 25em;
   margin: 0;
-  font: 300 clamp(2.15rem, min(0.9rem + 3.55vw, 8svh), 4.9rem) / 1 var(--serif);
+  font: 300 clamp(1.75rem, min(0.85rem + 2.2vw, 5.4svh), 3.2rem) / 1.06 var(--serif);
   font-optical-sizing: auto;
-  letter-spacing: -0.028em;
+  letter-spacing: -0.022em;
   text-wrap: pretty;
 }
 
 .statement em {
-  color: var(--ink-2);
+  color: var(--ink-3);
+}
+
+/* Each term in the sentence is a plate; the open plate inks its term. */
+.term {
+  background: linear-gradient(currentColor, currentColor) 0 94% / 0% 1px no-repeat;
+  cursor: default;
+  transition: color 500ms var(--ease), background-size 700ms var(--ease-io);
+}
+
+.term.is-on {
+  background-size: 100% 1px;
+  color: var(--ink);
+}
+
+.term sup {
+  margin-left: 0.3em;
+  font: 500 0.3em / 0 var(--sans);
+  font-style: normal;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+  vertical-align: 1.75em;
 }
 
 .intro-note {
@@ -339,6 +360,45 @@ em {
   font: 900 clamp(1.4rem, 30cqw, 10rem) / 0.8 "Chivo", var(--sans);
   letter-spacing: -0.045em;
   mix-blend-mode: difference;
+}
+
+.plate-lw {
+  display: grid;
+  background: #c6bca9;
+  color: #1c1a16;
+}
+
+.lw-plate-word {
+  grid-area: 1 / 1;
+  align-self: center;
+  padding-left: 9cqw;
+  font: 300 clamp(1.3rem, 25cqw, 7.4rem) / 0.86 "Zodiak", var(--serif);
+  letter-spacing: -0.03em;
+  white-space: nowrap;
+}
+
+.lw-plate-wet {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  background: #123029;
+  color: #b9d1c4;
+  font-style: italic;
+  clip-path: inset(var(--lw-level) 0 0 0);
+}
+
+.lw-plate-wet .lw-plate-word {
+  font-style: italic;
+}
+
+@property --lw-level {
+  syntax: "<percentage>";
+  inherits: true;
+  initial-value: 62%;
+}
+
+.plate.is-on .plate-lw {
+  animation: lw-tide 5.2s var(--ease-io) infinite alternate;
 }
 
 .plate-cap {
@@ -932,6 +992,77 @@ em {
   animation: acid-sweep 6.4s var(--ease-io) infinite alternate;
 }
 
+/* LOW WATER: the name is redrawn wet and italic below a moving waterline. */
+.preview-lw {
+  background: #c6bca9;
+}
+
+.lw-sheet {
+  --lw-level: 58%;
+  font-family: "Zodiak", var(--serif);
+}
+
+.lw-layer {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  padding: clamp(10px, 2cqw, 20px) clamp(12px, 2.6cqw, 26px) clamp(10px, 2cqw, 20px) clamp(38px, 7cqw, 64px);
+  background: #c6bca9;
+  color: #1c1a16;
+}
+
+.lw-wet {
+  background: #123029;
+  color: #b9d1c4;
+  clip-path: inset(var(--lw-level) 0 0 0);
+}
+
+.lw-row {
+  display: flex;
+  justify-content: space-between;
+  font: 400 clamp(9px, 1.1cqw, 11px) / 1 var(--sans);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.lw-word {
+  display: grid;
+  align-items: center;
+}
+
+.lw-word span {
+  font-size: clamp(3rem, 15.5cqw, 9rem);
+  font-weight: 300;
+  letter-spacing: -0.035em;
+  line-height: 0.8;
+  white-space: nowrap;
+}
+
+.lw-wet .lw-word span {
+  font-style: italic;
+}
+
+.lw-staff {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: clamp(12px, 2.6cqw, 26px);
+  width: clamp(12px, 2cqw, 18px);
+  background:
+    linear-gradient(90deg, #1c1a16 0 50%, transparent 0) 0 0 / 100% 20px,
+    linear-gradient(90deg, transparent 0 50%, #1c1a16 0) 0 10px / 100% 20px;
+  background-repeat: repeat-y;
+  -webkit-mask: repeating-linear-gradient(#000 0 5px, transparent 0 10px);
+  mask: repeating-linear-gradient(#000 0 5px, transparent 0 10px);
+  opacity: 0.85;
+}
+
+.project.is-active .lw-sheet,
+.project-link:hover .lw-sheet {
+  animation: lw-tide 6.4s var(--ease-io) infinite alternate;
+}
+
 /* ─── footer ─────────────────────────────────────────────── */
 
 .site-footer {
@@ -1113,6 +1244,11 @@ body.is-transitioning .page-transition p {
   to { transform: translate3d(128%, 0, 0); }
 }
 
+@keyframes lw-tide {
+  from { --lw-level: 30%; }
+  to { --lw-level: 74%; }
+}
+
 @keyframes plate-acid-sweep {
   from { transform: translate3d(0, 0, 0); }
   to { transform: translate3d(180%, 0, 0); }
@@ -1123,11 +1259,11 @@ body.is-transitioning .page-transition p {
 @media (max-width: 1040px) {
   .intro-head {
     grid-template-columns: 1fr;
-    gap: 22px;
+    gap: 18px;
   }
 
   .statement {
-    max-width: 15em;
+    max-width: 22em;
   }
 
   .project-link,
@@ -1159,11 +1295,12 @@ body.is-transitioning .page-transition p {
   }
 
   .intro-head {
-    padding: 36px 0 28px;
+    padding: 28px 0 24px;
   }
 
   .statement {
     font-weight: 340;
+    font-size: 1.62rem;
   }
 
   .intro-note {
@@ -1220,6 +1357,10 @@ body.is-transitioning .page-transition p {
 
   .plate .plate-acid i {
     animation: plate-acid-sweep 5.2s var(--ease-io) infinite alternate;
+  }
+
+  .plate .plate-lw {
+    animation: lw-tide 5.2s var(--ease-io) infinite alternate;
   }
 
   .work-heading {
