@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Low Water, a fictional oyster farm in Eastport, Maine, branded on the real tide. The mark, the page and the harvest tag are drawn from a tide predicted in the browser from NOAA's harmonic constants.">
+<meta name="theme-color" content="#c6bca9">
+<title>Low Water — Oysters on the moon's hours</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23c6bca9'/%3E%3Crect y='17' width='32' height='15' fill='%23123029'/%3E%3Cpath d='M2 17c4-9 8-9 12 0s8 9 12 0' fill='none' stroke='%231c1a16' stroke-width='2.4'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://api.fontshare.com">
+<link rel="preconnect" href="https://cdn.fontshare.com" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://api.fontshare.com/v2/css?f[]=zodiak@1,2&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fragment+Mono&display=swap" rel="stylesheet">
+<script>document.documentElement.classList.replace('no-js', 'js');</script>
+<style>
+:root {
+  --flats: #c6bca9;
+  --ink: #1c1a16;
+  --ink-2: #4a453b;
+  --kelp: #123029;
+  --wet: #b9d1c4;
+  --wet-2: #86a698;
+  --buoy: #ff5a26;
+  --tag: #ebe3cf;
+  --serif: "Zodiak", "Iowan Old Style", Georgia, serif;
+  --mono: "Fragment Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --gutter: clamp(16px, 3.4vw, 48px);
+  --ease: cubic-bezier(.2, .7, .1, 1);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  background: var(--flats);
+  color: var(--ink);
+  font: 400 15px/1.55 var(--mono);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+a { color: inherit; }
+::selection { background: var(--kelp); color: var(--wet); }
+:focus-visible { outline: 2px solid var(--buoy); outline-offset: 4px; }
+.shell { padding-inline: var(--gutter); }
+.label { font: 400 11px/1.4 var(--mono); letter-spacing: .08em; text-transform: uppercase; }
+
+.gauge {
+  position: relative;
+  height: 100svh;
+  min-height: 600px;
+  display: grid;
+  grid-template-rows: 1fr auto;
+}
+.tank { position: relative; overflow: hidden; }
+.layer {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  padding: 22px var(--gutter) 28px calc(var(--gutter) + 58px);
+}
+.layer.wet {
+  background: var(--kelp);
+  color: var(--wet);
+  clip-path: inset(var(--surface, 100%) 0 0 0);
+  pointer-events: none;
+}
+.bar { display: flex; justify-content: space-between; align-items: baseline; gap: 20px; }
+.bar a { text-decoration: none; }
+.bar a:hover { text-decoration: underline; text-underline-offset: 4px; }
+.bar .coords { color: var(--ink-2); }
+.wet .bar .coords { color: var(--wet-2); }
+
+.word {
+  align-self: center;
+  font: 300 min(17.4vw, 33svh)/.82 var(--serif);
+  letter-spacing: -.035em;
+  white-space: nowrap;
+  margin-left: -.04em;
+}
+.wet .word, .wet .lede { font-style: italic; }
+.word span { display: inline-block; }
+.lede {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 24px;
+  font: 400 clamp(1.05rem, .8rem + .7vw, 1.45rem)/1.3 var(--serif);
+}
+.lede p { max-width: 30ch; }
+.lede .label { color: var(--ink-2); text-align: right; font-style: normal; }
+.wet .lede .label { color: var(--wet-2); }
+
+.staff {
+  position: absolute;
+  left: var(--gutter);
+  top: 0;
+  bottom: 0;
+  width: 34px;
+}
+.staff svg { position: absolute; inset: 0; width: 100%; height: 100%; fill: currentColor; }
+.staff b {
+  position: absolute;
+  left: 42px;
+  font: 400 11px/1 var(--mono);
+  transform: translateY(-50%);
+}
+
+.surface {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: var(--surface, 100%);
+  height: 0;
+  z-index: 3;
+  pointer-events: none;
+}
+.surface::before {
+  content: "";
+  position: absolute;
+  inset: -.5px 0 auto;
+  height: 1px;
+  background: var(--wet);
+  opacity: .55;
+}
+.reading {
+  position: absolute;
+  right: var(--gutter);
+  top: 0;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  padding: 7px 16px 8px;
+  background: var(--flats);
+  color: var(--ink);
+  border: 1px solid var(--ink);
+  border-radius: 999px;
+  white-space: nowrap;
+}
+.reading strong { font: 400 clamp(1.3rem, 1rem + .9vw, 1.9rem)/1 var(--serif); letter-spacing: -.01em; }
+.reading strong small { font-size: .5em; margin-left: .15em; }
+
+.dial {
+  position: relative;
+  padding: 16px var(--gutter) 18px;
+  border-top: 1px solid var(--ink);
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 8px 22px;
+  align-items: center;
+  background: var(--flats);
+}
+.dial-time { min-width: 18ch; }
+.dial-time b { display: block; font: 400 1.2rem/1.2 var(--serif); letter-spacing: 0; text-transform: none; }
+.track {
+  position: relative;
+  height: 64px;
+  cursor: ew-resize;
+  touch-action: pan-y;
+  border-radius: 2px;
+}
+.track svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.track .fill { fill: var(--kelp); }
+.track .days line { stroke: var(--ink); stroke-opacity: .28; stroke-width: 1; vector-effect: non-scaling-stroke; }
+.track .day-label { position: absolute; top: -2px; font: 400 10px/1 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--ink-2); transform: translateX(5px); pointer-events: none; }
+.head {
+  position: absolute;
+  top: -6px;
+  bottom: -6px;
+  left: var(--head, 0%);
+  width: 0;
+  pointer-events: none;
+}
+.head::before { content: ""; position: absolute; inset: 0 auto 0 -.5px; width: 1px; background: var(--ink); }
+.head i {
+  position: absolute;
+  left: -6px;
+  top: var(--head-y, 50%);
+  width: 12px;
+  height: 12px;
+  margin-top: -6px;
+  border-radius: 50%;
+  background: var(--buoy);
+  box-shadow: 0 0 0 3px var(--flats);
+}
+.now-tick { position: absolute; top: -10px; left: var(--now, 0%); width: 1px; height: 6px; background: var(--buoy); pointer-events: none; }
+.track:focus-visible { outline-offset: 8px; }
+.now-button {
+  font: 400 11px/1 var(--mono);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--ink);
+  background: none;
+  border: 1px solid var(--ink);
+  border-radius: 999px;
+  padding: 9px 14px;
+  cursor: pointer;
+  transition: background-color .3s var(--ease), color .3s var(--ease), opacity .3s;
+}
+.now-button:hover { background: var(--ink); color: var(--flats); }
+.now-button[disabled] { opacity: .35; cursor: default; background: none; color: var(--ink); }
+
+section { position: relative; }
+.hours { padding-block: clamp(80px, 12vw, 150px) clamp(70px, 10vw, 120px); }
+.hours-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr);
+  gap: 24px 60px;
+  align-items: end;
+  margin-bottom: clamp(40px, 6vw, 72px);
+}
+h2 { font: 300 clamp(2.6rem, 1.4rem + 4.4vw, 5.6rem)/.95 var(--serif); letter-spacing: -.03em; }
+h2 em { font-style: italic; }
+.hours-head p { max-width: 42ch; color: var(--ink-2); }
+.hours-head p strong { color: var(--ink); font-weight: 400; }
+.table { border-top: 1px solid var(--ink); }
+.row {
+  display: grid;
+  grid-template-columns: 9ch minmax(0, 1fr) 13ch 13ch 16ch;
+  gap: 16px;
+  align-items: center;
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(28, 26, 22, .22);
+  font-variant-numeric: tabular-nums;
+}
+.row.is-today { border-bottom-color: var(--ink); }
+.row .day { font: 400 1.25rem/1 var(--serif); }
+.row.is-today .day { font-style: italic; }
+.row svg { width: 100%; height: 34px; display: block; overflow: visible; }
+.row svg path { fill: none; stroke: var(--ink); stroke-width: 1.2; vector-effect: non-scaling-stroke; }
+.row svg rect { fill: var(--kelp); opacity: .1; }
+.row .lw b { font-weight: 400; }
+.row .dim { color: var(--ink-2); }
+.table-head { padding: 10px 0; border-bottom: 1px solid var(--ink); color: var(--ink-2); }
+
+.tagging {
+  padding-block: clamp(70px, 10vw, 130px) clamp(90px, 12vw, 160px);
+  border-top: 1px solid var(--ink);
+  margin-inline: var(--gutter);
+  padding-inline: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 380px);
+  gap: 48px clamp(40px, 8vw, 140px);
+  align-items: center;
+}
+.tagging p { max-width: 40ch; color: var(--ink-2); margin-top: 26px; }
+.tag-wrap { position: relative; padding-top: 70px; justify-self: center; width: 100%; max-width: 360px; }
+.tag-wrap::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 1px;
+  z-index: 1;
+  height: 101px;
+  background: var(--ink);
+  transform: rotate(3deg);
+  transform-origin: top;
+}
+.tag {
+  position: relative;
+  background: var(--tag);
+  color: var(--kelp);
+  padding: 58px 26px 26px;
+  clip-path: polygon(22% 0, 78% 0, 100% 9%, 100% 100%, 0 100%, 0 9%);
+  transform: rotate(-2.4deg);
+  transform-origin: 50% -40px;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, .06);
+  transition: transform 1.4s var(--ease);
+}
+.tag.is-swung { transform: rotate(.6deg); transition-duration: .22s; }
+.tag::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 22px;
+  width: 16px;
+  height: 16px;
+  margin-left: -8px;
+  border-radius: 50%;
+  background: var(--flats);
+  box-shadow: 0 0 0 5px #d8cdb3;
+}
+.tag-brand { font: 400 1.9rem/.9 var(--serif); letter-spacing: -.02em; }
+.tag-brand em { font-style: italic; }
+.tag-sub { margin-top: 8px; }
+.tag svg { display: block; width: 100%; height: 120px; margin: 22px 0 18px; overflow: visible; }
+.tag svg .curve { fill: none; stroke: var(--kelp); stroke-width: 2; vector-effect: non-scaling-stroke; }
+.tag svg .sea { fill: var(--kelp); opacity: .12; }
+.tag svg .datum { stroke: var(--kelp); stroke-dasharray: 2 3; stroke-width: 1; vector-effect: non-scaling-stroke; }
+.tag svg circle { fill: var(--buoy); }
+.tag dl { display: grid; grid-template-columns: auto 1fr; gap: 6px 16px; border-top: 1px solid var(--kelp); padding-top: 14px; font-variant-numeric: tabular-nums; }
+.tag dt { opacity: .7; }
+.tag dd { text-align: right; }
+.tag-foot { display: flex; justify-content: space-between; margin-top: 18px; padding-top: 12px; border-top: 1px solid var(--kelp); }
+
+.system {
+  background: var(--kelp);
+  color: var(--wet);
+  padding: clamp(80px, 12vw, 150px) 0 clamp(60px, 8vw, 100px);
+}
+.system h2, .system h3 { font-style: italic; }
+.system .intro { max-width: 46ch; color: var(--wet-2); margin-top: 22px; }
+.rules { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; margin-top: clamp(50px, 7vw, 90px); border-top: 1px solid var(--wet-2); }
+.rule { padding: 26px 28px 34px 0; }
+.rule + .rule { padding-left: 28px; border-left: 1px solid rgba(185, 209, 196, .28); }
+.rule h3 { font: 300 1.9rem/1 var(--serif); letter-spacing: -.02em; margin: 0 0 14px; }
+.rule p { color: var(--wet-2); max-width: 36ch; }
+.split {
+  position: relative;
+  margin-top: 26px;
+  height: 118px;
+  overflow: hidden;
+  font: 300 5.2rem/118px var(--serif);
+  letter-spacing: -.03em;
+  white-space: nowrap;
+}
+.split span { position: absolute; left: 0; top: 0; }
+.split .up { color: var(--wet); clip-path: inset(0 0 52% 0); }
+.split .down { font-style: italic; color: var(--wet); clip-path: inset(48% 0 0 0); }
+.split::after { content: ""; position: absolute; left: 0; right: 0; top: 48%; height: 1px; background: var(--wet-2); }
+.marks { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 10px; margin-top: 26px; }
+.marks figure svg { width: 100%; height: 44px; display: block; overflow: visible; }
+.marks figure path { fill: none; stroke: var(--wet); stroke-width: 1.4; vector-effect: non-scaling-stroke; }
+.marks figcaption { margin-top: 8px; color: var(--wet-2); font-size: 10px; }
+.swatches { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-top: 26px; }
+.swatch { height: 76px; padding: 10px; display: flex; flex-direction: column; justify-content: space-between; font: 400 11px/1.3 var(--mono); }
+.swatch.s-flats { background: var(--flats); color: var(--ink); }
+.swatch.s-kelp { background: var(--kelp); color: var(--wet); box-shadow: inset 0 0 0 1px var(--wet-2); }
+.swatch.s-tag { background: var(--tag); color: var(--kelp); }
+.swatch.s-buoy { background: var(--buoy); color: var(--ink); }
+
+.foot {
+  display: flex;
+  justify-content: space-between;
+  gap: 30px;
+  align-items: end;
+  margin-top: clamp(70px, 10vw, 130px);
+  padding-top: 26px;
+  border-top: 1px solid var(--wet-2);
+  color: var(--wet-2);
+}
+.foot p { max-width: 70ch; font-size: 12px; letter-spacing: .02em; text-transform: none; line-height: 1.6; }
+.foot a { color: var(--wet); white-space: nowrap; }
+
+.js .gauge { --surface: 100%; }
+.js .word span, .js .lede { opacity: 0; transform: translateY(18px); }
+.js body.is-ready .word span, .js body.is-ready .lede {
+  opacity: 1;
+  transform: none;
+  transition: opacity .9s var(--ease), transform 1.2s var(--ease);
+}
+.js body.is-ready .word span:nth-child(2) { transition-delay: 90ms; }
+.js body.is-ready .lede { transition-delay: 260ms; }
+
+@media (max-width: 900px) {
+  .hours-head, .tagging { grid-template-columns: minmax(0, 1fr); }
+  .row { grid-template-columns: 7ch minmax(0, 1fr) 11ch; }
+  .row .hide-s { display: none; }
+  .rules { grid-template-columns: minmax(0, 1fr); }
+  .rule + .rule { padding-left: 0; border-left: 0; border-top: 1px solid rgba(185, 209, 196, .28); }
+  .split { font-size: 4.2rem; }
+}
+
+@media (max-width: 640px) {
+  .layer { padding: 16px var(--gutter) 22px calc(var(--gutter) + 52px); }
+  .reading { gap: 10px; padding: 6px 12px 7px; }
+  .reading .label { font-size: 10px; letter-spacing: .03em; }
+  .staff { width: 26px; }
+  .staff b { left: 32px; }
+  .word { font-size: 30vw; line-height: .86; white-space: normal; }
+  .word span { display: block; }
+  .word span + span { margin-top: -.02em; }
+  .lede { flex-direction: column; align-items: start; }
+  .lede .label { text-align: left; }
+  .bar .coords { display: none; }
+  .dial { grid-template-columns: 1fr auto; }
+  .track { grid-column: 1 / -1; grid-row: 2; height: 56px; }
+  .foot { flex-direction: column; align-items: start; }
+  .marks { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js .word span, .js .lede { opacity: 1; transform: none; }
+  .tag, .tag.is-swung { transition: none; transform: rotate(-2.4deg); }
+}
+</style>
+</head>
+<body>
+<main>
+  <section class="gauge" aria-labelledby="brand" data-gauge>
+    <div class="tank" data-tank>
+      <div class="layer dry" data-dry>
+        <div class="staff" aria-hidden="true" data-staff></div>
+        <div class="bar label">
+          <a href="../">← Index</a>
+          <span class="coords">Eastport, Maine · 44°54′N 66°59′W</span>
+        </div>
+        <h1 class="word" id="brand"><span>Low</span> <span>Water</span></h1>
+        <div class="lede">
+          <p>Oysters from the flats at Eastport, worked only when the bay lets go of them.</p>
+          <span class="label">Oyster Co. · Est. on the tide</span>
+        </div>
+      </div>
+      <div class="surface" data-surface aria-hidden="true">
+        <div class="reading"><strong data-level>0.00<small>m</small></strong><span class="label" data-trend></span></div>
+      </div>
+    </div>
+
+    <div class="dial">
+      <p class="dial-time label"><span data-when-day>Today</span><b data-when-time>—</b></p>
+      <div class="track" data-track role="slider" tabindex="0" aria-label="Time, over the next seven days" aria-valuemin="0" aria-valuemax="10080" aria-valuenow="0">
+        <svg data-track-svg viewBox="0 0 1000 100" preserveAspectRatio="none" aria-hidden="true"></svg>
+        <span class="now-tick" aria-hidden="true"></span>
+        <span class="head" aria-hidden="true"><i></i></span>
+      </div>
+      <button class="now-button" type="button" data-now disabled>Now</button>
+    </div>
+  </section>
+
+  <section class="hours shell" aria-labelledby="hours-title">
+    <div class="hours-head">
+      <h2 id="hours-title">We keep the <em>moon’s</em> hours.</h2>
+      <p>The flats come out of the bay twice a day, and each low water arrives later than the day before. <strong data-drift>About fifty minutes later.</strong> We work ninety minutes either side of it, and that is the only time the farm can be seen from the shore.</p>
+    </div>
+    <div class="table" data-table>
+      <div class="row table-head label" aria-hidden="true"><span>Day</span><span>The day’s tide</span><span>Low water</span><span class="hide-s">Height</span><span class="hide-s">On the flats</span></div>
+    </div>
+  </section>
+
+  <section class="tagging shell" aria-labelledby="tag-title">
+    <div>
+      <h2 id="tag-title">Every bag carries the tide it <em>came out of.</em></h2>
+      <p>The tag on a bag of Low Water oysters is printed with the curve of the day they were picked and the moment on it when the flats were bare. Drag the dial above and the tag follows the day you land on.</p>
+    </div>
+    <div class="tag-wrap">
+      <article class="tag" data-tag aria-live="polite">
+        <p class="tag-brand">Low <em>Water</em></p>
+        <p class="tag-sub label">Oyster Co. · Eastport, Maine</p>
+        <svg data-tag-svg viewBox="0 0 300 120" preserveAspectRatio="none" aria-hidden="true"></svg>
+        <dl class="label">
+          <dt>Picked</dt><dd data-tag-day>—</dd>
+          <dt>Low water</dt><dd data-tag-lw>—</dd>
+          <dt>Height</dt><dd data-tag-h>—</dd>
+          <dt>Range that day</dt><dd data-tag-range>—</dd>
+        </dl>
+        <div class="tag-foot label"><span>Keep cold</span><span>Keep damp</span></div>
+      </article>
+    </div>
+  </section>
+
+  <section class="system" aria-labelledby="system-title">
+    <div class="shell">
+      <h2 id="system-title">Below the line, <em>everything leans.</em></h2>
+      <p class="intro">This part of the page is under water, so it is set the way charts set the sea. The identity has three rules and no logo file.</p>
+
+      <div class="rules">
+        <div class="rule">
+          <h3>Upright above, italic below</h3>
+          <p>Charts letter the land upright and the water in italic. Anything the tide covers here turns to italic, including the name. Zodiak for words, Fragment Mono for numbers.</p>
+          <div class="split" aria-hidden="true"><span class="up">Water</span><span class="down">Water</span></div>
+        </div>
+        <div class="rule">
+          <h3>The mark is the day’s tide</h3>
+          <p>There is no fixed logo. The mark is the curve of the current day at Eastport, so it changes every morning and never repeats exactly. This week:</p>
+          <div class="marks" data-marks></div>
+        </div>
+        <div class="rule">
+          <h3>Flats, kelp and one buoy</h3>
+          <p>Mud when the water is out, kelp when it is in. The buoy orange marks now, and nothing else.</p>
+          <div class="swatches">
+            <div class="swatch s-flats"><span>Flats</span><span>#C6BCA9</span></div>
+            <div class="swatch s-kelp"><span>Kelp</span><span>#123029</span></div>
+            <div class="swatch s-tag"><span>Tag</span><span>#EBE3CF</span></div>
+            <div class="swatch s-buoy"><span>Buoy</span><span>#FF5A26</span></div>
+          </div>
+        </div>
+      </div>
+
+      <footer class="foot label">
+        <p>Low Water is a fictional farm. The tide is real: it is predicted in your browser from 31 of NOAA’s harmonic constituents for Eastport (station 8410140), heights above mean lower low water. Checked against NOAA’s published predictions for September to December 2026, every high and low landed within 4 minutes and 9 cm.</p>
+        <a href="../">← Back to the index</a>
+      </footer>
+    </div>
+  </section>
+</main>
+
+<script>
+(() => {
+  const RAD = Math.PI / 180;
+  const MSL_ABOVE_MLLW = 2.958;
+  const LOW = -1.3, HIGH = 7.6;
+  const MINUTE = 6e4, HOUR = 36e5, DAY = 864e5;
+  const TZ = "America/New_York";
+
+  // name, amplitude (m), Greenwich phase (deg), Doodson T s h p p1, offset (deg), nodal factor
+  const CONSTITUENTS = [
+    ["M2", 2.648, 98.4, 2, -2, 2, 0, 0, 0, "M2"], ["S2", 0.415, 138.8, 2, 0, 0, 0, 0, 0, ""],
+    ["N2", 0.542, 67, 2, -3, 2, 1, 0, 0, "M2"], ["K1", 0.155, 195.5, 1, 0, 1, 0, 0, -90, "K1"],
+    ["M4", 0.058, 84.8, 4, -4, 4, 0, 0, 0, "M2^2"], ["O1", 0.118, 176.3, 1, -2, 1, 0, 0, 90, "O1"],
+    ["M6", 0.048, 274, 6, -6, 6, 0, 0, 0, "M2^3"], ["MK3", 0.002, 74.1, 3, -2, 3, 0, 0, -90, "M2K1"],
+    ["S4", 0.001, 117.1, 4, 0, 0, 0, 0, 0, ""], ["MN4", 0.022, 51.7, 4, -5, 4, 1, 0, 0, "M2^2"],
+    ["NU2", 0.125, 73.6, 2, -3, 4, -1, 0, 0, "M2"], ["S6", 0.001, 331, 6, 0, 0, 0, 0, 0, ""],
+    ["MU2", 0.015, 166.5, 2, -4, 4, 0, 0, 0, "M2"], ["2N2", 0.067, 44.7, 2, -4, 2, 2, 0, 0, "M2"],
+    ["OO1", 0.006, 234.3, 1, 2, 1, 0, 0, -90, "OO1"], ["LAM2", 0.051, 122.4, 2, -1, 0, 1, 0, 180, "M2"],
+    ["J1", 0.007, 207.5, 1, 1, 1, -1, 0, -90, "J1"], ["SSA", 0.013, 126.4, 0, 0, 2, 0, 0, 0, ""],
+    ["SA", 0.01, 171.5, 0, 0, 1, 0, 0, 0, ""], ["RHO", 0.003, 157.8, 1, -3, 3, -1, 0, 90, "O1"],
+    ["Q1", 0.021, 157.9, 1, -3, 1, 1, 0, 90, "O1"], ["T2", 0.036, 115.8, 2, 0, -1, 0, 1, 0, ""],
+    ["2Q1", 0.002, 225.8, 1, -4, 1, 2, 0, 90, "O1"], ["P1", 0.051, 196.4, 1, 0, -1, 0, 0, 90, ""],
+    ["2SM2", 0.007, 70, 2, 2, -2, 0, 0, 0, "M2"], ["M3", 0.002, 216.5, 3, -3, 3, 0, 0, 0, "M2^1.5"],
+    ["L2", 0.157, 141, 2, -1, 2, -1, 0, 180, "M2"], ["2MK3", 0.005, 327.1, 3, -4, 3, 0, 0, 90, "M2^2O1"],
+    ["K2", 0.116, 138.3, 2, 0, 2, 0, 0, 0, "K2"], ["M8", 0.005, 250, 8, -8, 8, 0, 0, 0, "M2^4"],
+    ["MS4", 0.018, 129.2, 4, -2, 2, 0, 0, 0, "M2"],
+  ];
+
+  const nodalFactors = (node) => {
+    const n = node * RAD, c = (k) => Math.cos(k * n), s = (k) => Math.sin(k * n);
+    const M2 = [1.0004 - 0.0373 * c(1) + 0.0002 * c(2), -2.14 * s(1)];
+    const O1 = [1.0089 + 0.1871 * c(1) - 0.0147 * c(2) + 0.0014 * c(3), 10.8 * s(1) - 1.34 * s(2) + 0.19 * s(3)];
+    const K1 = [1.006 + 0.115 * c(1) - 0.0088 * c(2) + 0.0006 * c(3), -8.86 * s(1) + 0.68 * s(2) - 0.07 * s(3)];
+    const power = (factor, k) => [factor[0] ** k, factor[1] * k];
+    return {
+      "": [1, 0], M2, O1, K1,
+      K2: [1.0246 + 0.2863 * c(1) + 0.0083 * c(2) - 0.0015 * c(3), -17.74 * s(1) + 0.68 * s(2) - 0.04 * s(3)],
+      J1: [1.1029 + 0.1676 * c(1) - 0.017 * c(2), -12.94 * s(1) + 1.34 * s(2)],
+      OO1: [1.1027 + 0.6504 * c(1) + 0.0317 * c(2), -36.68 * s(1) + 4.02 * s(2)],
+      "M2^1.5": power(M2, 1.5), "M2^2": power(M2, 2), "M2^3": power(M2, 3), "M2^4": power(M2, 4),
+      M2K1: [M2[0] * K1[0], M2[1] + K1[1]], "M2^2O1": [M2[0] ** 2 * O1[0], 2 * M2[1] - O1[1]],
+    };
+  };
+
+  const tideAt = (ms) => {
+    const centuries = (ms / DAY + 2440587.5 - 2451545) / 36525;
+    const s = 218.3165 + 481267.8813 * centuries;
+    const h = 280.4661 + 36000.7698 * centuries;
+    const p = 83.3535 + 4069.0137 * centuries;
+    const p1 = 282.9384 + 1.7195 * centuries;
+    const factors = nodalFactors(125.0445 - 1934.1363 * centuries);
+    const T = 180 + 15 * ((((ms / HOUR) % 24) + 24) % 24);
+    let level = MSL_ABOVE_MLLW;
+    for (const [, amplitude, phase, iT, iS, iH, iP, iP1, offset, key] of CONSTITUENTS) {
+      const [f, u] = factors[key];
+      level += f * amplitude * Math.cos((iT * T + iS * s + iH * h + iP * p + iP1 * p1 + offset + u - phase) * RAD);
+    }
+    return level;
+  };
+
+  const extremesBetween = (from, to) => {
+    const step = 6 * MINUTE, found = [];
+    let previous = tideAt(from - step), current = tideAt(from);
+    for (let t = from; t < to; t += step) {
+      const next = tideAt(t + step);
+      const isHigh = current > previous && current >= next, isLow = current < previous && current <= next;
+      if (isHigh || isLow) {
+        let best = t, bestLevel = current;
+        for (let probe = t - step; probe <= t + step; probe += MINUTE) {
+          const level = tideAt(probe);
+          if (isHigh ? level > bestLevel : level < bestLevel) { best = probe; bestLevel = level; }
+        }
+        found.push({ t: best, level: bestLevel, type: isHigh ? "high" : "low" });
+      }
+      previous = current;
+      current = next;
+    }
+    return found;
+  };
+
+  const partsFormat = new Intl.DateTimeFormat("en-US", { timeZone: TZ, hourCycle: "h23", year: "numeric", month: "numeric", day: "numeric", hour: "numeric", minute: "numeric" });
+  const zoneOffset = (ms) => {
+    const p = Object.fromEntries(partsFormat.formatToParts(ms).map(({ type, value }) => [type, +value]));
+    return Date.UTC(p.year, p.month - 1, p.day, p.hour % 24, p.minute) - Math.floor(ms / MINUTE) * MINUTE;
+  };
+  const startOfDay = (ms) => {
+    const p = Object.fromEntries(partsFormat.formatToParts(ms).map(({ type, value }) => [type, +value]));
+    const midnight = Date.UTC(p.year, p.month - 1, p.day);
+    return midnight - zoneOffset(midnight - zoneOffset(ms));
+  };
+  const clockFormat = new Intl.DateTimeFormat("en-GB", { timeZone: TZ, hour: "2-digit", minute: "2-digit", hourCycle: "h23" });
+  const dayFormat = new Intl.DateTimeFormat("en-GB", { timeZone: TZ, weekday: "short", day: "numeric", month: "short" });
+  const weekdayFormat = new Intl.DateTimeFormat("en-GB", { timeZone: TZ, weekday: "short" });
+  const zoneFormat = new Intl.DateTimeFormat("en-US", { timeZone: TZ, timeZoneName: "short" });
+  const zoneName = (ms) => zoneFormat.formatToParts(ms).find((part) => part.type === "timeZoneName").value;
+  const clock = (ms) => clockFormat.format(ms);
+  const metres = (level) => `${level < 0 ? "−" : ""}${Math.abs(level).toFixed(2)}`;
+  const span = (minutes) => {
+    const m = Math.round(Math.abs(minutes));
+    return m < 60 ? `${m} min` : `${Math.floor(m / 60)} h ${String(m % 60).padStart(2, "0")} min`;
+  };
+
+  const $ = (selector) => document.querySelector(selector);
+  const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)");
+  const gauge = $("[data-gauge]"), tank = $("[data-tank]"), dry = $("[data-dry]");
+  const surface = $("[data-surface]"), levelOut = $("[data-level]"), trendOut = $("[data-trend]");
+  const track = $("[data-track]"), trackSvg = $("[data-track-svg]"), nowButton = $("[data-now]");
+  const whenDay = $("[data-when-day]"), whenTime = $("[data-when-time]");
+
+  const wet = dry.cloneNode(true);
+  wet.classList.replace("dry", "wet");
+  wet.removeAttribute("data-dry");
+  wet.setAttribute("aria-hidden", "true");
+  wet.inert = true;
+  wet.querySelectorAll("[id]").forEach((node) => node.removeAttribute("id"));
+  tank.insertBefore(wet, surface);
+
+  const svgNS = "http://www.w3.org/2000/svg";
+  const drawStaff = () => {
+    const rects = [];
+    const y = (metre) => ((HIGH - metre) / (HIGH - LOW)) * 1000;
+    for (let dm = Math.ceil(LOW * 10); dm < HIGH * 10; dm++) {
+      const x = dm % 2 === 0 ? 0 : 50;
+      rects.push(`<rect x="${x}" y="${y(dm / 10 + 0.05)}" width="50" height="${y(dm / 10) - y(dm / 10 + 0.05)}"/>`);
+      if (dm % 10 === 0) rects.push(`<rect x="0" y="${y(dm / 10) - 1.2}" width="100" height="2.4"/>`);
+    }
+    rects.push(`<rect x="0" y="0" width="3" height="1000"/>`);
+    const labels = [];
+    for (let m = Math.ceil(LOW); m <= Math.floor(HIGH); m++) {
+      labels.push(`<b style="top:${((HIGH - m) / (HIGH - LOW)) * 100}%">${m < 0 ? "−" + -m : m}</b>`);
+    }
+    const markup = `<svg viewBox="0 0 100 1000" preserveAspectRatio="none">${rects.join("")}</svg>${labels.join("")}`;
+    document.querySelectorAll("[data-staff]").forEach((staff) => { staff.innerHTML = markup; });
+  };
+  drawStaff();
+
+  const curvePath = (from, to, width, height, samples, lo = LOW, hi = HIGH) => {
+    let d = "";
+    for (let i = 0; i <= samples; i++) {
+      const t = from + ((to - from) * i) / samples;
+      const x = (i / samples) * width, y = ((hi - tideAt(t)) / (hi - lo)) * height;
+      d += `${i ? "L" : "M"}${x.toFixed(1)} ${y.toFixed(2)}`;
+    }
+    return d;
+  };
+
+  const now = () => Date.now();
+  let origin = startOfDay(now());
+  const WEEK = 7 * DAY;
+  let viewTime = now(), following = true, shownLevel = LOW, targetLevel = LOW, animFrame = 0;
+
+  const drawTrack = () => {
+    const line = curvePath(origin, origin + WEEK, 1000, 100, 7 * 96);
+    let days = "", labels = "";
+    for (let d = 0; d < 7; d++) {
+      const x = (d / 7) * 1000;
+      if (d) days += `<line x1="${x}" x2="${x}" y1="0" y2="100"/>`;
+      labels += `<span class="day-label" style="left:${(d / 7) * 100}%">${d ? weekdayFormat.format(origin + d * DAY + 12 * HOUR) : "Today"}</span>`;
+    }
+    trackSvg.innerHTML = `<g class="days">${days}</g><path class="fill" d="${line}L1000 100L0 100Z"/>`;
+    track.querySelectorAll(".day-label").forEach((node) => node.remove());
+    track.insertAdjacentHTML("afterbegin", labels);
+  };
+
+  const levelToSurface = (level) => Math.min(1, Math.max(0, (HIGH - level) / (HIGH - LOW))) * tank.clientHeight;
+
+  const paintLevel = (level) => {
+    const y = levelToSurface(level);
+    gauge.style.setProperty("--surface", `${y.toFixed(1)}px`);
+  };
+
+  const animateTo = (level) => {
+    targetLevel = level;
+    if (reduceMotion.matches) {
+      shownLevel = level;
+      paintLevel(level);
+      return;
+    }
+    if (animFrame) return;
+    const step = () => {
+      shownLevel += (targetLevel - shownLevel) * 0.14;
+      if (Math.abs(targetLevel - shownLevel) < 0.001) shownLevel = targetLevel;
+      paintLevel(shownLevel);
+      animFrame = shownLevel === targetLevel ? 0 : requestAnimationFrame(step);
+    };
+    animFrame = requestAnimationFrame(step);
+  };
+
+  let tagTimer = 0, tagDay = 0;
+  const tag = $("[data-tag]");
+  const renderTag = (time) => {
+    const day = startOfDay(time);
+    if (day === tagDay) return;
+    const firstPaint = !tagDay;
+    tagDay = day;
+    const turns = extremesBetween(day, day + DAY);
+    const lows = turns.filter((turn) => turn.type === "low");
+    const picked = lows.reduce((best, low) => (!best || Math.abs(low.t - time) < Math.abs(best.t - time) ? low : best), null) ?? { t: day, level: tideAt(day) };
+    const levels = turns.map((turn) => turn.level);
+    const range = levels.length > 1 ? Math.max(...levels) - Math.min(...levels) : 0;
+    const x = ((picked.t - day) / DAY) * 300, y = ((HIGH - picked.level) / (HIGH - LOW)) * 120;
+    const datumY = (HIGH / (HIGH - LOW)) * 120;
+    const path = curvePath(day, day + DAY, 300, 120, 144);
+    $("[data-tag-svg]").innerHTML = `<path class="sea" d="${path}L300 120L0 120Z"/><line class="datum" x1="0" x2="300" y1="${datumY}" y2="${datumY}"/><path class="curve" d="${path}"/><circle cx="${x}" cy="${y}" r="4.5"/>`;
+    $("[data-tag-day]").textContent = dayFormat.format(day + 12 * HOUR);
+    $("[data-tag-lw]").textContent = `${clock(picked.t)} ${zoneName(picked.t)}`;
+    $("[data-tag-h]").textContent = `${metres(picked.level)} m`;
+    $("[data-tag-range]").textContent = `${range.toFixed(2)} m`;
+    if (firstPaint || reduceMotion.matches) return;
+    tag.classList.add("is-swung");
+    clearTimeout(tagTimer);
+    tagTimer = setTimeout(() => tag.classList.remove("is-swung"), 180);
+  };
+
+  const render = () => {
+    const level = tideAt(viewTime);
+    const rising = tideAt(viewTime + 5 * MINUTE) > level;
+    const [turn] = extremesBetween(viewTime - 8 * MINUTE, viewTime + 8 * MINUTE);
+    const next = extremesBetween(viewTime + 8 * MINUTE, viewTime + 14 * HOUR)[0];
+    levelOut.innerHTML = `${metres(level)}<small>m</small>`;
+    trendOut.textContent = turn ? `${turn.type === "high" ? "High" : "Low"} water, slack` : `${rising ? "Rising" : "Falling"} · ${next.type} water in ${span((next.t - viewTime) / MINUTE)}`;
+    const isNow = Math.abs(viewTime - now()) < 2 * MINUTE;
+    whenDay.textContent = isNow ? "Now at Eastport" : dayFormat.format(viewTime);
+    whenTime.textContent = `${clock(viewTime)} ${zoneName(viewTime)}`;
+    nowButton.disabled = following;
+    const fraction = (viewTime - origin) / WEEK;
+    track.style.setProperty("--head", `${(fraction * 100).toFixed(3)}%`);
+    track.style.setProperty("--head-y", `${(((HIGH - level) / (HIGH - LOW)) * 100).toFixed(2)}%`);
+    track.style.setProperty("--now", `${(((now() - origin) / WEEK) * 100).toFixed(3)}%`);
+    track.setAttribute("aria-valuenow", String(Math.round((viewTime - origin) / MINUTE)));
+    track.setAttribute("aria-valuetext", `${dayFormat.format(viewTime)}, ${clock(viewTime)} ${zoneName(viewTime)}, ${metres(level)} metres, ${rising ? "rising" : "falling"}`);
+    animateTo(level);
+    renderTag(viewTime);
+  };
+
+  const setTime = (time, follow = false) => {
+    viewTime = Math.min(origin + WEEK - MINUTE, Math.max(origin, time));
+    following = follow;
+    render();
+  };
+
+  const timeFromPointer = (event) => {
+    const bounds = track.getBoundingClientRect();
+    return origin + Math.min(1, Math.max(0, (event.clientX - bounds.left) / bounds.width)) * WEEK;
+  };
+  track.addEventListener("pointerdown", (event) => {
+    track.setPointerCapture(event.pointerId);
+    setTime(timeFromPointer(event));
+  });
+  track.addEventListener("pointermove", (event) => {
+    if (track.hasPointerCapture(event.pointerId)) setTime(timeFromPointer(event));
+  });
+  track.addEventListener("keydown", (event) => {
+    const stepSize = event.shiftKey ? 6 * HOUR : 10 * MINUTE;
+    const moves = { ArrowRight: stepSize, ArrowUp: stepSize, ArrowLeft: -stepSize, ArrowDown: -stepSize, PageUp: DAY, PageDown: -DAY };
+    if (event.key in moves) setTime(viewTime + moves[event.key]);
+    else if (event.key === "Home") setTime(origin);
+    else if (event.key === "End") setTime(origin + WEEK);
+    else if (event.key === "Escape") setTime(now(), true);
+    else return;
+    event.preventDefault();
+  });
+  nowButton.addEventListener("click", () => setTime(now(), true));
+
+  const renderWeek = () => {
+    const turns = extremesBetween(origin - DAY, origin + WEEK);
+    const lows = turns.filter((turn) => turn.type === "low");
+    const firstToday = lows.find((low) => low.t >= origin);
+    const lastYesterday = firstToday && lows.filter((low) => low.t < origin).reduce((best, low) => (!best || Math.abs(firstToday.t - low.t - 24.84 * HOUR) < Math.abs(firstToday.t - best.t - 24.84 * HOUR) ? low : best), null);
+    if (lastYesterday) {
+      const drift = (firstToday.t - lastYesterday.t - DAY) / MINUTE;
+      $("[data-drift]").textContent = `Today it is ${Math.round(drift)} minutes later than yesterday.`;
+    }
+
+    const table = $("[data-table]");
+    table.querySelectorAll(".row:not(.table-head)").forEach((row) => row.remove());
+    const marks = [];
+    for (let d = 0; d < 7; d++) {
+      const day = origin + d * DAY, dayLows = lows.filter((low) => low.t >= day && low.t < day + DAY);
+      const path = curvePath(day, day + DAY, 240, 34, 96);
+      const windows = dayLows.map((low) => {
+        const x0 = Math.max(0, ((low.t - 90 * MINUTE - day) / DAY) * 240), x1 = Math.min(240, ((low.t + 90 * MINUTE - day) / DAY) * 240);
+        return `<rect x="${x0.toFixed(1)}" y="0" width="${(x1 - x0).toFixed(1)}" height="34"/>`;
+      }).join("");
+      const row = document.createElement("div");
+      row.className = `row${d === 0 ? " is-today" : ""}`;
+      row.innerHTML = `<span class="day">${d ? weekdayFormat.format(day + 12 * HOUR) : "Today"}</span>
+        <svg viewBox="0 0 240 34" preserveAspectRatio="none" aria-hidden="true">${windows}<path d="${path}"/></svg>
+        <span class="lw">${dayLows.map((low) => `<b>${clock(low.t)}</b>`).join("<br>")}</span>
+        <span class="hide-s dim">${dayLows.map((low) => `${metres(low.level)} m`).join("<br>")}</span>
+        <span class="hide-s dim">${dayLows.map((low) => `${clock(low.t - 90 * MINUTE)}–${clock(low.t + 90 * MINUTE)}`).join("<br>")}</span>`;
+      table.append(row);
+      marks.push(`<figure><svg viewBox="0 0 100 44" preserveAspectRatio="none" aria-hidden="true"><path d="${curvePath(day, day + DAY, 100, 44, 72)}"/></svg><figcaption class="label">${dayFormat.format(day + 12 * HOUR)}</figcaption></figure>`);
+    }
+    $("[data-marks]").innerHTML = marks.join("");
+  };
+
+  drawTrack();
+  renderWeek();
+  paintLevel(LOW);
+  render();
+  requestAnimationFrame(() => document.body.classList.add("is-ready"));
+
+  setInterval(() => {
+    if (startOfDay(now()) !== origin) {
+      origin = startOfDay(now());
+      drawTrack();
+      renderWeek();
+    }
+    if (following) setTime(now(), true);
+    else render();
+  }, 30 * 1000);
+
+  new ResizeObserver(() => paintLevel(shownLevel)).observe(tank);
+})();
+</script>
+</body>
+</html>

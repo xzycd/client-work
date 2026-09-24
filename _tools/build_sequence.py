@@ -34,7 +34,10 @@ header{position:fixed;top:0;left:0;right:0;z-index:150;mix-blend-mode:difference
 nav{display:flex;gap:38px}
 nav a{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;text-decoration:none;color:#fff;opacity:.85}
 .coord{font-family:var(--mono);font-size:11px;letter-spacing:.18em;color:#fff;opacity:.7}
-@media(max-width:820px){nav,.coord{display:none}}
+.end{display:flex;align-items:center;gap:30px}
+.back{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;text-decoration:none;color:#fff;opacity:.85}
+.back:hover{opacity:1}
+@media(max-width:820px){nav,.coord{display:none}.seq .cue{left:auto;right:clamp(20px,5vw,80px);transform:none;align-items:flex-end}.seq .pin .layer{padding-bottom:132px}}
 .seq{height:640vh;position:relative}
 .seq .pin{position:sticky;top:0;height:100vh;overflow:hidden;background:var(--ink)}
 #seqCanvas{position:absolute;inset:0;width:100%;height:100%;display:block}
@@ -42,7 +45,7 @@ nav a{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform
 .seq .grain{position:absolute;inset:0;z-index:2;opacity:.05;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
 .seq .layer{position:absolute;inset:0;z-index:3;display:flex;align-items:flex-end;padding-bottom:clamp(64px,12vh,150px)}
 .title{will-change:opacity,transform}
-.title .kick{margin-bottom:24px}
+.title .kick{margin-bottom:24px;color:rgba(237,230,216,.8);text-shadow:0 1px 14px rgba(14,13,12,.55)}
 .title h1{font-family:var(--disp);font-weight:300;font-size:clamp(3.2rem,11vw,10rem);line-height:.96;letter-spacing:-.01em}
 .title h1 em{font-style:italic;color:var(--accent)}
 .title .sub{max-width:38ch;margin-top:26px;opacity:.9;font-size:clamp(1rem,1.4vw,1.25rem)}
@@ -85,7 +88,7 @@ body.reduced .rise{opacity:1;transform:none}
 <header><div class="wrap bar">
   <div class="logo">AETHER</div>
   <nav><a href="#design">The Houses</a><a href="#design">Design</a><a href="#enquire">Enquire</a></nav>
-  <div class="coord">46.5&deg;N / 7.9&deg;E</div>
+  <div class="end"><div class="coord">46.5&deg;N / 7.9&deg;E</div><a class="back" href="../">&larr; Index</a></div>
 </div></header>
 <section class="seq" id="seq" aria-label="Cinematic dawn sequence scrubbed by scroll">
   <div class="pin">
@@ -123,7 +126,7 @@ body.reduced .rise{opacity:1;transform:none}
 <footer><div class="wrap fg">
   <div class="logo">AETHER</div>
   <div class="col mono">Architectural retreats<br>46.5&deg;N / 7.9&deg;E</div>
-  <div class="col mono">&copy; 2026<br>Built above the weather</div>
+  <div class="col mono">&copy; 2026<br><a href="../">Back to the index</a></div>
 </div></footer>
 <script>
 const F = __FRAMES__; const N = F.length;
@@ -197,8 +200,13 @@ video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .bar{position:absolute;top:0;left:0;right:0;display:flex;align-items:center;justify-content:space-between;height:76px;padding:0 clamp(20px,5vw,80px);mix-blend-mode:difference}
 .logo{font-family:var(--disp);font-size:24px;letter-spacing:.42em;padding-left:.42em;color:#fff}
 .coord{font-family:var(--mono);font-size:11px;letter-spacing:.18em;color:#fff;opacity:.75}
+.end{display:flex;align-items:center;gap:30px}
+.back{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#fff;text-decoration:none;opacity:.85}
+.back:hover{opacity:1}
+.back:focus-visible{outline:2px solid #fff;outline-offset:5px}
+@media(max-width:620px){.coord{display:none}}
 .copy{position:absolute;left:0;right:0;bottom:0;padding:0 clamp(20px,5vw,80px) clamp(56px,11vh,120px)}
-.kick{font-family:var(--mono);font-size:11px;line-height:1.8;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin-bottom:24px}
+.kick{font-family:var(--mono);font-size:11px;line-height:1.8;letter-spacing:.22em;text-transform:uppercase;color:rgba(237,230,216,.8);margin-bottom:24px;text-shadow:0 1px 14px rgba(14,13,12,.55)}
 .kick b{color:var(--accent);font-weight:500}
 h1{font-family:var(--disp);font-weight:300;font-size:clamp(3rem,11vw,10rem);line-height:.96;letter-spacing:-.01em}
 h1 em{font-style:italic;color:var(--accent)}
@@ -207,13 +215,14 @@ h1 em{font-style:italic;color:var(--accent)}
 <div class="stage">
   <video autoplay muted loop playsinline><source src="__VID__" type="video/mp4"></video>
   <div class="veil"></div>
-  <div class="bar"><div class="logo">AETHER</div><div class="coord">46.5&deg;N / 7.9&deg;E</div></div>
+  <div class="bar"><div class="logo">AETHER</div><div class="end"><div class="coord">46.5&deg;N / 7.9&deg;E</div><a class="back" href="../">&larr; Index</a></div></div>
   <div class="copy">
     <div class="kick"><b>01</b> &nbsp; Architectural retreats &nbsp;&mdash;&nbsp; Above the cloud line</div>
     <h1>Live above the <em>weather.</em></h1>
     <p class="sub">A small collection of remote houses, built where the map runs out and the noise stops.</p>
   </div>
 </div>
+<script>if(matchMedia("(prefers-reduced-motion: reduce)").matches){const v=document.querySelector("video");v.autoplay=false;v.pause()}</script>
 </body></html>
 """
 with open("aether-cinematic.html","w") as f:

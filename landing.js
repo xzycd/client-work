@@ -8,6 +8,7 @@
   const strip = document.querySelector("[data-strip]");
   const plates = [...document.querySelectorAll("[data-plate]")];
   const markBars = [...document.querySelectorAll("[data-mark] i")];
+  const terms = [...document.querySelectorAll("[data-term]")];
   const nowIndex = document.querySelector("[data-now-index]");
   const nowName = document.querySelector("[data-now-name]");
   const transition = document.querySelector(".page-transition");
@@ -88,6 +89,7 @@
   const openPlate = (position) => {
     stripPosition = position;
     plates.forEach((plate, index) => plate.classList.toggle("is-on", index === position));
+    terms.forEach((term) => term.classList.toggle("is-on", finePointer.matches && term.dataset.term.split(" ").includes(String(position))));
     if (stripInView) showMark(position);
   };
 
@@ -115,6 +117,14 @@
         stopCycle();
         openPlate(index);
       });
+    });
+
+    terms.forEach((term) => {
+      term.addEventListener("pointerenter", () => {
+        stopCycle();
+        openPlate(Number(term.dataset.term.split(" ")[0]));
+      });
+      term.addEventListener("pointerleave", startCycle);
     });
 
     strip?.addEventListener("pointerleave", startCycle);

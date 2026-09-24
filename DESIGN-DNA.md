@@ -1,6 +1,6 @@
 # DESIGN DNA — the index
 
-The root page (`index.html`, `landing.css`, `landing.js`). It shows five pieces
+The root page (`index.html`, `landing.css`, `landing.js`). It shows six pieces
 and should look like none of them.
 
 ## What it replaced, and why
@@ -11,7 +11,7 @@ online" dot. Every one of those is a stock HUD trope, and together they make a
 page look generated. They also competed with the work: five pieces with strong
 colours of their own sat under an index that had its own motion system.
 
-All of it is gone. The index now does three things: it names the five pieces,
+All of it is gone. The index now does three things: it names the six pieces,
 shows them, and gets out of the way on click.
 
 ## Colour
@@ -21,9 +21,9 @@ shows them, and gets out of the way on click.
     --ink-2   #3f3f3b    7.47 : 1
     --ink-3   #585854    5.05 : 1   smallest text, still AA
 
-There is no accent. ACID is `#D6FF00`, FIELD has an orange rim light, and HAUL
-has one magenta. Any accent on the index would argue with one of them. Grey is
-the one ground all five read cleanly on, and it is the only choice that makes
+There is no accent. ACID is `#D6FF00`, FIELD has an orange rim light, HAUL
+has one magenta, and Low Water has a buoy orange. Any accent on the index would argue with one of them. Grey is
+the one ground all six read cleanly on, and it is the only choice that makes
 the colophon line true: the only colour on the page is the work's own.
 
 ## Type
@@ -36,30 +36,37 @@ the colophon line true: the only colour on the page is the work's own.
   default editorial serif.
 - **Host Grotesk** for everything functional: specs, captions, the header.
 
-Neither font appears in any of the five pieces, so the index never looks like
-a sixth piece.
+Neither font appears in any of the six pieces, so the index never looks like
+a seventh piece.
 
-Statement weight is 300, and 340 under 720px, where Boska's hairlines thin out
-on 1× screens. Title tracking stops at `-0.012em`, because anything tighter
+The statement is a sentence that doubles as the index. Each of its terms
+("an instrument", "two films") carries the number of its plate as a small
+superscript. Hovering a term opens that plate, and the open plate underlines its
+term, so the sentence and the strip always show the same piece. On touch screens
+the terms stay plain, because nothing there can hover. The statement was cut down
+to three lines at desktop sizes (2026-09-24, capped at 3.2rem) so the strip gets
+the height back. Its weight is 300, and 340 under 720px, where Boska's hairlines
+thin out on 1× screens. Title tracking stops at `-0.012em`, because anything tighter
 makes the "Fi" in *Field* collide.
 
 ## The mark is the index
 
-The logo is five bars, and one of them is wide. It is the strip in miniature:
+The logo is six bars, and one of them is wide. It is the strip in miniature:
 the wide bar is whichever piece is open or in view, and the header repeats that
-piece's number and name. The favicon is the same five bars with the first one
+piece's number and name. The favicon is the same six bars with the first one
 open. There is no separate logotype to maintain.
 
 ## The strip
 
-The first screen is five plates in a row. One is open (`flex-grow: 3.6`); the
+The first screen is six plates in a row. One is open (`flex-grow: 3.6`); the
 others stay narrow and slightly desaturated. With a fine pointer the strip
 cycles every 3.6 s until someone hovers or focuses a plate, then hands control
 over, and it resumes when they leave. On a phone it becomes a swipe row of
 equal plates with scroll snap, because opening on hover makes no sense there.
 
 The plates are the pieces themselves: real stills for FIELD and the Aether
-films, and CSS-drawn HAUL and ACID set in the same faces those pages use. A
+films, and CSS-drawn HAUL, ACID and Low Water set in the same faces those
+pages use (Archivo, Chivo, Zodiak). A
 plate caption drops its name when the plate is too narrow to hold it cleanly,
 so nothing is ever truncated to "H…".
 
@@ -67,7 +74,9 @@ so nothing is ever truncated to "H…".
 
 Every figure on the index is checked against the piece it describes. The
 sequence is 71 frames because the file embeds 71. The ACID ratio is 18.16 : 1
-because that page measures 18.16 : 1. Plate copy is taken from the pages, not
+because that page measures 18.16 : 1. Low Water's "4 min" is the largest
+timing error between its predictor and NOAA's published tables, measured over
+every high and low from September to December 2026. Plate copy is taken from the pages, not
 written for the index. If a piece changes, the index changes with it.
 
 ## Transition
@@ -81,9 +90,11 @@ Modified clicks, and visitors with reduced motion, get plain navigation.
 ## Motion
 
 One material carries all of it: things arrive as a wipe from below. On load,
-the statement rises out of a mask line by line, then the five plates wipe up
+the statement rises out of a mask line by line, then the six plates wipe up
 one after another, 85 ms apart, so the strip draws itself the way the mark
-reads. The edition button fills from below on hover. Clicking a piece wipes
+reads. The underline under a statement term draws from the left when its plate
+opens. The Low Water plate carries its own waterline, moving the one way that
+piece moves. The edition button fills from below on hover. Clicking a piece wipes
 the destination ground up over the page.
 
 Allowed besides that: the strip cycling, a reveal on first view, a few pixels
@@ -92,8 +103,10 @@ motion that runs without a reason, anything that blinks, and anything that
 suggests the page is a live system. Under `prefers-reduced-motion` all of it
 stops and everything is visible at once.
 
-Measured on 2026-09-23 in headless Chromium at 1440×900: plate switches and
-scrolling ran at a 16.7 ms p95 frame time, with no frame over 25 ms.
+Measured on 2026-09-24 in headless Chromium at 1440×900, with six plates:
+plate switches and scrolling ran at a 16.7 ms p95 frame time. One frame reached
+33 ms the first time the cinematic plate opened (its 2560px still decoding), and
+one during the first scroll. Opening the same plate again ran clean.
 
 ## First edition
 

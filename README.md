@@ -6,9 +6,10 @@ HTML files directly in a browser (no build step, no server).
 **Live preview:** [xzycd.github.io/client-work](https://xzycd.github.io/client-work/)
 
 The root index (`index.html`, `landing.css`, `landing.js`) is a neutral grey
-page whose only colour comes from the work. The top is a strip of five plates:
+page whose only colour comes from the work. The top is a strip of six plates:
 one opens wide and the strip cycles through them, and hovering or focusing a
-plate takes over. The five-bar mark in the header tracks which piece is in view.
+plate takes over. The six-bar mark in the header tracks which piece is in view, and
+each term in the opening sentence opens its own plate.
 Below the strip, each piece has a preview built from its own page, and clicking
 through wipes to that page's ground colour before it loads. Brand decisions and
 their reasons are in [`DESIGN-DNA.md`](DESIGN-DNA.md).
@@ -61,19 +62,36 @@ when the value you land on stops passing.
 Cinematic landing page for an architectural-retreat brand, in three
 scroll treatments built around one AI-generated 4K hero and a motion clip.
 
-- [`cinematic.html`](https://xzycd.github.io/client-work/aether-retreats/cinematic.html) — full-screen video background, **auto-plays on load** (start here to see motion)
+- [`cinematic.html`](https://xzycd.github.io/client-work/aether-retreats/cinematic.html) — full-screen video background, **auto-plays on load** (start here to see motion; it stays paused for visitors who prefer reduced motion)
 - [`scroll-sequence.html`](https://xzycd.github.io/client-work/aether-retreats/scroll-sequence.html) — Apple-style **scroll-scrubbed frame sequence**: scroll to advance the scene frame by frame. Self-contained (71 frames embedded).
-- [`parallax.html`](https://xzycd.github.io/client-work/aether-retreats/parallax.html) — CSS scroll effects: hero zoom, pinned narrative, horizontal gallery. Still live, but no longer one of the five on the index; `acid/` took that slot.
+- [`parallax.html`](https://xzycd.github.io/client-work/aether-retreats/parallax.html) — CSS scroll effects: hero zoom, pinned narrative, horizontal gallery. Still live, but no longer on the index; `acid/` took that slot.
 - `assets/hero.jpg` — 4K hero still (optimised)
 - `assets/motion.mp4` — 5s cinematic clip (source of the frame sequence)
 - `assets/sequence-end.jpg` — last-light frame of the clip, used as the index poster for the sequence
 
+### `low-water/`
+Identity for Low Water, a fictional oyster farm in Eastport, Maine, that can only
+work when the tide is out. The page is a tide gauge. The real water level at
+Eastport is predicted in the browser, and everything below the waterline is
+redrawn in kelp and set in italic, the way charts letter the sea. A seven-day
+dial lets you drag the tide forward. Below it are the week's low waters, a
+harvest tag printed with the curve of the day you land on, and the three rules
+of the identity.
+
+- [`index.html`](https://xzycd.github.io/client-work/low-water/) — live page
+- `DESIGN-DNA.md` — the brand rules and how the tide is computed and checked
+
+The prediction uses 31 of NOAA's harmonic constituents for Eastport (station
+8410140). Checked against NOAA's published high and low waters for September to
+December 2026, the largest error was 4 minutes and 9 cm.
+
 ### `_tools/`
 - `build_sequence.py` — extracts frames from `motion.mp4` and bakes the
-  self-contained scroll-sequence + cinematic HTML files.
+  self-contained scroll-sequence + cinematic HTML files. Change the page
+  templates here as well as in the baked files.
 
 ## Notes
-- Typography loads from Google Fonts (Host Grotesk, Cormorant Garamond, Jost, Archivo, Chivo, Martian Mono, DM Mono, Manrope) and Fontshare (Boska).
+- Typography loads from Google Fonts (Host Grotesk, Cormorant Garamond, Jost, Archivo, Chivo, Martian Mono, DM Mono, Manrope, Fragment Mono) and Fontshare (Boska, Zodiak).
 - All pages respect `prefers-reduced-motion` and re-compose for mobile.
 - Imagery was generated with an AI image/video model; treat as mockup assets.
 
