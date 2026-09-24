@@ -79,6 +79,16 @@ timing error between its predictor and NOAA's published tables, measured over
 every high and low from September to December 2026. Plate copy is taken from the pages, not
 written for the index. If a piece changes, the index changes with it.
 
+## The rows
+
+Below the strip each piece gets a row: title, one paragraph, a short spec list
+and a link. No row has a label above its title. The piece number sits on the
+title as a superscript, the way it sits on its term in the statement, and the
+kind of piece ("Instrument in Three.js") is the first spec line. The cinematic
+film is the one row that breaks the column (2026-09-24): the film says full
+bleed, so above 1040px it runs the full width at 2.39 : 1 with its notes in three
+columns underneath. Every other row alternates plate left and plate right.
+
 ## Transition
 
 Clicking a piece wipes up a panel in that page's own ground colour, with its
