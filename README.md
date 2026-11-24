@@ -47,15 +47,16 @@ HAUL is not a real typeface; the page is set in Archivo, which stands in for it.
 ### `acid/`
 A single-colour system delivered as its own specification. `#D6FF00` covers the
 whole surface and black does the reading; there is no third value. Black masses
-rise through the page on scroll and the type reverses itself along the moving
-edge — it is painted once in the colour and composited in `difference`, so over
-the colour it resolves to black and over black it resolves to the colour.
+rise through the page on scroll, the black slab in the hero can be grabbed and
+thrown, and the type reverses itself along every moving edge — it is painted once
+in the colour and composited in `difference`, so over the colour it resolves to
+black and over black it resolves to the colour.
 
 Every figure on the page is measured in the browser at runtime rather than typed
 in: hex, RGB, linear sRGB, HSL, OKLCh, relative luminance, and the WCAG contrast
 ratios. The contrast instrument drives lightness and hue in OKLCh with chroma
-pinned to the sRGB gamut edge, re-drenches the entire document live, and says so
-when the value you land on stops passing.
+pinned to the sRGB gamut edge (hue is a tape you can spin), re-drenches the
+entire document live, and says so when the value you land on stops passing.
 
 - [`index.html`](https://xzycd.github.io/client-work/acid/) — live page
 

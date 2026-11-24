@@ -122,7 +122,7 @@ button{font:inherit;color:inherit;border:0;background:none;-webkit-appearance:no
 .rail-val{justify-self:end;letter-spacing:.06em}
 
 @media (max-width:720px){
-  .rail{grid-template-columns:1fr auto;font-size:10px;letter-spacing:.1em}
+  .rail{grid-template-columns:1fr auto;font-size:11px;letter-spacing:.1em}
   .rail-mid{display:none}
 }
 
@@ -202,8 +202,11 @@ h2{
   overflow:hidden;
 }
 
-/* the moving black. outer element is driven by scroll, the inner one breathes
-   on its own so the hero is alive before anyone touches the page. */
+/* the moving black. the outer element is driven by scroll, the inner one by
+   the hand: grab anywhere on the hero and throw it. */
+.hero{cursor:grab;touch-action:pan-y}
+.hero a{cursor:pointer}
+html.held,html.held *{cursor:grabbing!important;user-select:none;-webkit-user-select:none}
 .band{position:absolute;z-index:0;inset:0;pointer-events:none}
 .band-move{
   position:absolute;inset:0;
@@ -213,11 +216,8 @@ h2{
   position:absolute;inset:0 auto;
   left:-24%;width:44%;
   background:var(--ink);
+  will-change:transform;
 }
-@media (prefers-reduced-motion:no-preference){
-  .band-move i{animation:breathe 13s ease-in-out infinite alternate}
-}
-@keyframes breathe{to{transform:translate3d(2.4%,0,0)}}
 
 /* scoped to .hero-blend, not .hero > *, so it cannot re-position the band */
 .hero > .hero-blend{position:relative;z-index:1}
@@ -416,6 +416,32 @@ h2{
 .dial-top{display:flex;justify-content:space-between;gap:14px;align-items:baseline}
 .dial-val{font-size:15px;font-weight:600;letter-spacing:-.01em}
 
+/* the hue tape: a strip of degrees under a fixed needle. drag it like a
+   tuning dial and let go; it carries on and slows the way a scroll does. */
+.tape{
+  position:relative;height:78px;overflow:hidden;
+  border:1px solid currentColor;
+  cursor:grab;touch-action:pan-y;user-select:none;-webkit-user-select:none;
+}
+.tape:has(input:focus-visible){outline:2px solid currentColor;outline-offset:4px}
+.tape-strip{position:absolute;inset:0 auto 0 0;will-change:transform}
+.tape-strip i{position:absolute;bottom:0;width:1px;height:10px;background:currentColor}
+.tape-strip i.q{height:20px}
+.tape-strip i.h{height:32px}
+.tape-strip b{
+  position:absolute;top:10px;transform:translateX(-50%);
+  font-size:11px;font-weight:400;letter-spacing:0;
+}
+.tape-needle{
+  position:absolute;z-index:1;top:0;bottom:0;left:50%;
+  width:3px;margin-left:-1px;background:currentColor;
+}
+.tape-needle::before,.tape-needle::after{
+  content:"";position:absolute;left:-6px;width:15px;height:4px;background:currentColor;
+}
+.tape-needle::before{top:0}
+.tape-needle::after{bottom:0}
+
 input[type=range]{
   width:100%;height:26px;margin:0;
   background:none;
@@ -468,7 +494,6 @@ input[type=range]:active::-moz-range-thumb{transform:scaleX(2.1)}
   display:flex;justify-content:space-between;gap:14px;align-items:center;
   padding:11px 13px;
   background:var(--acid);color:var(--ink);
-  transition:background .18s ease,color .18s ease;
 }
 .sec--ink .mark{background:var(--acid);color:var(--ink)}
 .mark[data-pass="0"]{background:var(--ink);color:var(--acid)}
@@ -617,7 +642,7 @@ input[type=range]:active::-moz-range-thumb{transform:scaleX(2.1)}
 }
 
 @media print{
-  .rail,.alarm,.skip,.band,.cue,.copy,.reset,input[type=range]{display:none!important}
+  .rail,.alarm,.skip,.band,.cue,.copy,.reset,.tape,input[type=range]{display:none!important}
   body,.sec,.hero,.sec--ink{background:#fff!important;color:#000!important}
   .sec--ink::before{display:none!important}
   .sec--ink > .wrap,.hero-blend{color:#000!important;mix-blend-mode:normal!important}
@@ -655,7 +680,7 @@ input[type=range]:active::-moz-range-thumb{transform:scaleX(2.1)}
 
     <div class="hero-blend hero-top label">
       <span>Colour specification</span>
-      <span>sRGB reference</span>
+      <span>Drag the black</span>
       <span>Vilnius · 2026</span>
     </div>
 
@@ -742,7 +767,7 @@ input[type=range]:active::-moz-range-thumb{transform:scaleX(2.1)}
   <section class="sec" id="rig" aria-labelledby="rig-h">
     <div class="wrap">
       <h2 id="rig-h">Move it and watch it fail</h2>
-      <p class="lead" style="margin-top:1em">Chroma is pinned to the sRGB gamut edge for whatever you pick, so every position is a fully saturated drench. Lightness and hue are yours. The pass marks come from WCAG 2.1, so they are not a matter of taste. Most of the wheel does not survive them.</p>
+      <p class="lead" style="margin-top:1em">Chroma is pinned to the sRGB gamut edge for whatever you pick, so every position is a fully saturated drench. Lightness and hue are yours, and the hue tape spins if you throw it. The pass marks come from WCAG 2.1, so they are not a matter of taste. Most of the wheel does not survive them.</p>
 
       <div class="rig">
         <div class="dials">
@@ -759,7 +784,11 @@ input[type=range]:active::-moz-range-thumb{transform:scaleX(2.1)}
               <label class="label" for="dH">Hue</label>
               <output class="dial-val mono" id="dHv" for="dH">120.8°</output>
             </div>
-            <input id="dH" type="range" min="0" max="1439" step="1" value="483" aria-describedby="verdict">
+            <div class="tape" data-tape>
+              <div class="tape-strip" aria-hidden="true"></div>
+              <span class="tape-needle" aria-hidden="true"></span>
+              <input class="sr" id="dH" type="range" min="0" max="1439" step="1" value="483" aria-describedby="verdict">
+            </div>
           </div>
 
           <button class="reset" type="button" data-reset hidden>Return to spec</button>
@@ -1057,19 +1086,153 @@ Cut between them. Never fade.</pre>
       (vk >= 7 ? "Passes AAA." : vk >= 4.5 ? "Passes AA body text." : vk >= 3 ? "Large text only." : "Fails.");
   }
 
+  /* ---- springs and throws -------------------------------------------- */
+  /* one critically damped spring per value; a new target re-aims it from
+     wherever it is, at whatever speed it already has, so nothing jumps. */
+  function Spring(get, set, done){
+    var s = { v: 0, to: 0, resp: 0.5, damp: 1, raf: 0, last: 0 };
+    function step(now){
+      s.raf = 0;
+      var dt = Math.min(0.05, (now - s.last) / 1000); s.last = now;
+      var k = Math.pow(2 * Math.PI / s.resp, 2), c = 2 * s.damp * Math.sqrt(k);
+      var x = get();
+      for (var i = 0, h = dt / 4; i < 4; i++){ s.v += (-k * (x - s.to) - c * s.v) * h; x += s.v * h; }
+      if (Math.abs(x - s.to) < 1e-3 && Math.abs(s.v) < 1e-2){ x = s.to; s.v = 0; set(x); if (done) done(); return; }
+      set(x);
+      s.raf = requestAnimationFrame(step);
+    }
+    s.go = function(to, opt){
+      opt = opt || {};
+      s.to = to; s.resp = opt.resp || 0.5; s.damp = opt.damp || 1;
+      if (opt.v !== undefined) s.v = opt.v;
+      if (reduce.matches){ s.stop(); set(to); if (done) done(); return; }
+      if (!s.raf){ s.last = performance.now(); s.raf = requestAnimationFrame(step); }
+    };
+    s.stop = function(){ if (s.raf) cancelAnimationFrame(s.raf); s.raf = 0; s.v = 0; };
+    return s;
+  }
+  /* where a throw would come to rest under scroll-like friction */
+  function project(v){ var d = 0.998; return (v / 1000) * d / (1 - d); }
+  function rubber(x, lo, hi, dim){
+    if (x < lo){ var o = lo - x; return lo - (o * dim * 0.55) / (dim + 0.55 * o); }
+    if (x > hi){ var p = x - hi; return hi + (p * dim * 0.55) / (dim + 0.55 * p); }
+    return x;
+  }
+  /* a short history of pointer samples gives the release velocity */
+  function Tracker(){
+    var h = [];
+    return {
+      reset: function(){ h = []; },
+      add: function(x, t){ h.push({ x: x, t: t }); if (h.length > 8) h.shift(); },
+      velocity: function(){
+        if (h.length < 2) return 0;
+        var b = h[h.length - 1], a = h[0];
+        for (var i = h.length - 2; i >= 0; i--){ a = h[i]; if (b.t - a.t > 90) break; }
+        return b.t > a.t ? (b.x - a.x) / ((b.t - a.t) / 1000) : 0;
+      }
+    };
+  }
+
+  /* ---- the hue tape ----------------------------------------------------- */
+  var tape = document.querySelector("[data-tape]");
+  var strip = tape.querySelector(".tape-strip");
+  var PX = 6;                      // pixels per degree on the tape
+  var hueF = parseInt(dH.value, 10) * 0.25;
+  (function(){
+    var html = "";
+    for (var d = -360; d <= 720; d += 5){
+      var cls = d % 30 === 0 ? "h" : d % 15 === 0 ? "q" : "";
+      html += '<i class="' + cls + '" style="left:' + ((d + 360) * PX) + 'px"></i>';
+      if (d % 30 === 0) html += '<b class="mono" style="left:' + ((d + 360) * PX) + 'px">' + ((d % 360 + 360) % 360) + '</b>';
+    }
+    strip.innerHTML = html;
+  })();
+  function drawTape(){
+    strip.style.transform = "translate3d(" + Math.round(tape.clientWidth / 2 - (hueF + 360) * PX) + "px,0,0)";
+  }
+  function setHue(h){
+    hueF = ((h % 360) + 360) % 360;
+    dH.value = Math.round(hueF / 0.25) % 1440;
+    drawTape();
+    schedule();
+  }
+
+  var coast = 0, coastV = 0, coastT = 0;
+  function stopCoast(){ if (coast) cancelAnimationFrame(coast); coast = 0; }
+  function coastStep(now){
+    var dt = Math.min(50, now - coastT); coastT = now;
+    coastV *= Math.pow(0.998, dt);
+    setHue(hueF + coastV * dt / 1000);
+    if (Math.abs(coastV) < 4){ coast = 0; announce(); return; }
+    coast = requestAnimationFrame(coastStep);
+  }
+
+  (function(){
+    var tr = Tracker(), grab = null;
+    tape.addEventListener("pointerdown", function(e){
+      if (e.button !== 0) return;
+      stopCoast(); backL.stop(); backH.stop();
+      grab = { x: e.clientX, y: e.clientY, h: hueF, id: e.pointerId, live: e.pointerType === "mouse" };
+      tr.reset(); tr.add(hueF, e.timeStamp);
+      if (grab.live){ tape.setPointerCapture(e.pointerId); root.classList.add("held"); }
+    });
+    tape.addEventListener("pointermove", function(e){
+      if (!grab) return;
+      var dx = e.clientX - grab.x, dy = e.clientY - grab.y;
+      if (!grab.live){
+        if (Math.abs(dy) > 10 && Math.abs(dy) > Math.abs(dx)){ grab = null; return; }
+        if (Math.abs(dx) < 10) return;
+        grab.live = true; grab.x += dx > 0 ? 10 : -10; dx = e.clientX - grab.x;
+        tape.setPointerCapture(e.pointerId); root.classList.add("held");
+      }
+      var h = grab.h - dx / PX;
+      tr.add(h, e.timeStamp);
+      setHue(h);
+    });
+    function end(){
+      if (!grab) return;
+      var was = grab.live; grab = null;
+      root.classList.remove("held");
+      if (!was) return;
+      coastV = tr.velocity();
+      if (reduce.matches || Math.abs(coastV) < 30){ announce(); return; }
+      coastT = performance.now(); coast = requestAnimationFrame(coastStep);
+    }
+    tape.addEventListener("pointerup", end);
+    tape.addEventListener("pointercancel", end);
+  })();
+
   [dL, dH].forEach(function(el){
-    el.addEventListener("input", schedule);
+    el.addEventListener("input", function(){
+      stopCoast();
+      if (el === dH){ hueF = parseInt(dH.value, 10) * 0.25; drawTape(); }
+      schedule();
+    });
     el.addEventListener("change", announce);
   });
 
+  /* return to spec travels back through the colours in between, along the
+     short way round the hue circle, rather than cutting to the answer */
+  var specLch = hexToOklch(SPEC);
+  var backL = Spring(function(){ return parseInt(dL.value, 10); },
+                     function(v){ dL.value = Math.round(v); schedule(); });
+  var backH = Spring(function(){ return hueF; }, setHue, function(){ toSpec(); });
   function toSpec(){
-    var lch = hexToOklch(SPEC);
-    dL.value = Math.round(lch.L * 1000);
-    dH.value = Math.round(lch.H / 0.25);
+    dL.value = Math.round(specLch.L * 1000);
+    dH.value = Math.round(specLch.H / 0.25);
+    hueF = parseInt(dH.value, 10) * 0.25;
+    drawTape();
     schedule();
     announce();
   }
-  resets.forEach(function(b){ b.addEventListener("click", toSpec); });
+  function backToSpec(){
+    stopCoast();
+    var dh = ((specLch.H - hueF + 540) % 360) - 180;
+    backL.go(Math.round(specLch.L * 1000), { resp: 0.7 });
+    backH.go(hueF + dh, { resp: 0.7 });
+  }
+  resets.forEach(function(b){ b.addEventListener("click", backToSpec); });
+  addEventListener("resize", drawTape, { passive: true });
 
   /* seed the dials from the spec value so the two never disagree */
   toSpec();
@@ -1176,6 +1339,58 @@ Cut between them. Never fade.</pre>
   if (canBlend && !reduce.matches){
     motion();
     addEventListener("scroll", onScroll, { passive: true });
+  }
+
+  /* ---- the black, by hand ---------------------------------------------- */
+  /* grab anywhere on the hero and the slab follows the pointer 1:1. let go
+     and it keeps the hand's speed, coasts to where that speed would carry
+     it, and bounces off the edge if it was thrown that far. */
+  var slab = band ? band.querySelector("i") : null;
+  var slabX = 0;
+  function placeSlab(x){ slabX = x; slab.style.transform = "translate3d(" + Math.round(x) + "px,0,0)"; }
+  if (slab && hero && canBlend){
+    var slabSpring = Spring(function(){ return slabX; }, placeSlab);
+    var bounds = function(){ var w = hero.clientWidth; return [-0.24 * w, 0.8 * w, w]; };
+    var str = Tracker(), held = null;
+    hero.addEventListener("pointerdown", function(e){
+      if (e.button !== 0 || e.target.closest("a,button,input")) return;
+      slabSpring.stop();
+      held = { x: e.clientX, y: e.clientY, s: slabX, live: false };
+      str.reset();
+    });
+    hero.addEventListener("pointermove", function(e){
+      if (!held) return;
+      var dx = e.clientX - held.x, dy = e.clientY - held.y;
+      if (!held.live){
+        if (Math.abs(dy) > 10 && Math.abs(dy) > Math.abs(dx)){ held = null; return; }
+        if (Math.abs(dx) < 6) return;
+        held.live = true;
+        hero.setPointerCapture(e.pointerId);
+        root.classList.add("held");
+      }
+      var b = bounds();
+      var x = rubber(held.s + dx, b[0], b[1], b[2]);
+      str.add(x, e.timeStamp);
+      placeSlab(x);
+    });
+    var drop = function(){
+      if (!held) return;
+      var was = held.live; held = null;
+      root.classList.remove("held");
+      if (!was) return;
+      var b = bounds(), v = str.velocity();
+      var land = slabX + project(v);
+      var hit = land < b[0] || land > b[1];
+      slabSpring.go(Math.max(b[0], Math.min(b[1], land)), { v: v, resp: 0.55, damp: hit ? 0.72 : 1 });
+    };
+    hero.addEventListener("pointerup", drop);
+    hero.addEventListener("pointercancel", drop);
+
+    /* one entrance: the slab slides in from the left edge the first time */
+    if (!reduce.matches){
+      placeSlab(-0.3 * hero.clientWidth);
+      requestAnimationFrame(function(){ slabSpring.go(0, { resp: 1.1 }); });
+    }
   }
 
   /* ---- reveals: additive only ------------------------------------------- */
