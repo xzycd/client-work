@@ -290,6 +290,10 @@ em {
   object-position: 58% 50%;
 }
 
+.plate-nebelmeer img {
+  object-position: 22% 50%;
+}
+
 .plate-sakai img {
   object-position: 40% 50%;
 }
@@ -767,6 +771,24 @@ em {
 
 .project.is-active:not(:hover) .haul-axis:last-child i::after {
   animation: haul-fill-out 6.4s var(--ease-io) infinite alternate;
+}
+
+/* Nebelmeer: the dawn film, with the studio's spaced capitals. */
+.preview-nebelmeer {
+  background: #0e0d0c;
+}
+
+.nebelmeer-word {
+  position: absolute;
+  z-index: 2;
+  top: 12%;
+  left: 50%;
+  color: #fff;
+  font: 300 clamp(12px, 2.2cqw, 20px) / 1 "Cormorant Garamond", var(--serif);
+  letter-spacing: 0.38em;
+  padding-left: 0.38em;
+  transform: translateX(-50%);
+  text-shadow: 0 1px 16px rgba(14, 13, 12, 0.5);
 }
 
 /* Sakai: the morph on a loop, under the page's own italic. */
