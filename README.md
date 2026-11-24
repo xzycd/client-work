@@ -6,9 +6,9 @@ HTML files directly in a browser (no build step, no server).
 **Live preview:** [xzycd.github.io/client-work](https://xzycd.github.io/client-work/)
 
 The root index (`index.html`, `landing.css`, `landing.js`) is a neutral grey
-page whose only colour comes from the work. The top is a strip of six plates:
+page whose only colour comes from the work. The top is a strip of seven plates:
 one opens wide and the strip cycles through them, and hovering or focusing a
-plate takes over. The six-bar mark in the header tracks which piece is in view, and
+plate takes over. The seven-bar mark in the header tracks which piece is in view, and
 each term in the opening sentence opens its own plate.
 Below the strip, each piece has a preview built from its own page, and clicking
 through wipes to that page's ground colour before it loads. Brand decisions and
@@ -84,6 +84,18 @@ of the identity.
 The prediction uses 31 of NOAA's harmonic constituents for Eastport (station
 8410140). Checked against NOAA's published high and low waters for September to
 December 2026, the largest error was 4 minutes and 9 cm.
+
+### `suodis/`
+A smoke sauna on a frozen lake in Dzūkija, Lithuania, told as one scroll. Four
+short films play under the scroll on a canvas: smoke leaving the walls, the soot
+room, water on the stones, the ice hole. You enter through the lit window, and a
+thermometer on the right goes from −14 °C outside to 86 °C inside and down to
++1 °C in the lake. Suodis is made up.
+
+- [`index.html`](https://xzycd.github.io/client-work/suodis/) — live page
+- `suodis.js` — frame loading, scroll smoothing and the three transitions
+- `frames/` — 4 × 61 WebP frames at 1280 px; `img/` — 2400 px stills and the index preview loop
+- `DESIGN-DNA.md` — brand rules; `media/look.md` and `media/manifest.json` — shot direction, models and prompts
 
 ### `_tools/`
 - `build_sequence.py` — extracts frames from `motion.mp4` and bakes the

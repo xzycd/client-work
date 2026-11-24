@@ -1,6 +1,6 @@
 # DESIGN DNA — the index
 
-The root page (`index.html`, `landing.css`, `landing.js`). It shows six pieces
+The root page (`index.html`, `landing.css`, `landing.js`). It shows seven pieces
 and should look like none of them.
 
 ## What it replaced, and why
@@ -11,7 +11,7 @@ online" dot. Every one of those is a stock HUD trope, and together they make a
 page look generated. They also competed with the work: five pieces with strong
 colours of their own sat under an index that had its own motion system.
 
-All of it is gone. The index now does three things: it names the six pieces,
+All of it is gone. The index now does three things: it names the pieces,
 shows them, and gets out of the way on click.
 
 ## Colour
@@ -22,8 +22,8 @@ shows them, and gets out of the way on click.
     --ink-3   #585854    5.05 : 1   smallest text, still AA
 
 There is no accent. ACID is `#D6FF00`, FIELD has an orange rim light, HAUL
-has one magenta, and Low Water has a buoy orange. Any accent on the index would argue with one of them. Grey is
-the one ground all six read cleanly on, and it is the only choice that makes
+has one magenta, Low Water has a buoy orange, and Suodis has one lit window. Any accent on the index would argue with one of them. Grey is
+the one ground all of them read cleanly on, and it is the only choice that makes
 the colophon line true: the only colour on the page is the work's own.
 
 ## Type
@@ -36,7 +36,7 @@ the colophon line true: the only colour on the page is the work's own.
   default editorial serif.
 - **Host Grotesk** for everything functional: specs, captions, the header.
 
-Neither font appears in any of the six pieces, so the index never looks like
+Neither font appears in any of the pieces, so the index never looks like
 a seventh piece.
 
 The statement is a sentence that doubles as the index. Each of its terms
@@ -45,20 +45,23 @@ superscript. Hovering a term opens that plate, and the open plate underlines its
 term, so the sentence and the strip always show the same piece. On touch screens
 the terms stay plain, because nothing there can hover. The statement was cut down
 to three lines at desktop sizes (2026-09-24, capped at 3.2rem) so the strip gets
-the height back. Its weight is 300, and 340 under 720px, where Boska's hairlines
+the height back. With a seventh term it needed a smaller size to stay at three
+lines from 1280px up (2026-11-24: `0.8rem + 1.95vw`, capped at 2.9rem, measure
+29em), and the sauna's term is "a smoke sauna", the shortest name that still
+says what it is. Its weight is 300, and 340 under 720px, where Boska's hairlines
 thin out on 1× screens. Title tracking stops at `-0.012em`, because anything tighter
 makes the "Fi" in *Field* collide.
 
 ## The mark is the index
 
-The logo is six bars, and one of them is wide. It is the strip in miniature:
+The logo is seven bars, and one of them is wide. It is the strip in miniature:
 the wide bar is whichever piece is open or in view, and the header repeats that
-piece's number and name. The favicon is the same six bars with the first one
+piece's number and name. The favicon is the same seven bars with the first one
 open. There is no separate logotype to maintain.
 
 ## The strip
 
-The first screen is six plates in a row. One is open (`flex-grow: 3.6`); the
+The first screen is seven plates in a row. One is open (`flex-grow: 3.6`); the
 others stay narrow and slightly desaturated. With a fine pointer the strip
 cycles every 3.6 s until someone hovers or focuses a plate, then hands control
 over, and it resumes when they leave. On a phone it becomes a swipe row of
@@ -100,7 +103,7 @@ Modified clicks, and visitors with reduced motion, get plain navigation.
 ## Motion
 
 One material carries all of it: things arrive as a wipe from below. On load,
-the statement rises out of a mask line by line, then the six plates wipe up
+the statement rises out of a mask line by line, then the plates wipe up
 one after another, 85 ms apart, so the strip draws itself the way the mark
 reads. The underline under a statement term draws from the left when its plate
 opens. The Low Water plate carries its own waterline, moving the one way that
