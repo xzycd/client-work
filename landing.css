@@ -108,12 +108,12 @@ em {
   letter-spacing: -0.01em;
 }
 
-/* The mark is the index: six plates, the current one wide. It tracks the
+/* The mark is the index: seven plates, the current one wide. It tracks the
    strip in the hero and the piece in view further down. */
 .mark {
   display: flex;
   gap: 2px;
-  width: 30px;
+  width: 34px;
   height: 17px;
 }
 
@@ -195,9 +195,9 @@ em {
 }
 
 .statement {
-  max-width: 25em;
+  max-width: 29em;
   margin: 0;
-  font: 300 clamp(1.75rem, min(0.85rem + 2.2vw, 5.4svh), 3.2rem) / 1.06 var(--serif);
+  font: 300 clamp(1.75rem, min(0.8rem + 1.95vw, 4.8svh), 2.9rem) / 1.06 var(--serif);
   font-optical-sizing: auto;
   letter-spacing: -0.022em;
   text-wrap: pretty;
@@ -237,7 +237,7 @@ em {
   text-wrap: pretty;
 }
 
-/* The strip: the five pieces as plates, the current one opened out. */
+/* The strip: the pieces as plates, the current one opened out. */
 .strip {
   display: flex;
   flex: 1;
@@ -296,6 +296,10 @@ em {
 
 .plate-cinematic img {
   object-position: 22% 50%;
+}
+
+.plate-suodis img {
+  object-position: 30% 50%;
 }
 
 .plate-cinematic::before,
@@ -719,6 +723,22 @@ em {
   object-fit: cover;
   transform: translate3d(var(--shift-x, 0px), var(--shift-y, 0px), 0);
   transition: transform 1s var(--ease);
+}
+
+/* Suodis: the session on a loop, under the page's own wordmark. */
+.preview-suodis {
+  background: #0d1017;
+}
+
+.suodis-word {
+  position: absolute;
+  z-index: 2;
+  left: clamp(18px, 4cqw, 40px);
+  bottom: clamp(14px, 3cqw, 30px);
+  color: #f3efe8;
+  font: 400 clamp(2.6rem, 13cqw, 7rem) / 0.8 "Gloock", var(--serif);
+  letter-spacing: -0.035em;
+  text-shadow: 0 2px 30px rgba(6, 6, 8, 0.45);
 }
 
 /* HAUL: the real specimen's signature, the fitted word and its two axes. */

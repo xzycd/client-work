@@ -1,0 +1,58 @@
+[
+  {
+    "file": "media/raw/s1-exterior.png",
+    "model": "gpt_image_2_6_flare",
+    "id": "a816ac80-7df7-4ee1-9a36-1ccf62fa48e9",
+    "prompt": "A small, low, very old Lithuanian smoke sauna built of dark weathered round logs, with a mossy snow-covered shingle roof and no chimney, standing alone on the shore of a frozen lake at the edge of a pine and birch forest. It is being fired: thick grey-blue wood smoke seeps out between the logs and from under the eaves and drifts low and sideways to the left across the snow. One tiny window glows deep orange. Blue hour in deep winter, the sky cold steel blue just after sunset, dry powdery snow, the lake a flat white sheet of snow-covered ice. Camera at standing eye level out on the ice, the sauna right of centre and small enough to show the treeline and a wide band of sky. Real photograph, 35 mm lens, natural colour, fine film grain, no wide-angle distortion. No people, no text, no signs, no logos. No chimney, no footprints in the foreground.",
+    "use": "opening: exterior, start frame for clip c1"
+  },
+  {
+    "file": "media/raw/s2-interior.png",
+    "model": "gpt_image_2_6_flare",
+    "id": "5813ebad-f8e0-4cd0-b44f-0b6fe01ea248",
+    "prompt": "Inside an old smoke sauna just after firing. The log walls and low ceiling are coated in deep black soot with a soft satin sheen where light touches them. On the left a large dome-shaped heap of round grey fieldstones on a stone base, the top stones faintly glowing. A narrow beam of low winter daylight from one small square window cuts diagonally through a light haze of smoke and lands on a wide blackened wooden bench. On the bench lies a fresh birch whisk with green leaves, next to a wooden bucket with a wooden ladle. Very dark low-key image: most of the frame is near black, the light beam and the green leaves are the brightest things in it. Real photograph, 35 mm lens, natural colour, fine film grain, no wide-angle distortion. No people, no text, no signs, no logos. No metal stove, no electric heater, no modern objects.",
+    "use": "interior, start frame c2"
+  },
+  {
+    "file": "media/raw/s3-stones.png",
+    "model": "gpt_image_2_6_flare",
+    "id": "f87a0912-a7df-4a2a-99a5-e1e0ddae3f1c",
+    "prompt": "Close-up of the top of a heap of round fieldstones in a smoke sauna stove, very hot, a few stones glowing dull red deep in the gaps between them, their surfaces dark grey with pale cracked edges, a soot-black log wall behind, out of focus, a few wisps of smoke. The stones fill the frame from a slightly low angle. Low-key light from the glow plus one cool sliver of window light from the right. Real photograph, 50 mm lens, shallow depth of field, fine film grain. No people, no hands, no ladle, no water, no text.",
+    "use": "stones close, start frame c3"
+  },
+  {
+    "file": "media/raw/s4-ice.png",
+    "model": "gpt_image_2_6_flare",
+    "id": "30721823-604a-4ca5-baf3-0858066ad508",
+    "prompt": "A rectangular hole cut in thick lake ice at dusk, the water inside black and perfectly still, thin steam rising off it into the freezing air. A simple wooden ladder leads down into the water on the far edge. Packed snow around the hole, a single line of footprints leading back to the sauna from Image 1, small and dark on the shore in the distance, its tiny window glowing orange and a thin trail of smoke above it. Cold blue dusk light with a pale pink band at the horizon. Camera low, close to the ice, the hole in the lower third of the frame. Image 1 is the sauna only: copy its shape, logs and roof, not its framing or light. Real photograph, 35 mm lens, natural colour, fine film grain, no wide-angle distortion. No people, no text, no signs, no logos.",
+    "use": "ice hole, start frame c4"
+  },
+  {
+    "file": "media/raw/c2.mp4",
+    "model": "seedance_2_0_mini",
+    "id": "ff561fab-8507-44d6-8c85-8b9cbee98059",
+    "prompt": "Very slow push in toward the birch whisk on the bench. The haze of smoke in the room drifts slowly through the beam of window light, swirling and catching the light. The glow in the stones pulses faintly. Nothing else moves. Real footage, steady camera, no people, no hands.",
+    "use": "scroll sequence c2"
+  },
+  {
+    "file": "media/raw/c1.mp4",
+    "model": "seedance_2_0_mini",
+    "id": "b982f35d-181f-4500-b1b4-d498504fd76f",
+    "prompt": "Locked-off tripod shot with a very slow, steady push in toward the log sauna. Wood smoke keeps pouring out between the logs and from under the eaves and rolls low to the left across the frozen lake, thickening and thinning. The orange window glow flickers faintly. Trees and sky stay still. Real footage, natural motion, no camera shake, no people.",
+    "use": "scroll sequence c1"
+  },
+  {
+    "file": "media/raw/c3.mp4",
+    "model": "seedance_2_0_mini",
+    "id": "f60816cc-68c5-48db-82bf-24013a854f18",
+    "prompt": "Water splashes onto the hot stones from above, out of frame. The stones hiss and a thick white cloud of steam bursts upward, billows and rolls toward the camera until it fills the whole frame white. Steady camera. Real footage, no people, no hands, no ladle.",
+    "use": "scroll sequence c3"
+  },
+  {
+    "file": "media/raw/c4.mp4",
+    "model": "seedance_2_0_mini",
+    "id": "6d48d17e-d9f6-476b-bb48-d6c8c8182748",
+    "prompt": "Slow, steady glide forward, low over the ice, toward the hole. Thin steam drifts and curls off the black water in the freezing air. The sauna window glows on the far shore and a thin trail of smoke rises above it. Real footage, natural motion, no camera shake, no people.",
+    "use": "scroll sequence c4"
+  }
+]
