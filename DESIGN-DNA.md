@@ -37,7 +37,7 @@ the colophon line true: the only colour on the page is the work's own.
 - **Host Grotesk** for everything functional: specs, captions, the header.
 
 Neither font appears in any of the pieces, so the index never looks like
-a seventh piece.
+one more piece.
 
 The statement is a sentence that doubles as the index. Each of its terms
 ("an instrument", "two films") carries the number of its plate as a small
