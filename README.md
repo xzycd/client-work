@@ -76,9 +76,10 @@ Identity for Low Water, a fictional oyster farm in Eastport, Maine, that can onl
 work when the tide is out. The page is a tide gauge. The real water level at
 Eastport is predicted in the browser, and everything below the waterline is
 redrawn in kelp and set in italic, the way charts letter the sea. A seven-day
-dial lets you drag the tide forward. Below it are the week's low waters, a
-harvest tag printed with the curve of the day you land on, and the three rules
-of the identity.
+dial lets you throw the tide forward; it settles on the nearest low water,
+the only time the farm works. Below it are the week's low waters, each one a
+button that sends the dial there, a harvest tag printed with the curve of the
+day you land on, and the three rules of the identity.
 
 - [`index.html`](https://xzycd.github.io/client-work/low-water/) — live page
 - `DESIGN-DNA.md` — the brand rules and how the tide is computed and checked
@@ -100,6 +101,10 @@ the specimen. Sakai is made up.
 - `DESIGN-DNA.md`, `media/look.md`, `media/manifest.json`
 
 ### `shared/`
+- `hand.js` — the spring, throw and rubber-band maths behind Haul, ACID and Low
+  Water: a critically damped spring that can be re-aimed mid-flight, where a
+  throw comes to rest under scroll friction, and release velocity from the last
+  few pointer samples.
 - `scrub-film.js` — the frame loader and canvas painter behind Sakai and Suodis:
   loads frames coarse to fine, six at a time, fits them to the screen, blends
   between neighbours and draws the 2400 px still over the first frames of a shot.

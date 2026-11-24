@@ -51,14 +51,25 @@ The index uses neither font except to draw this piece's own plate.
   into a wet layer, which is clipped to the waterline and set in italic. The copy
   is `inert` and hidden from assistive tech. A float rides the surface with the
   height and what the water is doing next. On arrival the water rises from the
-  bottom of the staff to the present level.
-- **The dial.** Seven days of tide as a single curve. Drag it, or use the arrow
-  keys (Shift for six hours, Page Up and Page Down for a day, Esc to go back to
-  now), and the water, the float and the tag all follow. It is an ARIA slider
-  with a spoken value such as "Thu 24 Sept, 01:00 EDT, 2.63 metres, falling".
+  bottom of the staff to the present level. On a phone the float drops the
+  sentence and keeps only rising, falling or slack, and the lede leaves room for
+  it, so the two never overlap.
+- **The dial.** Seven days of tide as a single curve, with each working window
+  (ninety minutes either side of a low) marked as a short bar under it. It is
+  held rather than clicked (since 2026-11-24): grab the head and it moves by how
+  far the pointer moves; press anywhere else and the head runs there on a quick
+  spring. Past either end of the week it rubber-bands. Thrown, it keeps the
+  hand's speed, works out where scroll friction would stop it, and settles on
+  the low water nearest that point, because a low water is the only moment the
+  farm works. "Now" travels back instead of cutting. The keyboard is unchanged:
+  arrow keys (Shift for six hours, Page Up and Page Down for a day, Esc to go
+  back to now), and it is an ARIA slider with a spoken value such as
+  "Thu 24 Sept, 01:00 EDT, 2.63 metres, falling".
 - **The hours.** The week's low waters, with each day's curve and the working
   windows shaded. The line above the table works out how much later today's low
-  water is than yesterday's.
+  water is than yesterday's. Each low water time is a button that sends the dial
+  there along the tide, so the tag below swings to that day; the one the dial
+  sits on is underlined in buoy orange.
 - **The tag.** A harvest tag printed with the day's curve and the low water it
   was picked on. It swings slightly when the day changes.
 - **The system.** Below the fold the page is under water, so every heading there
