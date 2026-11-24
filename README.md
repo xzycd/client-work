@@ -6,9 +6,9 @@ HTML files directly in a browser (no build step, no server).
 **Live preview:** [xzycd.github.io/client-work](https://xzycd.github.io/client-work/)
 
 The root index (`index.html`, `landing.css`, `landing.js`) is a neutral grey
-page whose only colour comes from the work. The top is a strip of six plates:
+page whose only colour comes from the work. The top is a strip of eight plates:
 one opens wide and the strip cycles through them, and hovering or focusing a
-plate takes over. The six-bar mark in the header tracks which piece is in view, and
+plate takes over. The eight-bar mark in the header tracks which piece is in view, and
 each term in the opening sentence opens its own plate.
 Below the strip, each piece has a preview built from its own page, and clicking
 through wipes to that page's ground colour before it loads. Brand decisions and
@@ -115,8 +115,18 @@ thermometer on the right goes from −14 °C outside to 86 °C inside and down t
 - `DESIGN-DNA.md` — brand rules; `media/look.md` and `media/manifest.json` — shot direction, models and prompts
 
 
+### `small-mercy/`
+A hot sauce page with one stove dial and no images. Turning the dial heats the
+page from cream to almost black, melts the name into drips, swaps between three
+sauces and, at the top, pops the bottle's cap. Small Mercy is made up.
+
+- [`index.html`](https://xzycd.github.io/client-work/small-mercy/) — live page
+- `mercy.js` — heat, colour, the melt filter, the drips and the dial
+- `DESIGN-DNA.md`
+
+
 ## Notes
-- Typography loads from Google Fonts (Host Grotesk, Cormorant Garamond, Jost, Archivo, Chivo, Martian Mono, DM Mono, Manrope, Fragment Mono) and Fontshare (Boska, Zodiak).
+- Typography loads from Google Fonts (Host Grotesk, Shrikhand, Schibsted Grotesk, Cormorant Garamond, Jost, Archivo, Chivo, Martian Mono, DM Mono, Manrope, Fragment Mono) and Fontshare (Boska, Zodiak).
 - All pages respect `prefers-reduced-motion` and re-compose for mobile.
 - Imagery was generated with an AI image/video model; treat as mockup assets.
 

@@ -52,6 +52,13 @@ em {
   margin-inline: auto;
 }
 
+.defs {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
 .skip-link {
   position: fixed;
   z-index: 100;
@@ -108,7 +115,7 @@ em {
   letter-spacing: -0.01em;
 }
 
-/* The mark is the index: seven plates, the current one wide. It tracks the
+/* The mark is the index: eight plates, the current one wide. It tracks the
    strip in the hero and the piece in view further down. */
 .mark {
   display: flex;
@@ -300,6 +307,19 @@ em {
 
 .plate-suodis img {
   object-position: 30% 50%;
+}
+
+.plate-mercy {
+  display: grid;
+  background: #c8150c;
+  color: #fff1e6;
+}
+
+.plate-mercy svg {
+  width: 100%;
+  height: 100%;
+  padding: 12% 8%;
+  overflow: visible;
 }
 
 .plate-haul {
@@ -664,6 +684,39 @@ em {
   font: 400 clamp(2.6rem, 13cqw, 7rem) / 0.8 "Gloock", var(--serif);
   letter-spacing: -0.035em;
   text-shadow: 0 2px 30px rgba(6, 6, 8, 0.45);
+}
+
+/* Small Mercy: the name at No Mercy heat, next to the bottle. */
+.preview-mercy {
+  background: #c8150c;
+}
+
+.mercy-sheet {
+  color: #fff1e6;
+}
+
+.mercy-word {
+  position: absolute;
+  left: 6cqw;
+  top: 9%;
+  width: 56cqw;
+  height: auto;
+  overflow: visible;
+}
+
+.mercy-bottle {
+  position: absolute;
+  right: 9cqw;
+  bottom: -8%;
+  height: 92%;
+  width: auto;
+  transform: rotate(7deg);
+  transform-origin: 50% 100%;
+  transition: transform 900ms var(--ease);
+}
+
+.project-link:hover .mercy-bottle {
+  transform: rotate(-4deg);
 }
 
 /* HAUL: the real specimen's signature, the fitted word and its two axes. */
