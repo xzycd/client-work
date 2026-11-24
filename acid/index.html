@@ -661,6 +661,7 @@ input[type=range]:active::-moz-range-thumb{transform:scaleX(2.1)}
   .cue i{opacity:1;transform:none}
 }
 </style>
+<script src="../shared/hand.js"></script>
 </head>
 <body>
 
@@ -1086,52 +1087,7 @@ Cut between them. Never fade.</pre>
       (vk >= 7 ? "Passes AAA." : vk >= 4.5 ? "Passes AA body text." : vk >= 3 ? "Large text only." : "Fails.");
   }
 
-  /* ---- springs and throws -------------------------------------------- */
-  /* one critically damped spring per value; a new target re-aims it from
-     wherever it is, at whatever speed it already has, so nothing jumps. */
-  function Spring(get, set, done){
-    var s = { v: 0, to: 0, resp: 0.5, damp: 1, raf: 0, last: 0 };
-    function step(now){
-      s.raf = 0;
-      var dt = Math.min(0.05, (now - s.last) / 1000); s.last = now;
-      var k = Math.pow(2 * Math.PI / s.resp, 2), c = 2 * s.damp * Math.sqrt(k);
-      var x = get();
-      for (var i = 0, h = dt / 4; i < 4; i++){ s.v += (-k * (x - s.to) - c * s.v) * h; x += s.v * h; }
-      if (Math.abs(x - s.to) < 1e-3 && Math.abs(s.v) < 1e-2){ x = s.to; s.v = 0; set(x); if (done) done(); return; }
-      set(x);
-      s.raf = requestAnimationFrame(step);
-    }
-    s.go = function(to, opt){
-      opt = opt || {};
-      s.to = to; s.resp = opt.resp || 0.5; s.damp = opt.damp || 1;
-      if (opt.v !== undefined) s.v = opt.v;
-      if (reduce.matches){ s.stop(); set(to); if (done) done(); return; }
-      if (!s.raf){ s.last = performance.now(); s.raf = requestAnimationFrame(step); }
-    };
-    s.stop = function(){ if (s.raf) cancelAnimationFrame(s.raf); s.raf = 0; s.v = 0; };
-    return s;
-  }
-  /* where a throw would come to rest under scroll-like friction */
-  function project(v){ var d = 0.998; return (v / 1000) * d / (1 - d); }
-  function rubber(x, lo, hi, dim){
-    if (x < lo){ var o = lo - x; return lo - (o * dim * 0.55) / (dim + 0.55 * o); }
-    if (x > hi){ var p = x - hi; return hi + (p * dim * 0.55) / (dim + 0.55 * p); }
-    return x;
-  }
-  /* a short history of pointer samples gives the release velocity */
-  function Tracker(){
-    var h = [];
-    return {
-      reset: function(){ h = []; },
-      add: function(x, t){ h.push({ x: x, t: t }); if (h.length > 8) h.shift(); },
-      velocity: function(){
-        if (h.length < 2) return 0;
-        var b = h[h.length - 1], a = h[0];
-        for (var i = h.length - 2; i >= 0; i--){ a = h[i]; if (b.t - a.t > 90) break; }
-        return b.t > a.t ? (b.x - a.x) / ((b.t - a.t) / 1000) : 0;
-      }
-    };
-  }
+  var Spring = Hand.Spring, project = Hand.project, rubber = Hand.rubber, Tracker = Hand.Tracker;
 
   /* ---- the hue tape ----------------------------------------------------- */
   var tape = document.querySelector("[data-tape]");
@@ -1228,8 +1184,8 @@ Cut between them. Never fade.</pre>
   function backToSpec(){
     stopCoast();
     var dh = ((specLch.H - hueF + 540) % 360) - 180;
-    backL.go(Math.round(specLch.L * 1000), { resp: 0.7 });
-    backH.go(hueF + dh, { resp: 0.7 });
+    backL.go(Math.round(specLch.L * 1000), { resp: 0.7, tol: 0.4 });
+    backH.go(hueF + dh, { resp: 0.7, tol: 0.05 });
   }
   resets.forEach(function(b){ b.addEventListener("click", backToSpec); });
   addEventListener("resize", drawTape, { passive: true });
@@ -1381,7 +1337,7 @@ Cut between them. Never fade.</pre>
       var b = bounds(), v = str.velocity();
       var land = slabX + project(v);
       var hit = land < b[0] || land > b[1];
-      slabSpring.go(Math.max(b[0], Math.min(b[1], land)), { v: v, resp: 0.55, damp: hit ? 0.72 : 1 });
+      slabSpring.go(Math.max(b[0], Math.min(b[1], land)), { v: v, resp: 0.55, damp: hit ? 0.72 : 1, tol: 0.3 });
     };
     hero.addEventListener("pointerup", drop);
     hero.addEventListener("pointercancel", drop);
@@ -1389,7 +1345,7 @@ Cut between them. Never fade.</pre>
     /* one entrance: the slab slides in from the left edge the first time */
     if (!reduce.matches){
       placeSlab(-0.3 * hero.clientWidth);
-      requestAnimationFrame(function(){ slabSpring.go(0, { resp: 1.1 }); });
+      requestAnimationFrame(function(){ slabSpring.go(0, { resp: 1.1, tol: 0.3 }); });
     }
   }
 

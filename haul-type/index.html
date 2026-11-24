@@ -340,6 +340,7 @@ button,input{font:inherit;color:inherit}
   .word__in{transition-property:none!important}
 }
 </style>
+<script src="../shared/hand.js"></script>
 </head>
 <body>
 <a class="skip" href="#tester">Skip to the type tester</a>
@@ -528,14 +529,8 @@ button,input{font:inherit;color:inherit}
       if (Math.abs(STYLES[i].w - w) < 0.6 && Math.abs(STYLES[i].g - g) < 6) return STYLES[i];
     return null;
   }
-  // where a flick would come to rest: the same exponential decay scrolling uses
-  function project(v){ var d = 0.998; return (v / 1000) * d / (1 - d); }
-  // past an edge the puck follows less and less, so the boundary feels soft
-  function rubber(v){
-    if (v < 0) return -(-v * 0.55) / (1 + 0.55 * -v);
-    if (v > 1) return 1 + ((v - 1) * 0.55) / (1 + 0.55 * (v - 1));
-    return v;
-  }
+  var project = Hand.project;
+  function rubber(v){ return Hand.rubber(v, 0, 1, 1); }
 
   /* ---------------------------------------------------------------------
      SPACE — a 2D controller over width × weight. Two springs, one per axis,
@@ -556,7 +551,7 @@ button,input{font:inherit;color:inherit}
 
     var P = { x: o.from.x, y: o.from.y }, V = { x: 0, y: 0 }, T = { x: P.x, y: P.y };
     var spring = { resp: 0.42, damp: 1 };
-    var W = 1, H = 1, raf = 0, last = 0, held = false, hist = [], hint = null, grab = null;
+    var W = 1, H = 1, raf = 0, last = 0, held = false, hint = null, grab = null;
     var marks = STYLES.map(function(s){
       var m = document.createElement('span');
       m.className = 'space__mark' + (s.x > 0.78 ? ' flip' : '');
@@ -622,14 +617,8 @@ button,input{font:inherit;color:inherit}
       syncInputs(); kick();
     }
 
-    function velocity(){
-      var n = hist.length;
-      if (n < 2) return { x: 0, y: 0 };
-      var b = hist[n - 1], a = hist[0];
-      for (var i = n - 2; i >= 0; i--){ a = hist[i]; if (b.t - a.t > 90) break; }
-      var dt = (b.t - a.t) / 1000;
-      return dt > 0 ? { x: (b.x - a.x) / dt, y: (b.y - a.y) / dt } : { x: 0, y: 0 };
-    }
+    var trX = Hand.Tracker(), trY = Hand.Tracker();
+    function velocity(){ return { x: trX.velocity(), y: trY.velocity() }; }
 
     /* mode 'abs': the puck goes to the pointer (the plot).
        mode 'rel': the value moves by how far the pointer moves, from
@@ -640,7 +629,7 @@ button,input{font:inherit;color:inherit}
         if (mode === 'rel' && e.pointerType !== 'mouse' && e.pointerType !== 'pen') return;
         e.preventDefault();
         el.setPointerCapture(e.pointerId);
-        held = true; hist = []; hint = null;
+        held = true; trX.reset(); trY.reset(); hint = null;
         el.classList.add('is-held'); plot.classList.add('is-held');
         var r = (scaleEl || area).getBoundingClientRect();
         grab = { x: P.x, y: P.y, cx: e.clientX, cy: e.clientY, r: r };
@@ -659,8 +648,7 @@ button,input{font:inherit;color:inherit}
           y = grab.y - (e.clientY - grab.cy) / (grab.r.height * 1.4);
         }
         T.x = rubber(x); T.y = rubber(y);
-        hist.push({ x: T.x, y: T.y, t: e.timeStamp });
-        if (hist.length > 8) hist.shift();
+        trX.add(T.x, e.timeStamp); trY.add(T.y, e.timeStamp);
         var v = velocity();
         hint = nearest(clamp(T.x + project(v.x), 0, 1), clamp(T.y + project(v.y), 0, 1));
         kick();
