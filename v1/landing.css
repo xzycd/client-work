@@ -1161,8 +1161,8 @@ body.is-transitioning .page-transition p {
   mix-blend-mode: soft-light;
 }
 
-/* Aether shared */
-.aether-video {
+/* Film previews */
+.film-video {
   position: absolute;
   inset: -4%;
   width: 108%;
@@ -1174,11 +1174,11 @@ body.is-transitioning .page-transition p {
   will-change: transform;
 }
 
-.project-link:hover .aether-video {
+.project-link:hover .film-video {
   filter: saturate(1.06) contrast(1.02) brightness(1.1);
 }
 
-.aether-veil {
+.film-veil {
   position: absolute;
   z-index: 2;
   inset: 0;
@@ -1277,7 +1277,7 @@ body.is-transitioning .page-transition p {
 }
 
 /* Cinematic preview */
-.preview-cinematic .aether-video {
+.preview-cinematic .film-video {
   filter: saturate(0.8) contrast(1.06) brightness(0.9);
 }
 
@@ -1884,7 +1884,7 @@ body.is-transitioning .page-transition p {
 
   .preview-stage,
   .field-image,
-  .aether-video {
+  .film-video {
     transform: none !important;
   }
 

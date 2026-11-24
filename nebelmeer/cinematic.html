@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nebelmeer · Dawn</title>
+<meta name="description" content="Nebelmeer builds a few remote houses in Valais, above the sea of fog.">
+<meta name="theme-color" content="#0e0d0c">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230e0d0c'/%3E%3Cpath d='M4 21h24M8 17h16' stroke='%23ede6d8' stroke-width='1.6'/%3E%3Crect x='13' y='9' width='8' height='5' fill='%23e39a4a'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;1,300&family=Jost:wght@300;400&family=Martian+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#0e0d0c;--cream:#ede6d8;--accent:#e39a4a;--disp:"Cormorant Garamond",Georgia,serif;--sans:"Jost",system-ui,sans-serif;--mono:"Martian Mono",ui-monospace,monospace;--edge:clamp(20px,5vw,80px)}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--ink) url(assets/hero.webp) center/cover;color:var(--cream);font:300 17px/1.6 var(--sans);height:100vh;overflow:hidden;-webkit-font-smoothing:antialiased}
+video{position:fixed;inset:0;width:100%;height:100%;object-fit:cover}
+.veil{position:fixed;inset:0;background:linear-gradient(180deg,rgba(14,13,12,.45),rgba(14,13,12,0) 30%,rgba(14,13,12,.12) 60%,rgba(14,13,12,.88))}
+.bar{position:fixed;top:0;left:0;right:0;display:flex;align-items:center;justify-content:space-between;height:76px;padding:0 var(--edge);mix-blend-mode:difference}
+.logo{font:300 22px/1 var(--disp);letter-spacing:.38em;padding-left:.38em;color:#fff;text-decoration:none}
+.end{display:flex;gap:30px}
+.end a{font:400 11px/1 var(--mono);letter-spacing:.18em;text-transform:uppercase;color:#fff;text-decoration:none;opacity:.85}
+.end a:hover{opacity:1}
+a:focus-visible{outline:1px solid #fff;outline-offset:5px}
+.copy{position:fixed;left:0;right:0;bottom:0;padding:0 var(--edge) clamp(56px,11vh,120px)}
+h1{font:300 clamp(3rem,11vw,10rem)/.96 var(--disp);letter-spacing:-.01em}
+h1 em{font-style:italic;color:var(--accent)}
+.copy p{max-width:38ch;margin-top:24px;color:rgba(237,230,216,.9)}
+</style>
+</head>
+<body>
+<video autoplay muted loop playsinline preload="auto" poster="assets/hero.webp"><source src="assets/dawn.mp4" type="video/mp4"></video>
+<div class="veil" aria-hidden="true"></div>
+<div class="bar"><a class="logo" href="scroll-sequence.html">NEBELMEER</a><div class="end"><a href="scroll-sequence.html">Scroll version</a><a href="../">← Index</a></div></div>
+<div class="copy">
+  <h1>Live above the <em>weather.</em></h1>
+  <p>A few remote houses in Valais, built above the sea of fog that fills the valleys on winter mornings.</p>
+</div>
+<script>if (matchMedia("(prefers-reduced-motion: reduce)").matches) { const v = document.querySelector("video"); v.autoplay = false; v.pause(); }</script>
+</body>
+</html>
