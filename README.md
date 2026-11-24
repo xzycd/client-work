@@ -32,10 +32,11 @@ Build, and Delivery, then copy the resulting recipe or export a still.
 
 ### `haul-type/`
 Specimen page for HAUL, a variable grotesque. Bone ground, true black, one hot
-magenta. The hero word is fitted to the measure and both axes are driven by scroll,
-so it starts compressed and heavy and opens out wide and light as you move. Below
-that: a weight waterfall, a live tester with width and weight sliders, a clickable
-character set, and nine named styles that load themselves into the tester.
+magenta. The hero word is fitted to the measure and you move it by hand: pull the
+word, or drag a puck across a plot of the design space where the nine named styles
+sit as points. Let go and it carries on and settles on the style the flick was
+heading for. Below that: a weight waterfall, a live tester on its own plot, a
+clickable character set, and the nine styles, which send the tester to themselves.
 
 - [`index.html`](https://xzycd.github.io/client-work/haul-type/) — live page
 - `DESIGN-DNA.md` — the art-direction spec, including why two earlier versions of
