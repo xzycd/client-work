@@ -1,6 +1,6 @@
 # DESIGN DNA — the index
 
-The root page (`index.html`, `landing.css`, `landing.js`). It shows seven pieces
+The root page (`index.html`, `landing.css`, `landing.js`). It shows six pieces
 and should look like none of them.
 
 ## What it replaced, and why
@@ -22,7 +22,7 @@ shows them, and gets out of the way on click.
     --ink-3   #585854    5.05 : 1   smallest text, still AA
 
 There is no accent. ACID is `#D6FF00`, FIELD has an orange rim light, HAUL
-has one magenta, Low Water has a buoy orange, and Suodis has one lit window. Any accent on the index would argue with one of them. Grey is
+has one magenta, Low Water has a buoy orange, Sakai is amber and Suodis has one lit window. Any accent on the index would argue with one of them. Grey is
 the one ground all of them read cleanly on, and it is the only choice that makes
 the colophon line true: the only colour on the page is the work's own.
 
@@ -45,38 +45,38 @@ superscript. Hovering a term opens that plate, and the open plate underlines its
 term, so the sentence and the strip always show the same piece. On touch screens
 the terms stay plain, because nothing there can hover. The statement was cut down
 to three lines at desktop sizes (2026-09-24, capped at 3.2rem) so the strip gets
-the height back. With a seventh term it needed a smaller size to stay at three
+the height back. With a longer list of terms it needed a smaller size to stay at three
 lines from 1280px up (2026-11-24: `0.8rem + 1.95vw`, capped at 2.9rem, measure
-29em), and the sauna's term is "a smoke sauna", the shortest name that still
-says what it is. Its weight is 300, and 340 under 720px, where Boska's hairlines
+29em), and the newer terms are the shortest names that still say what
+the piece is ("a fly in amber", "a smoke sauna"). Its weight is 300, and 340 under 720px, where Boska's hairlines
 thin out on 1× screens. Title tracking stops at `-0.012em`, because anything tighter
 makes the "Fi" in *Field* collide.
 
 ## The mark is the index
 
-The logo is seven bars, and one of them is wide. It is the strip in miniature:
+The logo is six bars, and one of them is wide. It is the strip in miniature:
 the wide bar is whichever piece is open or in view, and the header repeats that
-piece's number and name. The favicon is the same seven bars with the first one
+piece's number and name. The favicon is the same six bars with the first one
 open. There is no separate logotype to maintain.
 
 ## The strip
 
-The first screen is seven plates in a row. One is open (`flex-grow: 3.6`); the
+The first screen is six plates in a row. One is open (`flex-grow: 3.6`); the
 others stay narrow and slightly desaturated. With a fine pointer the strip
 cycles every 3.6 s until someone hovers or focuses a plate, then hands control
 over, and it resumes when they leave. On a phone it becomes a swipe row of
 equal plates with scroll snap, because opening on hover makes no sense there.
 
-The plates are the pieces themselves: real stills for FIELD and the Aether
-films, and CSS-drawn HAUL, ACID and Low Water set in the same faces those
+The plates are the pieces themselves: real stills for FIELD, Sakai and Suodis,
+and CSS-drawn HAUL, ACID and Low Water set in the same faces those
 pages use (Archivo, Chivo, Zodiak). A
 plate caption drops its name when the plate is too narrow to hold it cleanly,
 so nothing is ever truncated to "H…".
 
 ## Honest copy
 
-Every figure on the index is checked against the piece it describes. The
-sequence is 71 frames because the file embeds 71. The ACID ratio is 18.16 : 1
+Every figure on the index is checked against the piece it describes. Sakai's
+122 frames are the two films' 61 each. The ACID ratio is 18.16 : 1
 because that page measures 18.16 : 1. Low Water's "4 min" is the largest
 timing error between its predictor and NOAA's published tables, measured over
 every high and low from September to December 2026. Plate copy is taken from the pages, not
@@ -87,10 +87,9 @@ written for the index. If a piece changes, the index changes with it.
 Below the strip each piece gets a row: title, one paragraph, a short spec list
 and a link. No row has a label above its title. The piece number sits on the
 title as a superscript, the way it sits on its term in the statement, and the
-kind of piece ("Instrument in Three.js") is the first spec line. The cinematic
-film is the one row that breaks the column (2026-09-24): the film says full
-bleed, so above 1040px it runs the full width at 2.39 : 1 with its notes in three
-columns underneath. Every other row alternates plate left and plate right.
+kind of piece ("Instrument in Three.js") is the first spec line. Rows alternate
+plate left and plate right. The full-width cinematic row went with the Aether films
+on 2026-11-24.
 
 ## Transition
 
@@ -116,7 +115,8 @@ motion that runs without a reason, anything that blinks, and anything that
 suggests the page is a live system. Under `prefers-reduced-motion` all of it
 stops and everything is visible at once.
 
-Measured on 2026-09-24 in headless Chromium at 1440×900, with six plates:
+Measured on 2026-09-24 in headless Chromium at 1440×900, with the six plates of
+that date (Aether films included):
 plate switches and scrolling ran at a 16.7 ms p95 frame time. One frame reached
 33 ms the first time the cinematic plate opened (its 2560px still decoding), and
 one during the first scroll. Opening the same plate again ran clean.

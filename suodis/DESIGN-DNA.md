@@ -63,6 +63,14 @@ Three transitions, one per threshold:
 The wordmark leaves as smoke: each letter lifts, drifts and blurs a little more
 than the one before it. Film grain sits over everything at 13%.
 
+Frame loading and painting live in `shared/scrub-film.js`, which Sakai uses too.
+
+## Sound
+
+Off until you press Sound in the header. Then a 10 s Mirelo loop plays: embers,
+wind and one hiss on the stones. Its volume follows the gauge, quiet on the ice
+and full at 86 °C, and it fades out under the Sessions block.
+
 Under `prefers-reduced-motion`: no frames are loaded, each chapter shows its
 still, transitions are hard cuts, the wordmark only fades, and the grain stops.
 

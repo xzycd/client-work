@@ -44,7 +44,14 @@ a{color:inherit}
 .home{justify-self:start;opacity:.8;transition:opacity .2s}
 .home:hover,.home:focus-visible{opacity:1}
 .brand{display:flex;align-items:center;gap:.7em;font:400 19px/1 var(--display);letter-spacing:.02em;text-transform:none}
-.where{justify-self:end;opacity:.8}
+.right{justify-self:end;display:flex;align-items:center;gap:1.4rem}
+.where{opacity:.8}
+.sound{font:inherit;letter-spacing:inherit;text-transform:inherit;color:inherit;background:none;border:0;padding:.5em 0;cursor:pointer;display:flex;align-items:center;gap:.6em;opacity:.8}
+.sound::before{content:"";width:7px;height:7px;border:1px solid currentColor;border-radius:50%}
+.sound[aria-pressed="true"]{opacity:1}
+.sound[aria-pressed="true"]::before{background:var(--lamp);border-color:var(--lamp)}
+.sound:hover,.sound:focus-visible{opacity:1}
+.sound:focus-visible{outline:1px solid var(--lamp);outline-offset:4px}
 .mark{width:14px;height:14px;flex:none;display:block}
 
 .hero{position:fixed;z-index:3;left:var(--edge);right:var(--edge);bottom:calc(var(--edge) + 4vh);pointer-events:none}
@@ -103,7 +110,8 @@ a:focus-visible{outline:1px solid var(--lamp);outline-offset:4px}
 @media (max-width: 720px){
   .top{grid-template-columns:1fr auto;}
   .where{display:none}
-  .brand{justify-self:end}
+  .top{grid-template-columns:auto 1fr auto}
+  .brand{justify-self:center}
   .scale{display:none}
   .reading{font-size:2.9rem}
   .gauge{bottom:auto;top:calc(var(--edge) + 44px)}
@@ -135,7 +143,10 @@ a:focus-visible{outline:1px solid var(--lamp);outline-offset:4px}
 <header class="top">
   <a class="home" href="../">← Index</a>
   <a class="brand" href="#top"><svg class="mark" viewBox="0 0 20 20" aria-hidden="true"><rect width="20" height="20" fill="#f2994a"/><path d="M10 0v20M0 10h20" stroke="#0e0c0b" stroke-width="2"/></svg>Suodis</a>
-  <span class="where">Smoke sauna · <span lang="lt">Dzūkija</span></span>
+  <div class="right">
+    <span class="where">Smoke sauna · <span lang="lt">Dzūkija</span></span>
+    <button class="sound" type="button" aria-pressed="false">Sound</button>
+  </div>
 </header>
 
 <div class="gauge" aria-hidden="true">
@@ -184,6 +195,7 @@ a:focus-visible{outline:1px solid var(--lamp);outline-offset:4px}
   </section>
 </main>
 
+<script src="../shared/scrub-film.js" defer></script>
 <script src="suodis.js" defer></script>
 </body>
 </html>
