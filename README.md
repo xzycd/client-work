@@ -58,17 +58,16 @@ when the value you land on stops passing.
 
 - [`index.html`](https://xzycd.github.io/client-work/acid/) — live page
 
-### `aether-retreats/` (first edition only)
-No longer on the index; `sakai/` took its slot on 2026-11-24. Kept because
-[`v1/`](https://xzycd.github.io/client-work/v1/) still links it. Cinematic landing page for an architectural-retreat brand, in three
-scroll treatments built around one AI-generated 4K hero and a motion clip.
+### `nebelmeer/`
+A made-up studio that builds a few houses above the sea of fog in Valais. It was
+called Aether until 2026-11-24, when it got a specific name and stopped inlining
+its media.
 
-- [`cinematic.html`](https://xzycd.github.io/client-work/aether-retreats/cinematic.html) — full-screen video background, **auto-plays on load** (start here to see motion; it stays paused for visitors who prefer reduced motion)
-- [`scroll-sequence.html`](https://xzycd.github.io/client-work/aether-retreats/scroll-sequence.html) — Apple-style **scroll-scrubbed frame sequence**: scroll to advance the scene frame by frame. Self-contained (71 frames embedded).
-- [`parallax.html`](https://xzycd.github.io/client-work/aether-retreats/parallax.html) — CSS scroll effects: hero zoom, pinned narrative, horizontal gallery. Still live, but no longer on the index; `acid/` took that slot.
-- `assets/hero.jpg` — 4K hero still (optimised)
-- `assets/motion.mp4` — 5s cinematic clip (source of the frame sequence)
-- `assets/sequence-end.jpg` — last-light frame of the clip, used as the index poster for the sequence
+- [`scroll-sequence.html`](https://xzycd.github.io/client-work/nebelmeer/scroll-sequence.html) — the dawn film scrubbed by scroll, 61 frames blended through `shared/scrub-film.js`
+- [`cinematic.html`](https://xzycd.github.io/client-work/nebelmeer/cinematic.html) — the same film full screen; it autoplays unless the visitor prefers reduced motion
+- [`parallax.html`](https://xzycd.github.io/client-work/nebelmeer/parallax.html) — CSS scroll effects; not linked from the index
+- `assets/dawn.mp4` — the 5 s film (0.6 MB); `assets/first.webp` — its first frame; `assets/hero.jpg`/`.webp` — the 4K hero still
+- `DESIGN-DNA.md`
 
 ### `low-water/`
 Identity for Low Water, a fictional oyster farm in Eastport, Maine, that can only
@@ -115,10 +114,6 @@ thermometer on the right goes from −14 °C outside to 86 °C inside and down t
 - `frames/` — 4 × 61 WebP frames at 1280 px; `img/` — 2400 px stills and the index preview loop
 - `DESIGN-DNA.md` — brand rules; `media/look.md` and `media/manifest.json` — shot direction, models and prompts
 
-### `_tools/`
-- `build_sequence.py` — extracts frames from `motion.mp4` and bakes the
-  self-contained scroll-sequence + cinematic HTML files. Change the page
-  templates here as well as in the baked files.
 
 ## Notes
 - Typography loads from Google Fonts (Host Grotesk, Cormorant Garamond, Jost, Archivo, Chivo, Martian Mono, DM Mono, Manrope, Fragment Mono) and Fontshare (Boska, Zodiak).
@@ -126,7 +121,6 @@ thermometer on the right goes from −14 °C outside to 86 °C inside and down t
 - Imagery was generated with an AI image/video model; treat as mockup assets.
 
 ## Browser tip
-`scroll-sequence.html` does **not** play by itself — you scroll to drive it.
 For local `file://` viewing, Chrome is the most permissive with the embedded media.
 
 ## License

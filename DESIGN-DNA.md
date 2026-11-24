@@ -1,6 +1,6 @@
 # DESIGN DNA — the index
 
-The root page (`index.html`, `landing.css`, `landing.js`). It shows six pieces
+The root page (`index.html`, `landing.css`, `landing.js`). It shows seven pieces
 and should look like none of them.
 
 ## What it replaced, and why
@@ -47,27 +47,27 @@ the terms stay plain, because nothing there can hover. The statement was cut dow
 to three lines at desktop sizes (2026-09-24, capped at 3.2rem) so the strip gets
 the height back. With a longer list of terms it needed a smaller size to stay at three
 lines from 1280px up (2026-11-24: `0.8rem + 1.95vw`, capped at 2.9rem, measure
-29em), and the newer terms are the shortest names that still say what
-the piece is ("a fly in amber", "a smoke sauna"). Its weight is 300, and 340 under 720px, where Boska's hairlines
+29em). With seven terms it runs to four lines at most widths; shrinking it again
+made it too weak, so it stays at four until the index is rebuilt. Its weight is 300, and 340 under 720px, where Boska's hairlines
 thin out on 1× screens. Title tracking stops at `-0.012em`, because anything tighter
 makes the "Fi" in *Field* collide.
 
 ## The mark is the index
 
-The logo is six bars, and one of them is wide. It is the strip in miniature:
+The logo is seven bars, and one of them is wide. It is the strip in miniature:
 the wide bar is whichever piece is open or in view, and the header repeats that
-piece's number and name. The favicon is the same six bars with the first one
+piece's number and name. The favicon is the same seven bars with the first one
 open. There is no separate logotype to maintain.
 
 ## The strip
 
-The first screen is six plates in a row. One is open (`flex-grow: 3.6`); the
+The first screen is seven plates in a row. One is open (`flex-grow: 3.6`); the
 others stay narrow and slightly desaturated. With a fine pointer the strip
 cycles every 3.6 s until someone hovers or focuses a plate, then hands control
 over, and it resumes when they leave. On a phone it becomes a swipe row of
 equal plates with scroll snap, because opening on hover makes no sense there.
 
-The plates are the pieces themselves: real stills for FIELD, Sakai and Suodis,
+The plates are the pieces themselves: real stills for FIELD, Nebelmeer, Sakai and Suodis,
 and CSS-drawn HAUL, ACID and Low Water set in the same faces those
 pages use (Archivo, Chivo, Zodiak). A
 plate caption drops its name when the plate is too narrow to hold it cleanly,
@@ -89,7 +89,7 @@ and a link. No row has a label above its title. The piece number sits on the
 title as a superscript, the way it sits on its term in the statement, and the
 kind of piece ("Instrument in Three.js") is the first spec line. Rows alternate
 plate left and plate right. The full-width cinematic row went with the Aether films
-on 2026-11-24.
+on 2026-11-24; Nebelmeer, their renamed successor, is one ordinary row.
 
 ## Transition
 
