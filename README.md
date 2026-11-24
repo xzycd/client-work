@@ -32,10 +32,11 @@ Build, and Delivery, then copy the resulting recipe or export a still.
 
 ### `haul-type/`
 Specimen page for HAUL, a variable grotesque. Bone ground, true black, one hot
-magenta. The hero word is fitted to the measure and both axes are driven by scroll,
-so it starts compressed and heavy and opens out wide and light as you move. Below
-that: a weight waterfall, a live tester with width and weight sliders, a clickable
-character set, and nine named styles that load themselves into the tester.
+magenta. The hero word is fitted to the measure and you move it by hand: pull the
+word, or drag a puck across a plot of the design space where the nine named styles
+sit as points. Let go and it carries on and settles on the style the flick was
+heading for. Below that: a weight waterfall, a live tester on its own plot, a
+clickable character set, and the nine styles, which send the tester to themselves.
 
 - [`index.html`](https://xzycd.github.io/client-work/haul-type/) — live page
 - `DESIGN-DNA.md` — the art-direction spec, including why two earlier versions of
@@ -46,15 +47,16 @@ HAUL is not a real typeface; the page is set in Archivo, which stands in for it.
 ### `acid/`
 A single-colour system delivered as its own specification. `#D6FF00` covers the
 whole surface and black does the reading; there is no third value. Black masses
-rise through the page on scroll and the type reverses itself along the moving
-edge — it is painted once in the colour and composited in `difference`, so over
-the colour it resolves to black and over black it resolves to the colour.
+rise through the page on scroll, the black slab in the hero can be grabbed and
+thrown, and the type reverses itself along every moving edge — it is painted once
+in the colour and composited in `difference`, so over the colour it resolves to
+black and over black it resolves to the colour.
 
 Every figure on the page is measured in the browser at runtime rather than typed
 in: hex, RGB, linear sRGB, HSL, OKLCh, relative luminance, and the WCAG contrast
 ratios. The contrast instrument drives lightness and hue in OKLCh with chroma
-pinned to the sRGB gamut edge, re-drenches the entire document live, and says so
-when the value you land on stops passing.
+pinned to the sRGB gamut edge (hue is a tape you can spin), re-drenches the
+entire document live, and says so when the value you land on stops passing.
 
 - [`index.html`](https://xzycd.github.io/client-work/acid/) — live page
 
@@ -74,9 +76,10 @@ Identity for Low Water, a fictional oyster farm in Eastport, Maine, that can onl
 work when the tide is out. The page is a tide gauge. The real water level at
 Eastport is predicted in the browser, and everything below the waterline is
 redrawn in kelp and set in italic, the way charts letter the sea. A seven-day
-dial lets you drag the tide forward. Below it are the week's low waters, a
-harvest tag printed with the curve of the day you land on, and the three rules
-of the identity.
+dial lets you throw the tide forward; it settles on the nearest low water,
+the only time the farm works. Below it are the week's low waters, each one a
+button that sends the dial there, a harvest tag printed with the curve of the
+day you land on, and the three rules of the identity.
 
 - [`index.html`](https://xzycd.github.io/client-work/low-water/) — live page
 - `DESIGN-DNA.md` — the brand rules and how the tide is computed and checked
@@ -98,6 +101,10 @@ the specimen. Sakai is made up.
 - `DESIGN-DNA.md`, `media/look.md`, `media/manifest.json`
 
 ### `shared/`
+- `hand.js` — the spring, throw and rubber-band maths behind Haul, ACID and Low
+  Water: a critically damped spring that can be re-aimed mid-flight, where a
+  throw comes to rest under scroll friction, and release velocity from the last
+  few pointer samples.
 - `scrub-film.js` — the frame loader and canvas painter behind Sakai and Suodis:
   loads frames coarse to fine, six at a time, fits them to the screen, blends
   between neighbours and draws the 2400 px still over the first frames of a shot.

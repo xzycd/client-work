@@ -141,6 +141,7 @@ a { color: inherit; }
 }
 .reading strong { font: 400 clamp(1.3rem, 1rem + .9vw, 1.9rem)/1 var(--serif); letter-spacing: -.01em; }
 .reading strong small { font-size: .5em; margin-left: .15em; }
+.reading [data-trend-short] { display: none; }
 
 .dial {
   position: relative;
@@ -163,6 +164,8 @@ a { color: inherit; }
 }
 .track svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
 .track .fill { fill: var(--kelp); }
+.track .win { fill: var(--ink); }
+.track.is-held { cursor: grabbing; }
 .track .days line { stroke: var(--ink); stroke-opacity: .28; stroke-width: 1; vector-effect: non-scaling-stroke; }
 .track .day-label { position: absolute; top: -2px; font: 400 10px/1 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--ink-2); transform: translateX(5px); pointer-events: none; }
 .head {
@@ -232,6 +235,20 @@ h2 em { font-style: italic; }
 .row svg path { fill: none; stroke: var(--ink); stroke-width: 1.2; vector-effect: non-scaling-stroke; }
 .row svg rect { fill: var(--kelp); opacity: .1; }
 .row .lw b { font-weight: 400; }
+.lw-go {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  padding: 2px 0;
+  cursor: pointer;
+  text-decoration: underline;
+  text-decoration-color: rgba(28, 26, 22, .35);
+  text-underline-offset: 4px;
+  transition: text-decoration-color .2s var(--ease);
+}
+.lw-go:hover { text-decoration-color: var(--ink); }
+.lw-go.is-on { text-decoration-color: var(--buoy); text-decoration-thickness: 2px; }
 .row .dim { color: var(--ink-2); }
 .table-head { padding: 10px 0; border-bottom: 1px solid var(--ink); color: var(--ink-2); }
 
@@ -366,8 +383,11 @@ h2 em { font-style: italic; }
 
 @media (max-width: 640px) {
   .layer { padding: 16px var(--gutter) 22px calc(var(--gutter) + 52px); }
-  .reading { gap: 10px; padding: 6px 12px 7px; }
-  .reading .label { font-size: 10px; letter-spacing: .03em; }
+  .reading { gap: 8px; padding: 6px 12px 7px; }
+  .reading .label { font-size: 11px; letter-spacing: .03em; }
+  .reading [data-trend] { display: none; }
+  .reading [data-trend-short] { display: inline; }
+  .lede p { max-width: calc(100% - 128px); }
   .staff { width: 26px; }
   .staff b { left: 32px; }
   .word { font-size: 30vw; line-height: .86; white-space: normal; }
@@ -387,6 +407,7 @@ h2 em { font-style: italic; }
   .tag, .tag.is-swung { transition: none; transform: rotate(-2.4deg); }
 }
 </style>
+<script src="../shared/hand.js"></script>
 </head>
 <body>
 <main>
@@ -405,7 +426,7 @@ h2 em { font-style: italic; }
         </div>
       </div>
       <div class="surface" data-surface aria-hidden="true">
-        <div class="reading"><strong data-level>0.00<small>m</small></strong><span class="label" data-trend></span></div>
+        <div class="reading"><strong data-level>0.00<small>m</small></strong><span class="label" data-trend></span><span class="label" data-trend-short></span></div>
       </div>
     </div>
 
@@ -433,7 +454,7 @@ h2 em { font-style: italic; }
   <section class="tagging shell" aria-labelledby="tag-title">
     <div>
       <h2 id="tag-title">Every bag carries the tide it <em>came out of.</em></h2>
-      <p>The tag on a bag of Low Water oysters is printed with the curve of the day they were picked and the moment on it when the flats were bare. Drag the dial above and the tag follows the day you land on.</p>
+      <p>The tag on a bag of Low Water oysters is printed with the curve of the day they were picked and the moment on it when the flats were bare. Throw the dial above, or pick a low water in the table, and the tag follows the day you land on.</p>
     </div>
     <div class="tag-wrap">
       <article class="tag" data-tag aria-live="polite">
@@ -595,6 +616,8 @@ h2 em { font-style: italic; }
   const surface = $("[data-surface]"), levelOut = $("[data-level]"), trendOut = $("[data-trend]");
   const track = $("[data-track]"), trackSvg = $("[data-track-svg]"), nowButton = $("[data-now]");
   const whenDay = $("[data-when-day]"), whenTime = $("[data-when-time]");
+  const trendShort = $("[data-trend-short]");
+  let lowButtons = [];
 
   const wet = dry.cloneNode(true);
   wet.classList.replace("dry", "wet");
@@ -637,6 +660,7 @@ h2 em { font-style: italic; }
   let origin = startOfDay(now());
   const WEEK = 7 * DAY;
   let viewTime = now(), following = true, shownLevel = LOW, targetLevel = LOW, animFrame = 0;
+  let weekLows = [];
 
   const drawTrack = () => {
     const line = curvePath(origin, origin + WEEK, 1000, 100, 7 * 96);
@@ -708,6 +732,8 @@ h2 em { font-style: italic; }
     const next = extremesBetween(viewTime + 8 * MINUTE, viewTime + 14 * HOUR)[0];
     levelOut.innerHTML = `${metres(level)}<small>m</small>`;
     trendOut.textContent = turn ? `${turn.type === "high" ? "High" : "Low"} water, slack` : `${rising ? "Rising" : "Falling"} · ${next.type} water in ${span((next.t - viewTime) / MINUTE)}`;
+    trendShort.textContent = turn ? "Slack" : rising ? "Rising" : "Falling";
+    lowButtons.forEach((button) => button.classList.toggle("is-on", Math.abs(+button.dataset.go - viewTime) < MINUTE));
     const isNow = Math.abs(viewTime - now()) < 2 * MINUTE;
     whenDay.textContent = isNow ? "Now at Eastport" : dayFormat.format(viewTime);
     whenTime.textContent = `${clock(viewTime)} ${zoneName(viewTime)}`;
@@ -722,24 +748,73 @@ h2 em { font-style: italic; }
     renderTag(viewTime);
   };
 
-  const setTime = (time, follow = false) => {
-    viewTime = Math.min(origin + WEEK - MINUTE, Math.max(origin, time));
+  const inWeek = (time) => Math.min(origin + WEEK - MINUTE, Math.max(origin, time));
+  // free: while a hand or a spring holds the dial it may run a little past the week
+  const setTime = (time, follow = false, free = false) => {
+    viewTime = free ? time : inWeek(time);
     following = follow;
     render();
   };
 
-  const timeFromPointer = (event) => {
-    const bounds = track.getBoundingClientRect();
-    return origin + Math.min(1, Math.max(0, (event.clientX - bounds.left) / bounds.width)) * WEEK;
-  };
+  /* The dial is held, not clicked. Grab the head and it moves by how far the
+     pointer moves; press anywhere else and the head runs to the pointer on a
+     quick spring. Past either end of the week it rubber-bands. Thrown, it
+     keeps the hand's speed, works out where scroll friction would stop it,
+     and comes to rest on the low water nearest that point: the farm only
+     works at low water, so that is where a throw lands. */
+  let toNow = false;
+  const travel = Hand.Spring(() => viewTime, (time) => setTime(time, false, true), () => {
+    if (toNow) { toNow = false; setTime(now(), true); } else setTime(viewTime);
+  });
+  const throwTrack = Hand.Tracker();
+  let grab = null;
+  const timeAtX = (x, bounds) => origin + Hand.rubber((x - bounds.left) / bounds.width, 0, 1, 1) * WEEK;
+
   track.addEventListener("pointerdown", (event) => {
+    if (event.button !== 0) return;
     track.setPointerCapture(event.pointerId);
-    setTime(timeFromPointer(event));
+    track.classList.add("is-held");
+    toNow = false;
+    const bounds = track.getBoundingClientRect();
+    const headX = bounds.left + ((viewTime - origin) / WEEK) * bounds.width;
+    throwTrack.reset();
+    if (Math.abs(event.clientX - headX) < 24) {
+      travel.stop();
+      grab = { near: true, x: event.clientX, at: (viewTime - origin) / WEEK, bounds };
+    } else {
+      grab = { near: false, bounds };
+      travel.go(timeAtX(event.clientX, bounds), { resp: 0.22, tol: MINUTE });
+    }
+    throwTrack.add(viewTime, event.timeStamp);
   });
   track.addEventListener("pointermove", (event) => {
-    if (track.hasPointerCapture(event.pointerId)) setTime(timeFromPointer(event));
+    if (!grab) return;
+    const time = grab.near
+      ? origin + Hand.rubber(grab.at + (event.clientX - grab.x) / grab.bounds.width, 0, 1, 1) * WEEK
+      : timeAtX(event.clientX, grab.bounds);
+    throwTrack.add(time, event.timeStamp);
+    if (grab.near) setTime(time, false, true);
+    else travel.go(time, { resp: 0.12, tol: MINUTE });
   });
+  const letGo = () => {
+    if (!grab) return;
+    grab = null;
+    track.classList.remove("is-held");
+    const velocity = throwTrack.velocity();
+    let target = inWeek(viewTime), damp = 1;
+    if (Math.abs(velocity) > 1.5 * HOUR) {
+      const land = viewTime + Hand.project(velocity);
+      const low = weekLows.reduce((best, l) => (!best || Math.abs(l.t - inWeek(land)) < Math.abs(best.t - inWeek(land)) ? l : best), null);
+      if (low) target = low.t;
+      if (land < origin || land > origin + WEEK) damp = 0.75;
+    }
+    travel.go(target, { v: velocity, resp: 0.6, damp, tol: MINUTE / 2 });
+  };
+  track.addEventListener("pointerup", letGo);
+  track.addEventListener("pointercancel", letGo);
+
   track.addEventListener("keydown", (event) => {
+    travel.stop();
     const stepSize = event.shiftKey ? 6 * HOUR : 10 * MINUTE;
     const moves = { ArrowRight: stepSize, ArrowUp: stepSize, ArrowLeft: -stepSize, ArrowDown: -stepSize, PageUp: DAY, PageDown: -DAY };
     if (event.key in moves) setTime(viewTime + moves[event.key]);
@@ -749,7 +824,16 @@ h2 em { font-style: italic; }
     else return;
     event.preventDefault();
   });
-  nowButton.addEventListener("click", () => setTime(now(), true));
+  nowButton.addEventListener("click", () => {
+    toNow = true;
+    travel.go(now(), { resp: 0.7, tol: MINUTE / 2 });
+  });
+  $("[data-table]").addEventListener("click", (event) => {
+    const button = event.target.closest("[data-go]");
+    if (!button) return;
+    toNow = false;
+    travel.go(+button.dataset.go, { resp: 0.9, tol: MINUTE / 2 });
+  });
 
   const renderWeek = () => {
     const turns = extremesBetween(origin - DAY, origin + WEEK);
@@ -775,13 +859,22 @@ h2 em { font-style: italic; }
       row.className = `row${d === 0 ? " is-today" : ""}`;
       row.innerHTML = `<span class="day">${d ? weekdayFormat.format(day + 12 * HOUR) : "Today"}</span>
         <svg viewBox="0 0 240 34" preserveAspectRatio="none" aria-hidden="true">${windows}<path d="${path}"/></svg>
-        <span class="lw">${dayLows.map((low) => `<b>${clock(low.t)}</b>`).join("<br>")}</span>
+        <span class="lw">${dayLows.map((low) => `<button class="lw-go" type="button" data-go="${low.t}" aria-label="Set the dial to low water, ${dayFormat.format(low.t)} ${clock(low.t)}">${clock(low.t)}</button>`).join("<br>")}</span>
         <span class="hide-s dim">${dayLows.map((low) => `${metres(low.level)} m`).join("<br>")}</span>
         <span class="hide-s dim">${dayLows.map((low) => `${clock(low.t - 90 * MINUTE)}–${clock(low.t + 90 * MINUTE)}`).join("<br>")}</span>`;
       table.append(row);
       marks.push(`<figure><svg viewBox="0 0 100 44" preserveAspectRatio="none" aria-hidden="true"><path d="${curvePath(day, day + DAY, 100, 44, 72)}"/></svg><figcaption class="label">${dayFormat.format(day + 12 * HOUR)}</figcaption></figure>`);
     }
     $("[data-marks]").innerHTML = marks.join("");
+    lowButtons = [...table.querySelectorAll("[data-go]")];
+
+    weekLows = lows.filter((low) => low.t >= origin && low.t < origin + WEEK);
+    const wins = weekLows.map((low) => {
+      const x0 = Math.max(0, ((low.t - 90 * MINUTE - origin) / WEEK) * 1000), x1 = Math.min(1000, ((low.t + 90 * MINUTE - origin) / WEEK) * 1000);
+      return `<rect class="win" x="${x0.toFixed(1)}" y="103" width="${(x1 - x0).toFixed(1)}" height="6"/>`;
+    }).join("");
+    trackSvg.querySelector(".wins")?.remove();
+    trackSvg.insertAdjacentHTML("beforeend", `<g class="wins">${wins}</g>`);
   };
 
   drawTrack();
@@ -796,6 +889,7 @@ h2 em { font-style: italic; }
       drawTrack();
       renderWeek();
     }
+    if (grab || travel.moving()) return;
     if (following) setTime(now(), true);
     else render();
   }, 30 * 1000);

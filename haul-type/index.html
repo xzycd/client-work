@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>HAUL — a variable grotesque</title>
-<meta name="description" content="HAUL is a variable grotesque in nine styles. Two axes, width 62 to 125 and weight 100 to 900. Type it yourself." />
+<meta name="description" content="HAUL is a variable grotesque in nine styles. Two axes, width 62 to 125 and weight 100 to 900. Pull it through its design space and type it yourself." />
 <meta name="theme-color" content="#F2F2F0" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -132,26 +132,79 @@ button,input{font:inherit;color:inherit}
   font-variation-settings:'wdth' 125,'wght' 200;
 }
 
-.axes{
-  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+.stack{cursor:grab;user-select:none;-webkit-user-select:none;touch-action:pan-y}
+.stack.is-held{cursor:grabbing}
+@media (pointer:coarse){ .stack{cursor:auto} }
+.lands{
+  position:absolute;right:var(--pad);bottom:6px;
+  opacity:0;transform:translateY(4px);
+  transition:opacity .18s linear,transform .3s var(--snap);
+}
+.lands.on{opacity:1;transform:none}
+.word--ghost .word__in{transition:-webkit-text-stroke-color .2s linear}
+.stack.is-held .word--ghost .word__in{-webkit-text-stroke-color:var(--mag)}
+
+/* ---------- the design space: width across, weight up ------------------- */
+.space{
+  display:grid;grid-template-columns:minmax(210px,24%) minmax(0,1fr);
   border-top:1px solid var(--rule);
 }
-.axis{
-  padding:11px var(--pad);display:flex;align-items:center;gap:12px;
-  border-right:1px solid var(--rule);
+.space__read{
+  display:grid;align-content:space-between;gap:12px;
+  padding:12px var(--pad);border-right:1px solid var(--rule);
 }
-.axis:last-child{border-right:0}
-.axis__val{
-  font-size:clamp(1.3rem,3.2vw,2.2rem);line-height:1;
+.space__nums{display:flex;gap:clamp(14px,2vw,26px);align-items:baseline;flex-wrap:wrap}
+.space__nums span{display:flex;gap:8px;align-items:baseline}
+.space__num{
+  font-size:clamp(1.3rem,2.6vw,2.1rem);line-height:1;
   font-variation-settings:'wdth' 100,'wght' 800;
-  font-variant-numeric:tabular-nums;min-width:3.4ch;
+  font-variant-numeric:tabular-nums;min-width:3.2ch;
 }
-.axis__track{
-  flex:1;height:1px;background:var(--rule-soft);position:relative;
+.space__name{
+  font-size:clamp(1rem,1.5vw,1.3rem);line-height:1.1;letter-spacing:-0.015em;
+  font-variation-settings:'wdth' 100,'wght' 600;min-height:1.1em;
 }
-.axis__fill{
-  position:absolute;inset:0 auto 0 0;width:100%;background:var(--mag);
-  transform-origin:left center;transform:scaleX(.3);
+.space__name.off{color:var(--dim)}
+.space__plot{
+  position:relative;height:clamp(150px,21vh,210px);
+  touch-action:none;cursor:crosshair;user-select:none;-webkit-user-select:none;
+}
+.space__area{position:absolute;inset:36px clamp(28px,4vw,56px) 28px clamp(22px,3vw,40px)}
+.space__cap{position:absolute;color:var(--dim)}
+.space__cap--w0{left:clamp(22px,3vw,40px);bottom:6px}
+.space__cap--w1{right:clamp(28px,4vw,56px);bottom:6px}
+.space__cap--g1{left:clamp(22px,3vw,40px);top:6px}
+.space__mark{
+  position:absolute;left:0;top:0;width:9px;height:9px;margin:-4.5px 0 0 -4.5px;
+  border:1px solid var(--black);background:var(--bone);
+  transition:background .15s linear;
+}
+.space__mark b{
+  position:absolute;left:15px;top:50%;transform:translateY(-50%);
+  white-space:nowrap;color:var(--dim);font-weight:inherit;
+  background:var(--bone);padding:1px 4px;
+  transition:color .15s linear;
+}
+.space__mark.flip b{left:auto;right:13px}
+.space__mark.on{background:var(--black)}
+.space__mark.on b{color:var(--black)}
+.space__mark.next{background:var(--mag);border-color:var(--mag)}
+.space__gx,.space__gy{position:absolute;background:var(--mag);pointer-events:none}
+.space__gx{top:0;bottom:0;left:0;width:1px}
+.space__gy{left:0;right:0;top:0;height:1px}
+.space__puck{
+  position:absolute;left:0;top:0;width:15px;height:15px;margin:-7.5px 0 0 -7.5px;
+  background:var(--black);pointer-events:none;
+  transition:transform .12s var(--snap);
+}
+.space__plot.is-held .space__puck{transform:scale(1.35)}
+.space__plot:has(input:focus-visible){outline:2px solid var(--mag);outline-offset:-2px}
+.vh{position:absolute!important;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+@media (max-width:720px){
+  .space{grid-template-columns:1fr}
+  .space__read{border-right:0;border-bottom:1px solid var(--rule);grid-auto-flow:column;align-items:baseline;justify-content:space-between}
+  .space__mark b{display:none}
+  .space__mark.on b{display:block}
 }
 
 /* ---------- section frame ------------------------------------------------ */
@@ -195,40 +248,7 @@ button,input{font:inherit;color:inherit}
   outline:none;caret-color:var(--mag);word-break:break-word;
 }
 .test__line:empty::before{content:attr(data-placeholder);color:var(--rule-soft)}
-.test__ctl{
-  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
-  border-top:1px solid var(--rule);
-}
-.ctl{padding:11px var(--pad);border-right:1px solid var(--rule)}
-.ctl:last-child{border-right:0}
-.ctl__top{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-bottom:8px}
-.ctl__num{
-  font-size:1.1rem;font-variation-settings:'wdth' 100,'wght' 800;
-  font-variant-numeric:tabular-nums;
-}
-input[type=range]{
-  -webkit-appearance:none;appearance:none;
-  width:100%;height:16px;background:transparent;display:block;cursor:ew-resize;
-}
-input[type=range]::-webkit-slider-runnable-track{height:1px;background:var(--rule)}
-input[type=range]::-moz-range-track{height:1px;background:var(--rule)}
-input[type=range]::-webkit-slider-thumb{
-  -webkit-appearance:none;appearance:none;
-  width:3px;height:16px;background:var(--black);border:0;border-radius:0;
-  margin-top:-8px;transition:background .12s linear,transform .12s var(--snap);
-}
-input[type=range]::-moz-range-thumb{
-  width:3px;height:16px;background:var(--black);border:0;border-radius:0;
-}
-input[type=range]:hover::-webkit-slider-thumb,
-input[type=range]:focus-visible::-webkit-slider-thumb{background:var(--mag);transform:scaleX(2.4)}
-input[type=range]:active::-webkit-slider-thumb{background:var(--mag);transform:scaleX(3.4)}
-input[type=range]:hover::-moz-range-thumb{background:var(--mag)}
-@media (max-width:640px){
-  .test__ctl{grid-template-columns:1fr}
-  .ctl{border-right:0;border-bottom:1px solid var(--rule)}
-  .ctl:last-child{border-bottom:0}
-}
+@media (pointer:coarse){ .hint-fine{display:none} }
 
 /* ---------- glyph grid --------------------------------------------------- */
 .glyphs{
@@ -260,8 +280,8 @@ input[type=range]:hover::-moz-range-thumb{background:var(--mag)}
   cursor:pointer;
 }
 .styles li:last-child{border-bottom:0}
-.styles li:hover{background:var(--black);color:var(--bone)}
-.styles li:hover .dim{color:var(--bone)}
+.styles li:hover,.styles li.on{background:var(--black);color:var(--bone)}
+.styles li:hover .dim,.styles li.on .dim{color:var(--bone)}
 .styles__name{
   font-size:clamp(1rem,2vw,1.45rem);line-height:1.1;letter-spacing:-0.02em;
 }
@@ -316,8 +336,11 @@ input[type=range]:hover::-moz-range-thumb{background:var(--mag)}
     transition-duration:.01ms!important;scroll-behavior:auto!important;
   }
   [data-r].pending{opacity:1;transform:none}
+  /* the fitter measures synchronously; a .01ms transition would hand it the old size */
+  .word__in{transition-property:none!important}
 }
 </style>
+<script src="../shared/hand.js"></script>
 </head>
 <body>
 <a class="skip" href="#tester">Skip to the type tester</a>
@@ -344,24 +367,32 @@ input[type=range]:hover::-moz-range-thumb{background:var(--mag)}
     <div class="hero__meta">
       <span class="tag">Nine styles · Two axes</span>
       <span class="tag dim">Width 62–125 · Weight 100–900</span>
-      <span class="tag mag bar__hide">Scroll to move the axes</span>
+      <span class="tag mag bar__hide hint-fine">Grab the word and pull</span>
     </div>
 
-    <div class="stack">
+    <div class="stack" id="stage">
       <div class="word word--ghost" aria-hidden="true"><span class="word__in" id="ghost">HAUL</span></div>
       <h1 class="word"><span class="word__in" id="word">HAUL</span></h1>
+      <span class="tag mag lands" id="lands" aria-hidden="true"></span>
     </div>
 
-    <div class="axes">
-      <div class="axis">
-        <span class="tag dim">wdth</span>
-        <span class="axis__val" id="v-wdth">62</span>
-        <span class="axis__track"><span class="axis__fill" id="f-wdth"></span></span>
+    <div class="space" id="space-hero">
+      <div class="space__read">
+        <div class="space__nums">
+          <span><span class="tag dim">wdth</span><b class="space__num" data-r-w>62</b></span>
+          <span><span class="tag dim">wght</span><b class="space__num" data-r-g>900</b></span>
+        </div>
+        <p class="space__name" data-r-name>Compressed Black</p>
       </div>
-      <div class="axis">
-        <span class="tag dim">wght</span>
-        <span class="axis__val" id="v-wght">900</span>
-        <span class="axis__track"><span class="axis__fill" id="f-wght"></span></span>
+      <div class="space__plot" aria-label="Design space of the hero word" role="group">
+        <span class="tag space__cap space__cap--w0" aria-hidden="true">Narrow 62</span>
+        <span class="tag space__cap space__cap--w1" aria-hidden="true">125 Wide</span>
+        <span class="tag space__cap space__cap--g1" aria-hidden="true">Heavy 900</span>
+        <div class="space__area" aria-hidden="true">
+          <span class="space__gx"></span><span class="space__gy"></span><span class="space__puck"></span>
+        </div>
+        <label class="vh">Width, 62 to 125<input type="range" min="62" max="125" step="1" value="62" data-in-w /></label>
+        <label class="vh">Weight, 100 to 900<input type="range" min="100" max="900" step="10" value="900" data-in-g /></label>
       </div>
     </div>
   </section>
@@ -389,32 +420,33 @@ input[type=range]:hover::-moz-range-thumb{background:var(--mag)}
   <section class="band" id="tester" aria-labelledby="ts-h">
     <div class="band__head">
       <h2 class="tag" id="ts-h">Tester</h2>
-      <span class="tag mag">Type here ↓</span>
+      <span class="tag mag">Type, then move it through the space</span>
     </div>
 
     <div class="test__stage">
       <div class="test__line" id="type"
            contenteditable="true" spellcheck="false" role="textbox"
            aria-multiline="false" aria-label="Editable specimen text"
-           data-placeholder="Type something">Drag the axes</div>
+           data-placeholder="Type something">Haul it wide</div>
     </div>
 
-    <div class="test__ctl">
-      <div class="ctl">
-        <div class="ctl__top">
-          <label class="tag dim" for="s-wdth">Width</label>
-          <span class="ctl__num" id="n-wdth">100</span>
+    <div class="space" id="space-test">
+      <div class="space__read">
+        <div class="space__nums">
+          <span><span class="tag dim">wdth</span><b class="space__num" data-r-w>62</b></span>
+          <span><span class="tag dim">wght</span><b class="space__num" data-r-g>900</b></span>
         </div>
-        <input id="s-wdth" type="range" min="62" max="125" value="100" step="1"
-               aria-label="Width axis, 62 to 125" />
+        <p class="space__name" data-r-name>Compressed Black</p>
       </div>
-      <div class="ctl">
-        <div class="ctl__top">
-          <label class="tag dim" for="s-wght">Weight</label>
-          <span class="ctl__num" id="n-wght">700</span>
+      <div class="space__plot" aria-label="Design space of the tester line" role="group">
+        <span class="tag space__cap space__cap--w0" aria-hidden="true">Narrow 62</span>
+        <span class="tag space__cap space__cap--w1" aria-hidden="true">125 Wide</span>
+        <span class="tag space__cap space__cap--g1" aria-hidden="true">Heavy 900</span>
+        <div class="space__area" aria-hidden="true">
+          <span class="space__gx"></span><span class="space__gy"></span><span class="space__puck"></span>
         </div>
-        <input id="s-wght" type="range" min="100" max="900" value="700" step="10"
-               aria-label="Weight axis, 100 to 900" />
+        <label class="vh">Width, 62 to 125<input type="range" min="62" max="125" step="1" value="62" data-in-w /></label>
+        <label class="vh">Weight, 100 to 900<input type="range" min="100" max="900" step="10" value="900" data-in-g /></label>
       </div>
     </div>
   </section>
@@ -432,7 +464,7 @@ input[type=range]:hover::-moz-range-thumb{background:var(--mag)}
   <section class="band" id="styles" aria-labelledby="st-h">
     <div class="band__head">
       <h2 class="tag" id="st-h">Nine styles</h2>
-      <span class="tag dim">Pick one to load it</span>
+      <span class="tag dim">Pick one to send the tester there</span>
     </div>
     <ul class="styles" id="stylelist"></ul>
   </section>
@@ -461,111 +493,288 @@ input[type=range]:hover::-moz-range-thumb{background:var(--mag)}
   var WDTH = [62,125], WGHT = [100,900];
 
   /* ---------------------------------------------------------------------
-     HERO — the signature. Scroll drives both axes at once, in opposition:
-     the word starts compressed and heavy, and opens out light and wide as
-     you move. Pointer nudges it on top, so it is alive before you scroll.
+     THE NINE NAMED STYLES, as points in the design space.
+     x is width (0 = 62, 1 = 125), y is weight (0 = 100, 1 = 900).
      --------------------------------------------------------------------- */
-  var hero  = document.querySelector('.hero');
+  var STYLES = [
+    ['Compressed Black',  62, 900],
+    ['Compressed Bold',   68, 700],
+    ['Condensed Medium',  78, 500],
+    ['Narrow Regular',    88, 400],
+    ['Regular',          100, 400],
+    ['Regular Bold',     100, 700],
+    ['Wide Medium',      112, 500],
+    ['Extended Light',   120, 300],
+    ['Extended Black',   125, 900]
+  ].map(function(s){
+    return { name: s[0], w: s[1], g: s[2],
+             x: (s[1] - WDTH[0]) / (WDTH[1] - WDTH[0]),
+             y: (s[2] - WGHT[0]) / (WGHT[1] - WGHT[0]) };
+  });
+
+  function axesOf(x, y){
+    return { w: WDTH[0] + (WDTH[1] - WDTH[0]) * clamp(x, 0, 1),
+             g: WGHT[0] + (WGHT[1] - WGHT[0]) * clamp(y, 0, 1) };
+  }
+  function nearest(x, y){
+    var best = STYLES[0], bd = Infinity;
+    STYLES.forEach(function(s){
+      var d = (s.x - x) * (s.x - x) + (s.y - y) * (s.y - y);
+      if (d < bd){ bd = d; best = s; }
+    });
+    return best;
+  }
+  function styleAt(w, g){
+    for (var i = 0; i < STYLES.length; i++)
+      if (Math.abs(STYLES[i].w - w) < 0.6 && Math.abs(STYLES[i].g - g) < 6) return STYLES[i];
+    return null;
+  }
+  var project = Hand.project;
+  function rubber(v){ return Hand.rubber(v, 0, 1, 1); }
+
+  /* ---------------------------------------------------------------------
+     SPACE — a 2D controller over width × weight. Two springs, one per axis,
+     so a diagonal flick keeps both of its speeds. Dragging tracks the
+     pointer; letting go hands the pointer's velocity to the springs, works
+     out where that momentum would carry the puck, and settles on the named
+     style nearest that point. Underneath sit two ordinary range inputs, so
+     the keyboard and screen readers get the same control.
+     --------------------------------------------------------------------- */
+  function Space(root, o){
+    var plot = root.querySelector('.space__plot');
+    var area = root.querySelector('.space__area');
+    var gx = root.querySelector('.space__gx'), gy = root.querySelector('.space__gy');
+    var puck = root.querySelector('.space__puck');
+    var rW = root.querySelector('[data-r-w]'), rG = root.querySelector('[data-r-g]');
+    var rName = root.querySelector('[data-r-name]');
+    var inW = root.querySelector('[data-in-w]'), inG = root.querySelector('[data-in-g]');
+
+    var P = { x: o.from.x, y: o.from.y }, V = { x: 0, y: 0 }, T = { x: P.x, y: P.y };
+    var spring = { resp: 0.42, damp: 1 };
+    var W = 1, H = 1, raf = 0, last = 0, held = false, hint = null, grab = null;
+    var marks = STYLES.map(function(s){
+      var m = document.createElement('span');
+      m.className = 'space__mark' + (s.x > 0.78 ? ' flip' : '');
+      m.innerHTML = '<b class="tag"></b>';
+      m.firstChild.textContent = s.name;
+      area.appendChild(m);
+      return m;
+    });
+
+    function size(){
+      W = area.clientWidth; H = area.clientHeight;
+      STYLES.forEach(function(s, i){
+        marks[i].style.transform = 'translate(' + (s.x * W).toFixed(1) + 'px,' + ((1 - s.y) * H).toFixed(1) + 'px)';
+      });
+    }
+
+    function render(){
+      var a = axesOf(P.x, P.y), w = round(a.w), g = round(a.g);
+      var px = Math.round(P.x * W), py = Math.round((1 - P.y) * H);
+      gx.style.transform = 'translateX(' + px + 'px)';
+      gy.style.transform = 'translateY(' + py + 'px)';
+      puck.style.transform = 'translate(' + px + 'px,' + py + 'px)' + (held ? ' scale(1.35)' : '');
+      rW.textContent = w; rG.textContent = g;
+      var on = styleAt(a.w, a.g);
+      rName.textContent = on ? on.name : (held && hint ? 'Towards ' + hint.name : 'Between styles');
+      rName.classList.toggle('off', !on);
+      STYLES.forEach(function(s, i){
+        marks[i].classList.toggle('on', s === on);
+        marks[i].classList.toggle('next', held && s === hint && s !== on);
+      });
+      o.paint(a.w, a.g, on, held ? hint : null);
+    }
+
+    function step(now){
+      raf = 0;
+      var dt = Math.min(0.05, (now - last) / 1000); last = now;
+      var k = Math.pow(2 * Math.PI / spring.resp, 2), c = 2 * spring.damp * Math.sqrt(k);
+      for (var i = 0, n = 4, h = dt / n; i < n; i++){
+        V.x += (-k * (P.x - T.x) - c * V.x) * h; P.x += V.x * h;
+        V.y += (-k * (P.y - T.y) - c * V.y) * h; P.y += V.y * h;
+      }
+      var rest = !held && Math.abs(P.x - T.x) < 1e-4 && Math.abs(P.y - T.y) < 1e-4 &&
+                 Math.abs(V.x) < 2e-3 && Math.abs(V.y) < 2e-3;
+      if (rest){ P.x = T.x; P.y = T.y; V.x = V.y = 0; }
+      render();
+      if (!rest) raf = requestAnimationFrame(step);
+    }
+    function kick(){
+      if (reduce){ P.x = T.x; P.y = T.y; V.x = V.y = 0; render(); return; }
+      if (!raf){ last = performance.now(); raf = requestAnimationFrame(step); }
+    }
+    function syncInputs(){
+      var a = axesOf(T.x, T.y), s = styleAt(a.w, a.g);
+      inW.value = round(a.w); inG.value = round(a.g / 10) * 10;
+      inW.setAttribute('aria-valuetext', round(a.w) + (s ? ', ' + s.name : ''));
+      inG.setAttribute('aria-valuetext', round(a.g) + (s ? ', ' + s.name : ''));
+    }
+    function to(x, y, opt){
+      opt = opt || {};
+      T.x = x; T.y = y;
+      spring.resp = opt.resp || 0.42; spring.damp = opt.damp || 1;
+      if (opt.v){ V.x = opt.v.x; V.y = opt.v.y; }
+      syncInputs(); kick();
+    }
+
+    var trX = Hand.Tracker(), trY = Hand.Tracker();
+    function velocity(){ return { x: trX.velocity(), y: trY.velocity() }; }
+
+    /* mode 'abs': the puck goes to the pointer (the plot).
+       mode 'rel': the value moves by how far the pointer moves, from
+       wherever it was grabbed (the hero word), so nothing jumps. */
+    function grabbable(el, mode, scaleEl){
+      el.addEventListener('pointerdown', function(e){
+        if (e.button !== 0) return;
+        if (mode === 'rel' && e.pointerType !== 'mouse' && e.pointerType !== 'pen') return;
+        e.preventDefault();
+        el.setPointerCapture(e.pointerId);
+        held = true; trX.reset(); trY.reset(); hint = null;
+        el.classList.add('is-held'); plot.classList.add('is-held');
+        var r = (scaleEl || area).getBoundingClientRect();
+        grab = { x: P.x, y: P.y, cx: e.clientX, cy: e.clientY, r: r };
+        spring.resp = mode === 'abs' ? 0.16 : 0.07; spring.damp = 1;
+        move(e);
+      });
+      function move(e){
+        if (!held || !grab) return;
+        var x, y;
+        if (mode === 'abs'){
+          var ar = area.getBoundingClientRect();
+          x = (e.clientX - ar.left) / ar.width;
+          y = 1 - (e.clientY - ar.top) / ar.height;
+        } else {
+          x = grab.x + (e.clientX - grab.cx) / (grab.r.width * 0.9);
+          y = grab.y - (e.clientY - grab.cy) / (grab.r.height * 1.4);
+        }
+        T.x = rubber(x); T.y = rubber(y);
+        trX.add(T.x, e.timeStamp); trY.add(T.y, e.timeStamp);
+        var v = velocity();
+        hint = nearest(clamp(T.x + project(v.x), 0, 1), clamp(T.y + project(v.y), 0, 1));
+        kick();
+      }
+      function end(){
+        if (!held) return;
+        held = false; grab = null;
+        el.classList.remove('is-held'); plot.classList.remove('is-held');
+        var v = velocity();
+        var s = nearest(clamp(T.x + project(v.x), 0, 1), clamp(T.y + project(v.y), 0, 1));
+        var speed = Math.sqrt(v.x * v.x + v.y * v.y);
+        hint = null;
+        // bounce only when the hand threw it
+        to(s.x, s.y, { v: v, resp: 0.42, damp: speed > 1.2 ? 0.78 : 1 });
+      }
+      el.addEventListener('pointermove', move);
+      el.addEventListener('pointerup', end);
+      el.addEventListener('pointercancel', end);
+      el.addEventListener('lostpointercapture', end);
+    }
+
+    grabbable(plot, 'abs');
+    function fromInputs(){
+      to((inW.value - WDTH[0]) / (WDTH[1] - WDTH[0]), (inG.value - WGHT[0]) / (WGHT[1] - WGHT[0]), { resp: 0.3 });
+    }
+    inW.addEventListener('input', fromInputs);
+    inG.addEventListener('input', fromInputs);
+
+    size(); syncInputs(); render();
+    return {
+      grabbable: grabbable,
+      to: to,
+      go: function(s, opt){ to(s.x, s.y, opt); },
+      resize: function(){ size(); render(); }
+    };
+  }
+
+  /* ---------------------------------------------------------------------
+     HERO — the word is fitted to the measure whatever the axes are doing,
+     so a condensed cut stands tall and a wide cut sits short, both full
+     bleed. While it is held, the outline behind it shows the style the
+     gesture is heading for.
+     --------------------------------------------------------------------- */
+  var stage = document.getElementById('stage');
   var word  = document.getElementById('word');
   var ghost = document.getElementById('ghost');
-  var vW = document.getElementById('v-wdth'), vG = document.getElementById('v-wght');
-  var fW = document.getElementById('f-wdth'), fG = document.getElementById('f-wght');
-  var live = document.getElementById('live');
+  var lands = document.getElementById('lands');
+  var live  = document.getElementById('live');
 
-  var pos = 0, target = 0, queued = false, nudge = 0;
-
-  /* Fit-to-measure. Measuring text forces a reflow, so every (axis, element)
-     pair is measured once at a reference size and cached as a ratio; after
-     that the size is pure arithmetic and the scroll loop never touches
-     layout. Cleared on resize, when the available width changes. */
+  /* Measuring text forces layout, so each (element, width, weight) triple is
+     measured once at a reference size and cached as a ratio pair. */
   var REF = 200, fitCache = Object.create(null), avail = 0, maxH = 0;
-
   function measureAvail(){
-    var stack = document.querySelector('.stack');
-    var cs = getComputedStyle(stack);
-    avail = stack.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
-    // never let the fitted word push the axis readout off a short screen
-    maxH = Math.max(160, innerHeight * 0.56);
+    var cs = getComputedStyle(stage);
+    avail = stage.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
+    maxH = Math.max(150, innerHeight * 0.53);
+  }
+  // the stage keeps the height of its tallest cut whatever the word does,
+  // so nothing below it moves under the hand
+  function holdStage(){
+    fit(word, 'w', WDTH[0], WGHT[1]);
+    var r = fitCache['w' + WDTH[0] + '_' + WGHT[1]];
+    stage.style.height = (Math.min(avail / r.w, maxH / r.h) * r.h).toFixed(0) + 'px';
   }
   function fit(el, key, wd, wg){
+    wd = round(wd); wg = round(wg / 5) * 5;
     var k = key + wd + '_' + wg, r = fitCache[k];
+    el.style.fontVariationSettings = "'wdth' " + wd + ",'wght' " + wg;
     if (r === undefined){
-      var prevSize = el.style.fontSize;
+      var prev = el.style.fontSize;
       el.style.fontSize = REF + 'px';
-      el.style.fontVariationSettings = "'wdth' " + wd + ",'wght' " + wg;
       var box = el.getBoundingClientRect();
       r = fitCache[k] = { w: box.width / REF, h: box.height / REF };
-      el.style.fontSize = prevSize;
+      el.style.fontSize = prev;
     }
-    el.style.fontVariationSettings = "'wdth' " + wd + ",'wght' " + wg;
     el.style.fontSize = Math.min(avail / r.w, maxH / r.h).toFixed(2) + 'px';
   }
 
-  function paint(){
-    queued = false;
-    pos += (target - pos) * 0.16;
-    if (Math.abs(target - pos) < 0.001) pos = target;
+  var ghostKey = '';
+  var heroSpace = Space(document.getElementById('space-hero'), {
+    from: reduce ? STYLES[0] : STYLES[7],
+    paint: function(w, g, on, next){
+      fit(word, 'w', w, g);
+      // at rest the outline is the far corner of the space; held, it is where you will land
+      var gs = next || (w < 94 ? STYLES[7] : STYLES[1]);
+      if (gs.name !== ghostKey){ fit(ghost, 'g', gs.w, gs.g); ghostKey = gs.name; }
+      lands.textContent = next ? 'Lands on ' + next.name : '';
+      lands.classList.toggle('on', !!next);
+      if (live) live.textContent = 'wdth ' + round(w) + ' · wght ' + round(g);
+    }
+  });
+  heroSpace.grabbable(stage, 'rel', stage);
 
-    var t  = clamp(pos + nudge, 0, 1);
-    var wd = round(WDTH[0] + (WDTH[1] - WDTH[0]) * t);
-    var wg = round((WGHT[1] - (WGHT[1] - WGHT[0]) * t) / 10) * 10;
-
-    fit(word,  'w', wd, wg);
-    fit(ghost, 'g', WDTH[1] + WDTH[0] - wd, clamp(round(wg / 3 / 10) * 10, 100, 900));
-
-    vW.textContent = wd; vG.textContent = wg;
-    fW.style.transform = 'scaleX(' + ((wd - WDTH[0]) / (WDTH[1] - WDTH[0])).toFixed(3) + ')';
-    fG.style.transform = 'scaleX(' + ((wg - WGHT[0]) / (WGHT[1] - WGHT[0])).toFixed(3) + ')';
-    if (live) live.textContent = 'wdth ' + wd + ' · wght ' + wg;
-
-    if (pos !== target) request();
+  function onResize(){
+    fitCache = Object.create(null); ghostKey = '';
+    measureAvail(); holdStage(); heroSpace.resize(); testSpace.resize();
   }
-  function request(){ if (!queued){ queued = true; requestAnimationFrame(paint); } }
-
-  function fromScroll(){
-    var span = hero.offsetHeight + innerHeight * 0.4;
-    target = clamp(scrollY / span, 0, 1);
-    request();
-  }
-
-  function onResize(){ fitCache = Object.create(null); measureAvail(); fromScroll(); paint(); }
-
   measureAvail();
-  if (reduce) {
-    pos = target = 0.32;          // one settled, handsome position
-    paint();
-  } else {
-    fromScroll();
-    paint();
-    addEventListener('scroll', fromScroll, {passive:true});
-    addEventListener('pointermove', function(e){
-      var r = hero.getBoundingClientRect();
-      if (r.bottom < 0 || r.top > innerHeight) return;
-      nudge = (e.clientX / innerWidth - 0.5) * 0.3;
-      request();
-    }, {passive:true});
-  }
-  addEventListener('resize', onResize, {passive:true});
-  // the fit depends on the real font, so redo it once the webfont lands
-  if (document.fonts && document.fonts.ready) document.fonts.ready.then(onResize);
 
   /* ---------------------------------------------------------------------
      TESTER
      --------------------------------------------------------------------- */
   var type = document.getElementById('type');
-  var sW = document.getElementById('s-wdth'), sG = document.getElementById('s-wght');
-  var nW = document.getElementById('n-wdth'), nG = document.getElementById('n-wght');
+  var styleRows = [];
+  var testSpace = Space(document.getElementById('space-test'), {
+    from: STYLES[5],
+    paint: function(w, g, on){
+      type.style.fontVariationSettings = "'wdth' " + round(w) + ",'wght' " + round(g);
+      styleRows.forEach(function(li, i){ li.classList.toggle('on', STYLES[i] === on); });
+    }
+  });
 
-  function applyAxes(){
-    type.style.fontVariationSettings = "'wdth' " + sW.value + ",'wght' " + sG.value;
-    nW.textContent = sW.value;
-    nG.textContent = sG.value;
-  }
-  sW.addEventListener('input', applyAxes);
-  sG.addEventListener('input', applyAxes);
-  applyAxes();
+  addEventListener('resize', onResize, {passive:true});
+  // fit now with whatever face is there, and again once the webfont lands
+  onResize();
+  var intro = function(){
+    onResize();
+    if (!reduce) heroSpace.go(STYLES[0], { resp: 1.1 });
+  };
+  if (document.fonts && document.fonts.ready){
+    document.fonts.ready.then(intro);
+    document.fonts.addEventListener('loadingdone', onResize);
+    document.fonts.load("900 100px 'Archivo'").then(onResize, function(){});
+  } else intro();
 
-  var PLACEHOLDER = 'Drag the axes';
+  var PLACEHOLDER = 'Haul it wide';
   type.addEventListener('focus', function(){
     if (type.textContent.trim() === PLACEHOLDER) type.textContent = '';
   });
@@ -613,19 +822,8 @@ input[type=range]:hover::-moz-range-thumb{background:var(--mag)}
   grid.appendChild(gfrag);
 
   /* ---------------------------------------------------------------------
-     STYLES — pointing at a row loads that style into the tester
+     STYLES — pointing at a row sends the tester to that style
      --------------------------------------------------------------------- */
-  var STYLES = [
-    ['Compressed Black',  62, 900],
-    ['Compressed Bold',   68, 700],
-    ['Condensed Medium',  78, 500],
-    ['Narrow Regular',    88, 400],
-    ['Regular',          100, 400],
-    ['Regular Bold',     100, 700],
-    ['Wide Medium',      112, 500],
-    ['Extended Light',   120, 300],
-    ['Extended Black',   125, 900]
-  ];
   var list = document.getElementById('stylelist');
   var sfrag = document.createDocumentFragment();
   STYLES.forEach(function(s, i){
@@ -634,13 +832,13 @@ input[type=range]:hover::-moz-range-thumb{background:var(--mag)}
     li.innerHTML =
       '<span class="tag dim">' + ('0' + (i + 1)).slice(-2) + '</span>' +
       '<span class="styles__name"></span>' +
-      '<span class="tag dim styles__ax">wdth ' + s[1] + ' · wght ' + s[2] + '</span>' +
+      '<span class="tag dim styles__ax">wdth ' + s.w + ' · wght ' + s.g + '</span>' +
       '<span class="tag dim">Aa</span>';
     var name = li.querySelector('.styles__name');
-    name.textContent = s[0];
-    name.style.fontVariationSettings = "'wdth' " + s[1] + ",'wght' " + s[2];
-    var load = function(){ sW.value = s[1]; sG.value = s[2]; applyAxes(); };
-    li.addEventListener('pointerenter', load);
+    name.textContent = s.name;
+    name.style.fontVariationSettings = "'wdth' " + s.w + ",'wght' " + s.g;
+    var load = function(){ testSpace.go(s); };
+    li.addEventListener('pointerenter', function(e){ if (e.pointerType === 'mouse') load(); });
     li.addEventListener('focus', load);
     li.addEventListener('click', function(){
       load();
@@ -651,6 +849,7 @@ input[type=range]:hover::-moz-range-thumb{background:var(--mag)}
     li.addEventListener('keydown', function(e){
       if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); li.click(); }
     });
+    styleRows.push(li);
     sfrag.appendChild(li);
   });
   list.appendChild(sfrag);

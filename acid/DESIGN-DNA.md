@@ -92,12 +92,41 @@ cannot occlude what scrolls beneath it; it XORs with it, and body text ghosts
 through as inverted shapes. Fixed chrome has to be opaque, so the rail commits
 to one state.
 
+## The black, by hand
+
+Until 2026-11-24 the hero slab swept on scroll and breathed on a 13-second loop
+when nobody touched it. The loop was motion without a reason, so it is gone.
+The scroll sweep stays, and the slab now also answers the hand:
+
+- Grab anywhere on the hero and drag sideways. The slab follows the pointer 1:1
+  from where it was grabbed, and the type cuts along both of its edges as it goes.
+- Let go and the slab keeps the hand's speed. Where it comes to rest is projected
+  with the same exponential friction a scroll uses. If that point is past either
+  end, it stops at the end with a small bounce; otherwise it settles without one.
+- Past either end while held, it rubber-bands instead of stopping dead.
+- On touch, a mostly vertical drag is left to the page scroll; only a sideways
+  drag of more than 10px takes the slab.
+- On first load the slab slides in once from the left edge. That is the page's
+  one entrance.
+
+The slab and the scroll sweep sit on two nested elements, so the two never fight:
+the scroll moves the outer one, the hand moves the inner one.
+
 ## The instrument
 
 Lightness and hue in OKLCh, with chroma pushed to the sRGB gamut edge by binary
 search so every dial position is a fully saturated drench and never a pastel.
 Dragging re-drenches the whole document, and the page reports what that did to
 it.
+
+Hue is a tape, not a slider: a strip of degrees under a fixed needle, dragged
+like a tuning dial. Thrown, it carries on and slows under scroll-like friction,
+re-drenching the page at every frame of the coast, and it wraps at 360°. A
+visually hidden range input sits inside it, so keyboard and screen-reader use is
+the same as before. "Return to spec" springs back along the short way round the
+hue circle rather than cutting, so the reader sees the colours between where they
+were and the spec. The pass marks cut between states with no transition, because
+a fading mark would paint a third value for a few frames.
 
 Dial resolution is 0.001 L and 0.25° of hue, which is fine enough that the spec
 value is exactly representable: L 0.937 / H 120.75 lands on `#D6FF00` on the
@@ -129,7 +158,10 @@ The tide needs no such guard. Its CSS default is the finished state, and because
 `difference` always resolves to one of the two values, a section is legible at
 every position the black can occupy.
 
-Under reduced motion the black parks and the sections are simply solid. The
+Under reduced motion the black parks and the sections are simply solid. The slab
+can still be dragged, but there is no entrance, no coast and no spring: it stops
+where it is dropped, the tape stops where it is let go, and "return to spec" lands
+at once. The
 copy was rewritten so it never claims the reader has watched anything move.
 
 ## Banned in this project
