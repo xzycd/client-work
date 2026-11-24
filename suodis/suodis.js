@@ -1,6 +1,7 @@
 (() => {
   const root = document.documentElement;
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
+  const coarse = window.matchMedia("(pointer: coarse)");
   const canvas = document.querySelector(".film");
   const ctx = canvas.getContext("2d", { alpha: false });
   const track = document.querySelector(".track");
@@ -43,7 +44,7 @@
     canvas.width = Math.round(W * dpr); canvas.height = Math.round(H * dpr);
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     ctx.imageSmoothingQuality = "high";
-    if (W !== lastWidth || !vh) { vh = H / 100; lastWidth = W; track.style.height = TOTAL * vh + "px"; }
+    if (W !== lastWidth || !vh || !coarse.matches) { vh = H / 100; lastWidth = W; track.style.height = TOTAL * vh + "px"; }
     request();
   };
 
@@ -198,7 +199,7 @@
     if (reduce.matches) {
       const c = seg.clip ?? (p < 0.5 ? SEGS[s - 1].clip : SEGS[s + 1].clip);
       paint(stills[c], c);
-      if (s === 5 && p < 0.5) steamWhite(0.6);
+      if (s === 5 && p < 0.5) steamWhite(0.85);
     } else if (seg.clip !== undefined) clip(seg.clip, p);
     else if (seg.kind === "window") throughWindow(p);
     else if (seg.kind === "stones") intoStones(p);
@@ -209,13 +210,14 @@
 
     if (s === 0) {
       const k = smooth(0.04, 0.5, p);
-      if (!reduce.matches) letters.forEach((el, i) => {
-        const lift = k * (60 + i * 26);
-        el.style.transform = k ? "translate3d(" + (k * (i - 2) * 6).toFixed(1) + "px," + (-lift).toFixed(1) + "px,0)" : "";
-        el.style.filter = k ? "blur(" + (k * (10 + i * 3)).toFixed(1) + "px)" : "";
-        el.style.opacity = (1 - smooth(0.06 + i * 0.03, 0.42 + i * 0.03, p)).toFixed(3);
+      const ready = root.classList.contains("is-ready");
+      letters.forEach((el, i) => {
+        const drift = reduce.matches ? 0 : k;
+        el.style.transform = drift ? "translate3d(" + (drift * (i - 2) * 6).toFixed(1) + "px," + (-drift * (60 + i * 26)).toFixed(1) + "px,0)" : "";
+        el.style.filter = drift ? "blur(" + (drift * (10 + i * 3)).toFixed(1) + "px)" : "";
+        el.style.opacity = ready ? (1 - smooth(0.06 + i * 0.03, 0.42 + i * 0.03, p)).toFixed(3) : "";
       });
-      heroFade.forEach((el) => (el.style.opacity = root.classList.contains("is-ready") ? (1 - smooth(0.02, 0.2, p)).toFixed(3) : ""));
+      heroFade.forEach((el) => (el.style.opacity = ready ? (1 - smooth(0.02, 0.2, p)).toFixed(3) : ""));
       root.classList.toggle("is-moving", k > 0);
       hero.style.visibility = "";
     } else {
@@ -238,7 +240,8 @@
     if (whereEl.textContent !== where) whereEl.textContent = where;
     gauge.style.opacity = (1 - smooth(0, 0.4, past / H)).toFixed(3);
 
-    root.classList.toggle("is-light", lightAt(s, p) > 0.5 && past < 0);
+    const light = reduce.matches ? s === 5 && p < 0.5 : lightAt(s, p) > 0.5;
+    root.classList.toggle("is-light", light && past < 0);
     if (current !== target) request();
   };
   function request() { if (!frame) frame = requestAnimationFrame(render); }
