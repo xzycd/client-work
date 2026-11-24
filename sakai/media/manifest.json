@@ -1,0 +1,37 @@
+[
+  {
+    "file": "media/raw/a-amber.png",
+    "model": "gpt_image_2_6_flare",
+    "id": "b193ec16-a608-4ea3-97d3-96e638494589",
+    "prompt": "Extreme macro photograph of one small fly trapped inside a polished piece of Baltic amber. The fly sits dead centre, seen from the side, wings folded back along its body, legs tucked under it, every hair sharp. The amber is deep honey orange and backlit so it glows from inside, with a few tiny round air bubbles and one fine crack, the polished surface curving softly out of focus toward the edges of the frame. Pure black background around the amber. Real photograph, 5:1 macro lens, shallow depth of field, fine grain. No text, no hands, no jewellery setting.",
+    "use": "present: fly in amber; first frame of morph"
+  },
+  {
+    "file": "media/raw/c-shore.png",
+    "model": "gpt_image_2_6_flare",
+    "id": "5a627abb-5850-4d15-8c13-c02511946907",
+    "prompt": "The Baltic sea shore at dawn after a winter storm. Low angle close to wet sand. In the foreground a line of dark washed-up seaweed with small raw pieces of amber caught in it, glowing orange where the low sun hits them, one piece sharp in the foreground. Behind, a long empty beach, grey-blue sea with low waves and pale dunes with marram grass. Real photograph, 35 mm lens, natural colour, fine grain, no wide-angle distortion. No people, no footprints, no text.",
+    "use": "shore at dawn, closing chapter"
+  },
+  {
+    "file": "media/raw/b-alive.png",
+    "model": "gpt_image_2_6_flare",
+    "id": "1499a455-49f3-4e32-a07a-5ef87f821b66",
+    "prompt": "Image 1 sets the composition: keep the fly in exactly the same place in the frame, at the same size, angle and pose, wings folded, seen from the side. Extreme macro photograph of that same small fly, alive, standing on the rough bark of a pine tree in an ancient sunlit forest, right at the edge of a fresh glistening drop of clear golden resin that is just touching its front legs. Warm low sunlight from behind the fly, green and gold forest bokeh behind it. Real photograph, 5:1 macro lens, shallow depth of field, fine grain. No text, no amber block, no black background.",
+    "use": "past: same fly alive at the resin drop; last frame of morph, start of engulf clip"
+  },
+  {
+    "file": "media/raw/m1-morph.mp4",
+    "model": "kling_o3_flf",
+    "id": "5d4db095-c321-4f2a-b989-0457ffe25bfc",
+    "prompt": "Continuous extreme macro shot, the camera does not move. Time runs backwards: the hard polished amber around the fly softens, turns liquid and slides away as glistening resin, the black background warms and opens into a sunlit pine forest with golden bokeh, and the tree bark rises underneath. The fly stays exactly where it is the whole time, same size, same pose, completely still. No cuts.",
+    "use": "morph: amber today to the living fly"
+  },
+  {
+    "file": "media/raw/m2-engulf.mp4",
+    "model": "seedance_2_0_mini",
+    "id": "4ed91999-0838-49c8-80d4-8d53a86e1b6d",
+    "prompt": "Static extreme macro shot, the camera does not move. The fly stands completely still on the bark. The drop of clear golden resin on the left slowly creeps forward and flows over its front legs, then over its head and body, glistening in the low sun, until the fly is fully covered in clear resin. Real footage, natural slow motion of thick liquid, no cuts.",
+    "use": "resin swallows the fly"
+  }
+]

@@ -54,5 +54,12 @@
     "id": "6d48d17e-d9f6-476b-bb48-d6c8c8182748",
     "prompt": "Slow, steady glide forward, low over the ice, toward the hole. Thin steam drifts and curls off the black water in the freezing air. The sauna window glows on the far shore and a thin trail of smoke rises above it. Real footage, natural motion, no camera shake, no people.",
     "use": "scroll sequence c4"
+  },
+  {
+    "file": "media/raw/sound.mp3",
+    "model": "mirelo_text_to_audio",
+    "id": "a154a834-ff96-449d-9482-69d1f8cbd4b5",
+    "prompt": "Inside a small wooden smoke sauna in winter: a low crackle of birch embers in a stone stove, faint wind outside the log walls, and halfway through, one ladle of water hits the hot stones with a sharp hiss that fades into soft steam. No music, no voices.",
+    "use": "optional sound loop"
   }
 ]

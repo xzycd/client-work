@@ -6,9 +6,9 @@ HTML files directly in a browser (no build step, no server).
 **Live preview:** [xzycd.github.io/client-work](https://xzycd.github.io/client-work/)
 
 The root index (`index.html`, `landing.css`, `landing.js`) is a neutral grey
-page whose only colour comes from the work. The top is a strip of seven plates:
+page whose only colour comes from the work. The top is a strip of six plates:
 one opens wide and the strip cycles through them, and hovering or focusing a
-plate takes over. The seven-bar mark in the header tracks which piece is in view, and
+plate takes over. The six-bar mark in the header tracks which piece is in view, and
 each term in the opening sentence opens its own plate.
 Below the strip, each piece has a preview built from its own page, and clicking
 through wipes to that page's ground colour before it loads. Brand decisions and
@@ -58,8 +58,9 @@ when the value you land on stops passing.
 
 - [`index.html`](https://xzycd.github.io/client-work/acid/) — live page
 
-### `aether-retreats/`
-Cinematic landing page for an architectural-retreat brand, in three
+### `aether-retreats/` (first edition only)
+No longer on the index; `sakai/` took its slot on 2026-11-24. Kept because
+[`v1/`](https://xzycd.github.io/client-work/v1/) still links it. Cinematic landing page for an architectural-retreat brand, in three
 scroll treatments built around one AI-generated 4K hero and a motion clip.
 
 - [`cinematic.html`](https://xzycd.github.io/client-work/aether-retreats/cinematic.html) — full-screen video background, **auto-plays on load** (start here to see motion; it stays paused for visitors who prefer reduced motion)
@@ -85,6 +86,23 @@ The prediction uses 31 of NOAA's harmonic constituents for Eastport (station
 8410140). Checked against NOAA's published high and low waters for September to
 December 2026, the largest error was 4 minutes and 9 cm.
 
+### `sakai/`
+An amber workshop in Nida that starts on a fly in polished Baltic amber. Scrolling
+melts the stone back into pine resin, shows the drop closing over the fly, and
+lands on the beach where the piece washed up, with a counter rolling from today
+to 44,000,000 years ago and back. On a desktop a loupe follows the pointer over
+the specimen. Sakai is made up.
+
+- [`index.html`](https://xzycd.github.io/client-work/sakai/) — live page
+- `sakai.js` — the timeline, the counter, the loupe and the sun flare into the shore
+- `frames/` — 2 × 61 WebP frames; `img/` — 2400 px stills, a 2688 px still for the loupe, the index preview loop
+- `DESIGN-DNA.md`, `media/look.md`, `media/manifest.json`
+
+### `shared/`
+- `scrub-film.js` — the frame loader and canvas painter behind Sakai and Suodis:
+  loads frames coarse to fine, six at a time, fits them to the screen, blends
+  between neighbours and draws the 2400 px still over the first frames of a shot.
+
 ### `suodis/`
 A smoke sauna on a frozen lake in Dzūkija, Lithuania, told as one scroll. Four
 short films play under the scroll on a canvas: smoke leaving the walls, the soot
@@ -93,7 +111,7 @@ thermometer on the right goes from −14 °C outside to 86 °C inside and down t
 +1 °C in the lake. Suodis is made up.
 
 - [`index.html`](https://xzycd.github.io/client-work/suodis/) — live page
-- `suodis.js` — frame loading, scroll smoothing and the three transitions
+- `suodis.js` — the timeline, the gauge, the three transitions and the optional sound loop
 - `frames/` — 4 × 61 WebP frames at 1280 px; `img/` — 2400 px stills and the index preview loop
 - `DESIGN-DNA.md` — brand rules; `media/look.md` and `media/manifest.json` — shot direction, models and prompts
 
